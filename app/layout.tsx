@@ -21,9 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      {" "}
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <main>{children}</main>
+        </body>
       </html>
     </ClerkProvider>
   );
