@@ -1,3 +1,3 @@
 export default function Home() {
-  return <section>hello</section>;
+  return <section className="h1-bold">hello</section>;
 }
