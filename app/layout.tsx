@@ -8,6 +8,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import NavBar from "@/components/NavBar";
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
@@ -23,7 +24,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <main>{children}</main>
+          <div className="max-w-8xl mx-auto overflow-hidden">
+            <NavBar />
+            <main>{children}</main>
+          </div>
         </body>
       </html>
     </ClerkProvider>
