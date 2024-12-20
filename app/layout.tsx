@@ -29,10 +29,12 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${poppins.variable} ${noto_serif.variable}`}>
-          <div className="max-w-8xl mx-auto overflow-hidden">
-            <NavBar />
-            <main>{children}</main>
-          </div>
+          <ThemeProvider>
+            <div className="max-w-8xl mx-auto overflow-hidden">
+              <NavBar />
+              <main>{children}</main>
+            </div>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
