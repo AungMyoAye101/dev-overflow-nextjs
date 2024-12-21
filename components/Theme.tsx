@@ -2,9 +2,9 @@
 
 import { ThemeContextProps } from "@/type";
 import React, { useContext, useEffect, useState } from "react";
-import { createContext } from "vm";
+import { createContext } from "react";
 
-const ThemeContext = createContext<ThemeContextProps | undefined>();
+const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState("");
@@ -29,7 +29,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default ThemeProvider;
 
-const useTheme = () => {
+export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error("useTheme must be used within a ThemeProvider");

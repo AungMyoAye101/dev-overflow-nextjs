@@ -3,6 +3,7 @@ import { Poppins, Noto_Serif } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/NavBar";
+import ThemeProvider from "@/components/Theme";
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
