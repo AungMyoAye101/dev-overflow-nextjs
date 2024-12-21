@@ -13,8 +13,12 @@ const NavBar: React.FC = () => {
         <Link href="/">Dev-Overflow</Link>
       </div>
       <div className="flex items-start gap-4">
-        <button onClick={() => setMode("dark")}>dark</button>
-        <button onClick={() => setMode("light")}>light</button>
+        <button onClick={() => setMode("dark")} className="text-orange">
+          dark
+        </button>
+        <button onClick={() => setMode("light")} className="text-light-gray">
+          light
+        </button>
 
         <UserButton />
         <Link href="/signin">
