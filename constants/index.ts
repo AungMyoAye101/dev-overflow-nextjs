@@ -2,16 +2,16 @@ export const themeOptions = [
   {
     value: "light",
     label: "Light",
-    icon: "🌞",
+    icon: "/assets/icons/sun.svg",
   },
   {
     value: "dark",
     label: "Dark",
-    icon: "🌚",
+    icon: "/assets/icons/moon.svg",
   },
   {
     value: "system",
     label: "System",
-    icon: "🌐   ",
+    icon: "/assets/icons/laptop.svg",
   },
 ];
