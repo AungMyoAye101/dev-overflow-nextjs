@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/NavBar";
 import ThemeProvider from "@/components/Theme";
 import LeftSideBar from "@/components/LeftSideBar";
+import RightSideBar from "@/components/RightSideBar";
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
@@ -37,6 +38,7 @@ export default function RootLayout({
               <section>
                 <LeftSideBar />
                 <main>{children}</main>
+                <RightSideBar />
               </section>
             </div>
           </ThemeProvider>
