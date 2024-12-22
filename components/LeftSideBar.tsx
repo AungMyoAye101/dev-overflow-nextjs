@@ -2,20 +2,23 @@
 
 import { sideLinks } from "@/constants";
 import Link from "next/link";
-
+import { usePathname } from "next/navigation";
 import React from "react";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 
 const LeftSideBar = () => {
+  const pathname = usePathname();
   return (
-    <section className="hidden sm:block fixed top-12  bottom-0 left-0 bg-light-gray dark:bg-dark-gray p-4  min-w-fit  max-w-60 z-10 rounded-r-md">
+    <section className="hidden sm:block fixed top-12  bottom-0 left-0 bg-light-gray dark:bg-dark-gray p-4  min-w-fit  max-w-60 z-10">
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col gap-4 ">
           {sideLinks.map((link, index) => (
             <Link
               href={link.href}
               key={index}
-              className="text-lg font-noto_serif flex items-center gap-2 rounded-md border border-gray-500  hover:bg-orange p-2"
+              className={`text-lg font-noto_serif flex items-center gap-2 rounded-md border border-gray-500  hover:bg-orange p-2 ${
+                pathname === link.href ? "active-link" : ""
+              }`}
             >
               <span>{link.icon}</span>
               <span className="hidden md:block">{link.label}</span>
