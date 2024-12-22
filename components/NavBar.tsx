@@ -15,39 +15,29 @@ import {
 } from "@/components/ui/menubar";
 import { themeOptions } from "@/constants";
 import Image from "next/image";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
   return (
-    <nav className="flex justify-between items-center p-4 md:px-12 fixed top-0 z-50 w-full bg-lignht-gray dark:bg-dark-gray text-light-gray dark:text-light-gray">
+    <nav className="flex justify-between items-center p-4 md:px-12 fixed top-0 z-50 w-full bg-light-gray dark:bg-dark-gray text-light-gray dark:text-light-gray shadow-md dark:shadow-none">
       <div className="text-2xl font-poppins font-bold">
         <Link href="/">
           <span className="text-dark-gray dark:text-light-gray ">Dev</span>
-          <span className="text-orange">Overflow</span>
+          <span className="text-orange ml-0.5">Overflow</span>
         </Link>
       </div>
       <div className="flex items-center gap-4">
         <Menubar className="relative bg-transparent border-none shadow-none">
           <MenubarMenu>
-            <MenubarTrigger className="border-none rounded-full p-0 focus:bg-light-gray focus:text-dark-gray data-[state=open]:bg-light-gray data-[state=open]:text-dark-gray dark:focus:bg-dark-gray dark:focus:text-light-gray dark:data-[state=open]:bg-dark-gray dark:data-[state=open]:text-light-gray">
+            <MenubarTrigger className=" border-none rounded-full p-0 focus:bg-light-gray  data-[state=open]:bg-light-gray  dark:focus:bg-dark-gray dark:focus:text-orange dark:data-[state=open]:bg-dark-gray dark:data-[state=open]:text-orange cursor-pointer ">
               {mode === "dark" ? (
-                <Image
-                  src={"/assets/icons/moon.svg"}
-                  alt="moon icon"
-                  width={20}
-                  height={20}
-                />
+                <FaMoon className="text-orange text-lg " />
               ) : (
-                <Image
-                  src={"/assets/icons/sun.svg"}
-                  alt="sun icon"
-                  width={20}
-                  height={20}
-                  className=""
-                />
+                <FaSun className="text-orange text-lg " />
               )}
             </MenubarTrigger>
-            <MenubarContent className=" absolute top-4 -right-8 min-w-40">
+            <MenubarContent className=" absolute top-4 -right-8 min-w-40 w-fit">
               {themeOptions.map((items) => (
                 <MenubarItem
                   key={items.value}
@@ -61,12 +51,7 @@ const NavBar: React.FC = () => {
                   }}
                 >
                   <div className="flex items-center gap-2 text-md font-noto_serif">
-                    <Image
-                      src={items.icon}
-                      alt={items.label}
-                      width={20}
-                      height={20}
-                    />
+                    {items.icon}
                     <span>{items.label}</span>
                   </div>
                 </MenubarItem>

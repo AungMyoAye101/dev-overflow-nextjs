@@ -1,17 +1,19 @@
+import React from "react";
+import { FaLaptop, FaMoon, FaSun } from "react-icons/fa";
 export const themeOptions = [
   {
     value: "light",
     label: "Light",
-    icon: "/assets/icons/sun.svg",
+    icon: <FaSun />,
   },
   {
     value: "dark",
     label: "Dark",
-    icon: "/assets/icons/moon.svg",
+    icon: <FaMoon />,
   },
   {
     value: "system",
     label: "System",
-    icon: "/assets/icons/laptop.svg",
+    icon: <FaLaptop />,
   },
 ];
