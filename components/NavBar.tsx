@@ -63,7 +63,7 @@ const NavBar: React.FC = () => {
         <div className="hidden md:block">
           <UserButton />
         </div>
-        <div>
+        <div className="block md:hidden">
           <SideBar />
         </div>
       </div>
