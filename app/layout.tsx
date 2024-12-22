@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/NavBar";
 import ThemeProvider from "@/components/Theme";
+import LeftSideBar from "@/components/LeftSideBar";
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
@@ -33,7 +34,10 @@ export default function RootLayout({
           <ThemeProvider>
             <div className="max-w-8xl mx-auto overflow-hidden">
               <NavBar />
-              <main>{children}</main>
+              <section>
+                <LeftSideBar />
+                <main>{children}</main>
+              </section>
             </div>
           </ThemeProvider>
         </body>

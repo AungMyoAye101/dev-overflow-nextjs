@@ -21,7 +21,7 @@ import SideBar from "./SideBar";
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
   return (
-    <nav className="flex justify-between items-center p-4 md:px-12 fixed top-0 z-50 w-full bg-light-gray dark:bg-dark-gray text-light-gray dark:text-light-gray shadow-md dark:shadow-none">
+    <nav className="flex justify-between items-center px-4 py-2 fixed top-0 z-50 w-full bg-light-gray dark:bg-dark-gray text-light-gray dark:text-light-gray shadow-md dark:shadow-none">
       <div className="text-2xl font-poppins font-bold">
         <Link href="/">
           <span className="text-dark-gray dark:text-light-gray ">Dev</span>
