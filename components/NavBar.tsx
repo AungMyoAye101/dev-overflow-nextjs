@@ -16,6 +16,7 @@ import {
 import { themeOptions } from "@/constants";
 import Image from "next/image";
 import { FaMoon, FaSun } from "react-icons/fa";
+import SideBar from "./SideBar";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
@@ -61,6 +62,9 @@ const NavBar: React.FC = () => {
         </Menubar>
         <div className="hidden md:block">
           <UserButton />
+        </div>
+        <div>
+          <SideBar />
         </div>
       </div>
     </nav>
