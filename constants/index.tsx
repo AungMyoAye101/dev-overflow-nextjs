@@ -4,10 +4,16 @@ import {
   FaLaptop,
   FaLayerGroup,
   FaMoon,
+  FaObjectGroup,
+  FaPeopleArrows,
+  FaQuestion,
   FaQuestionCircle,
+  FaStar,
+  FaSuitcase,
   FaSun,
   FaTag,
   FaUser,
+  FaUserFriends,
 } from "react-icons/fa";
 export const themeOptions = [
   {
@@ -35,8 +41,13 @@ export const sideLinks = [
   },
   {
     label: "Community",
-    icon: <FaLayerGroup />,
+    icon: <FaUserFriends />,
     href: "/community",
+  },
+  {
+    label: "Collection",
+    icon: <FaStar />,
+    href: "/collection",
   },
   {
     label: "Tags",
@@ -44,13 +55,13 @@ export const sideLinks = [
     href: "/tags",
   },
   {
-    label: "Questions",
-    icon: <FaQuestionCircle />,
-    href: "/questions",
+    label: "Find Jobs",
+    icon: <FaSuitcase />,
+    href: "/profile",
   },
   {
-    label: "Profile",
-    icon: <FaUser />,
-    href: "/profile",
+    label: "Ask a Questions",
+    icon: <FaQuestion />,
+    href: "/questions",
   },
 ];

@@ -2,7 +2,7 @@ import React from "react";
 
 const RightSideBar = () => {
   return (
-    <section className="h-screen sticky right-0 top-0 pt-20 pb-10 px-4 max-w-60 bg-light-gray dark:bg-dark-gray">
+    <section className="hidden lg:block  h-screen sticky right-0 top-0 pt-20 pb-10 px-4 max-w-60  bg-light-gray dark:bg-dark-gray">
       <div className="flex flex-col gap-4">
         <div>
           <h1 className="text-lg font-poppins font-semibold">Topic Question</h1>
