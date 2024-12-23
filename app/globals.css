@@ -23,13 +23,14 @@ body {
   }
   .custom-scrollbar::-webkit-scrollbar {
     width: 3px;
+    height: 3px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background-color: #888;
-    border-radius: 10px;
+    border-radius: 3px;
     border: 1px solid #f1f1f1;
   }
 }

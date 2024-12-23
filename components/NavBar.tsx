@@ -14,20 +14,27 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { themeOptions } from "@/constants";
-import Image from "next/image";
+
 import { FaMoon, FaSun } from "react-icons/fa";
 import SideBar from "./SideBar";
+import Image from "next/image";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
   return (
-    <nav className=" flex justify-between items-center px-4 py-2 fixed top-0 z-[1000] w-full bg-white dark:bg-gray-900 shadow-md dark:shadow-none">
-      <div className="text-2xl font-poppins font-bold">
-        <Link href="/">
+    <nav className="border-2 flex justify-between items-center px-4 py-2 fixed top-0 z-[1000] w-full bg-white dark:bg-gray-900 shadow-md dark:shadow-none">
+      <Link href="/" className="flex items-center gap-2">
+        <Image
+          src={"/assets/icons/site-logo.svg"}
+          width={20}
+          height={20}
+          alt="site logo"
+        />
+        <div className="hidden sm:block text-2xl font-poppins font-bold">
           <span className="text-dark-gray dark:text-light-gray ">Dev</span>
           <span className="text-orange ml-0.5">Overflow</span>
-        </Link>
-      </div>
+        </div>
+      </Link>
       <div className="flex items-center gap-4">
         <Menubar className="relative bg-transparent border-none shadow-none">
           <MenubarMenu>

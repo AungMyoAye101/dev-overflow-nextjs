@@ -11,6 +11,7 @@ export default function Home() {
         </h1>
         <Button className="self-end">Ask a Question</Button>
       </div>
+      <div className="w-full h-dvh"></div>
     </div>
   );
 }

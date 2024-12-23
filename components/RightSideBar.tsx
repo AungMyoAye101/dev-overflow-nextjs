@@ -3,7 +3,7 @@ import { FaGreaterThan } from "react-icons/fa";
 
 const RightSideBar = () => {
   return (
-    <section className="hidden lg:block  h-screen sticky right-0 top-0 pt-20 pb-10 px-4   max-w-72 bg-white dark:bg-gray-900 ">
+    <section className="hidden lg:block  h-screen overflow-hidden overflow-y-scroll custom-scrollbar sticky right-0 top-0 pt-20 pb-10 px-4   max-w-72 bg-white dark:bg-gray-900 ">
       <div className="flex flex-col gap-4 pt-4">
         <div>
           <h1 className="text-xl font-poppins font-semibold">Top Questions</h1>
@@ -55,6 +55,21 @@ const RightSideBar = () => {
             <h1 className="text-xl font-poppins font-semibold">Tags</h1>
           </div>
           <div className="flex flex-wrap gap-4">
+            <button className="rounded-full px-3 py-1 bg-light-gray dark:bg-dark-gray shadow dark:shadow-none">
+              Next js{" "}
+            </button>
+            <button className="rounded-full px-3 py-1 bg-light-gray dark:bg-dark-gray shadow dark:shadow-none">
+              Next js{" "}
+            </button>
+            <button className="rounded-full px-3 py-1 bg-light-gray dark:bg-dark-gray shadow dark:shadow-none">
+              Next js{" "}
+            </button>
+            <button className="rounded-full px-3 py-1 bg-light-gray dark:bg-dark-gray shadow dark:shadow-none">
+              Node
+            </button>
+            <button className="rounded-full px-3 py-1 bg-light-gray dark:bg-dark-gray shadow dark:shadow-none">
+              Next js{" "}
+            </button>
             <button className="rounded-full px-3 py-1 bg-light-gray dark:bg-dark-gray shadow dark:shadow-none">
               Next js{" "}
             </button>
