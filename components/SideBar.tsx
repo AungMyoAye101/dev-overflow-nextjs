@@ -14,7 +14,7 @@ import { sideLinks } from "@/constants";
 const SideBar = () => {
   return (
     <Sheet>
-      <SheetTrigger className="flex justify-center items-center">
+      <SheetTrigger className="flex justify-center items-center ">
         <FaBars className="text-dark-gray dark:text-light-gray text-lg" />
       </SheetTrigger>
       <SheetContent side={"left"} className="foucs:none  p-4 h-screen">

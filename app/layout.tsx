@@ -33,13 +33,11 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${poppins.variable} ${noto_serif.variable}`}>
           <ThemeProvider>
-            <div className="max-w-8xl mx-auto overflow-hidden">
-              <NavBar />
-              <section>
-                <LeftSideBar />
-                <main>{children}</main>
-                <RightSideBar />
-              </section>
+            <NavBar />
+            <div className="flex overscroll-y-auto  gap-6">
+              <LeftSideBar />
+              {children}
+              <RightSideBar />
             </div>
           </ThemeProvider>
         </body>

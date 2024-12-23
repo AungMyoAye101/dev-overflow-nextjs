@@ -9,7 +9,7 @@ import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 const LeftSideBar = () => {
   const pathname = usePathname();
   return (
-    <section className="hidden sm:block fixed top-12  bottom-0 left-0 bg-light-gray dark:bg-dark-gray p-4  min-w-fit  max-w-60 z-10">
+    <section className="  overflow-hidden hidden sm:block sticky top-0 pt-20 px-4 pb-10 h-screen   left-0 bg-light-gray dark:bg-dark-gray  sm:w-fit md:min-w-60  ">
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col gap-4 ">
           {sideLinks.map((link, index) => (
