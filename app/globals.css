@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Noto Serif", serif;
+}
+
 @layer utilities {
   .h1-bold {
     @apply text-4xl font-bold;

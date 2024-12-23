@@ -31,10 +31,12 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${poppins.variable} ${noto_serif.variable}`}>
+        <body
+          className={`${poppins.variable} ${noto_serif.variable} bg-light-gray dark:bg-black text-dark-gray dark:text-light-gray`}
+        >
           <ThemeProvider>
             <NavBar />
-            <div className="flex overscroll-y-auto  gap-6">
+            <div className="flex overscroll-y-auto  ">
               <LeftSideBar />
               {children}
               <RightSideBar />
