@@ -2,19 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Noto Serif", serif;
-}
-
 @layer utilities {
   .h1-bold {
     @apply text-4xl font-bold;
   }
   .active-link {
-    @apply bg-orange;
+    @apply btn-bg;
   }
   .side-links {
-    @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:bg-orange;
+    @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:btn-bg;
   }
 
   .custom-scrollbar {
@@ -32,6 +28,9 @@ body {
     background-color: #888;
     border-radius: 3px;
     border: 1px solid #f1f1f1;
+  }
+  .btn-bg {
+    @apply bg-gradient-to-tr from-orange to-yellow-500;
   }
 }
 

@@ -65,3 +65,5 @@ export const sideLinks = [
     href: "/questions",
   },
 ];
+
+export const filteredSearch = ["Newest", "Recommend", "Frequent", "Unanswered"];
