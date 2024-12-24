@@ -16,13 +16,15 @@ import {
 import { themeOptions } from "@/constants";
 
 import { FaMoon, FaSun } from "react-icons/fa";
+import { IoSearchOutline } from "react-icons/io5";
 import SideBar from "./SideBar";
 import Image from "next/image";
+import { Input } from "./ui/input";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
   return (
-    <nav className="border-2 flex justify-between items-center px-4 py-2 fixed top-0 z-[1000] w-full bg-white dark:bg-gray-900 shadow-md dark:shadow-none">
+    <nav className="border-2 flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full bg-white dark:bg-gray-900 shadow-md dark:shadow-none">
       <Link href="/" className="flex items-center gap-2">
         <Image
           src={"/assets/icons/site-logo.svg"}
@@ -35,6 +37,14 @@ const NavBar: React.FC = () => {
           <span className="text-orange ml-0.5">Overflow</span>
         </div>
       </Link>
+      <div className="max-w-2xl flex-1 flex items-center  border-2 px-2 py-1 rounded-lg ">
+        <IoSearchOutline className="text-xl text-gray-500 " />
+        <Input
+          type="text"
+          placeholder="Search anything globally"
+          className="border-none foucs:outline-none focus:ring-0 focus-visible:ring-0"
+        />
+      </div>
       <div className="flex items-center gap-4">
         <Menubar className="relative bg-transparent border-none shadow-none">
           <MenubarMenu>
