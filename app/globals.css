@@ -12,7 +12,9 @@
   .side-links {
     @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:btn-bg;
   }
-
+  .page-container {
+    @apply flex flex-col gap-10   custom-scrollbar pt-28 pb-10 px-4 md:px-10 bg-light-gray dark:bg-black border-2;
+  }
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;

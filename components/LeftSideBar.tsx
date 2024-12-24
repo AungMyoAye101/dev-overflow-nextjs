@@ -4,7 +4,7 @@ import { sideLinks } from "@/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaSignInAlt, FaSignOutAlt, FaUserPlus } from "react-icons/fa";
 
 const LeftSideBar = () => {
   const pathname = usePathname();
@@ -41,7 +41,7 @@ const LeftSideBar = () => {
               pathname === "signup" ? "active-link" : ""
             }`}
           >
-            <FaSignOutAlt className="text-lg" />
+            <FaUserPlus className="text-lg" />
             <span className="hidden md:block">Sign up</span>
           </Link>
         </div>
