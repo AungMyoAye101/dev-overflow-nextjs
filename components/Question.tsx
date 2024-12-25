@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
+import { useEffect, useRef, useState } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Textarea } from "./ui/textarea";
+import { useTheme } from "./Theme";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -31,6 +34,10 @@ const formSchema = z.object({
 });
 
 export function Question() {
+  const { mode } = useTheme();
+
+  const editorRef = useRef<any>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,7 +81,45 @@ export function Question() {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Editor
+                  ref={editorRef}
+                  apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+                  onInit={(_evt, editor) => {
+                    //@ts ignore
+                    editorRef.current = editor;
+                  }}
+                  initialValue=""
+                  init={{
+                    height: 350,
+                    menubar: false,
+                    skin: mode === "dark" ? "oxide-dark" : "oxide",
+                    content_css: mode === "dark" ? "dark" : "default",
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "codesample",
+                      "table",
+                      "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | blocks | " +
+                      "codesample  | bold italic forecolor  | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | help",
+                    content_style:
+                      "body { font-family:poppins; font-size:14px; }",
+                  }}
+                />
+
+                {/* <Input placeholder="shadcn" {...field} /> */}
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.
