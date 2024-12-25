@@ -25,6 +25,9 @@ import { Badge } from "./ui/badge";
 
 export function Question() {
   const { mode } = useTheme();
+  const [submit, setSubmit] = useState(false);
+
+  const formType = "edit";
 
   const editorRef = useRef<any>(null);
 
@@ -39,9 +42,13 @@ export function Question() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    try {
+      setSubmit(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmit(false);
+    }
   }
 
   const handleOnKeyDown = (
@@ -60,10 +67,11 @@ export function Question() {
           message: "Tags must be lower than 3",
         });
       }
-      if (field.value.length > 2) {
+      if (tagValue.length > 8) {
+        console.log("here");
         return form.setError("tags", {
           type: "required",
-          message: "Tags must be lower than 12",
+          message: "Tags must be lower than 8",
         });
       }
 
@@ -87,7 +95,7 @@ export function Question() {
             <FormItem>
               <FormLabel>Qusetion Title</FormLabel>
               <FormControl>
-                <Textarea placeholder="shadcn" {...field} />
+                <Textarea placeholder="Title" {...field} />
               </FormControl>
               <FormDescription>
                 Be specific and imagine you’re asking a question to another
@@ -196,7 +204,15 @@ export function Question() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={submit} className="w-full">
+          {formType === "edit"
+            ? submit
+              ? "Editing..."
+              : "Edit"
+            : submit
+            ? "Posting..."
+            : "Ask a question"}
+        </Button>
       </form>
     </Form>
   );
