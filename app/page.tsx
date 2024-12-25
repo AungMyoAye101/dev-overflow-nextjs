@@ -2,6 +2,7 @@ import LeftSideBar from "@/components/LeftSideBar";
 import LocalSearchBox from "@/components/LocalSearchBox";
 import RightSideBar from "@/components/RightSideBar";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,9 +11,12 @@ export default function Home() {
         <h1 className="text-2xl md:text-4xl font-poppins font-semibold">
           All Questions
         </h1>
-        <Button className="self-end btn-bg font-poppins  font-semibold">
+        <Link
+          href={"/question"}
+          className="self-end btn-bg font-poppins  font-semibold py-2 px-4 rounded-md "
+        >
           Ask a Question
-        </Button>
+        </Link>
       </div>
       <div>
         <LocalSearchBox />

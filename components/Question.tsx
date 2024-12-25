@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { Textarea } from "./ui/textarea";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -54,12 +55,13 @@ export function Question() {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Qusetion Title</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Textarea placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name.
+                Be specific and imagine you’re asking a question to another
+                person.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -70,12 +72,13 @@ export function Question() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name.
+                Introduce the problem and expand on what you put in the title.
+                Minimum 20 characters.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -91,7 +94,8 @@ export function Question() {
                 <Input placeholder="tags" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name.
+                Add up to 5 tags to describe what your question is about. Start
+                typing to see suggestions
               </FormDescription>
               <FormMessage />
             </FormItem>

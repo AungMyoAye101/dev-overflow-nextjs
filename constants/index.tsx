@@ -62,7 +62,7 @@ export const sideLinks = [
   {
     label: "Ask a Questions",
     icon: <FaQuestion />,
-    href: "/questions",
+    href: "/question",
   },
 ];
 
