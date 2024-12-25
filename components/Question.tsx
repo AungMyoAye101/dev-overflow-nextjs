@@ -1,12 +1,11 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { z } from "zod";
 import { useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-
 import { Button } from "@/components/ui/button";
+import { formSchema } from "@/lib/FormViladitaion";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -21,17 +20,8 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "./ui/textarea";
 import { useTheme } from "./Theme";
 
-const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  description: z.string().min(12, {
-    message: "Description must be at least 12 characters",
-  }),
-  tags: z.string().min(3, {
-    message: "tags must be at least 12 characters",
-  }),
-});
+import { RxCrossCircled } from "react-icons/rx";
+import { Badge } from "./ui/badge";
 
 export function Question() {
   const { mode } = useTheme();
@@ -43,7 +33,7 @@ export function Question() {
     defaultValues: {
       title: "",
       description: "",
-      tags: "",
+      tags: [],
     },
   });
 
@@ -53,6 +43,39 @@ export function Question() {
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+
+  const handleOnKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    field: any
+  ) => {
+    if (e.key === "Enter" && field.name === "tags") {
+      e.preventDefault();
+      const tag = e.target as HTMLInputElement;
+      const tagValue = tag.value.trim();
+      if (tagValue === "") return;
+
+      if (form.getValues("tags").length > 2) {
+        return form.setError("tags", {
+          type: "required",
+          message: "Tags must be lower than 3",
+        });
+      }
+      if (field.value.length > 2) {
+        return form.setError("tags", {
+          type: "required",
+          message: "Tags must be lower than 12",
+        });
+      }
+
+      if (!field.value.includes(tagValue as never)) {
+        form.setValue("tags", [...field.value, tagValue]);
+        tag.value = "";
+        form.clearErrors("tags");
+      } else {
+        form.trigger();
+      }
+    }
+  };
 
   return (
     <Form {...form}>
@@ -118,8 +141,6 @@ export function Question() {
                       "body { font-family:poppins; font-size:14px; }",
                   }}
                 />
-
-                {/* <Input placeholder="shadcn" {...field} /> */}
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.
@@ -136,7 +157,36 @@ export function Question() {
             <FormItem>
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input placeholder="tags" {...field} />
+                <div className="flex flex-col gap-4 ">
+                  <Input
+                    placeholder="tags"
+                    // {...field}
+                    onKeyDown={(e) => handleOnKeyDown(e, field)}
+                  />
+                  {field.value.length > 0 && (
+                    <div className="flex items-center gap-4">
+                      {field.value.map((tag, index) => (
+                        <Badge
+                          key={index}
+                          className="flex items-center gap-2 px-4 py-2  font-poppins"
+                        >
+                          <span className="capitalize">{tag}</span>
+                          <button
+                            className="text-lg hover:text-orange"
+                            onClick={() => {
+                              form.setValue(
+                                "tags",
+                                field.value.filter((_, i) => i !== index)
+                              );
+                            }}
+                          >
+                            <RxCrossCircled />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </FormControl>
               <FormDescription>
                 Add up to 5 tags to describe what your question is about. Start
