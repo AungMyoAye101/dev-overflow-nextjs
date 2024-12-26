@@ -42,6 +42,7 @@ export function Question() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
     try {
       setSubmit(true);
     } catch (error) {
@@ -147,6 +148,10 @@ export function Question() {
                       "removeformat | help",
                     content_style:
                       "body { font-family:poppins; font-size:14px; }",
+                  }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => {
+                    field.onChange(content);
                   }}
                 />
               </FormControl>
