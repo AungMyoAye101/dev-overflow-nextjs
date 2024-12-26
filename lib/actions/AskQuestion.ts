@@ -1,5 +1,7 @@
+"use server";
+
 import Question from "@/model/question.model";
-import connectToDB from "../db";
+import connectToDB from "../../database/db";
 
 export const askQuestion = async (params: any) => {
   try {

@@ -21,7 +21,7 @@ import { Textarea } from "./ui/textarea";
 import { useTheme } from "./Theme";
 import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
-import { askQuestion } from "@/database/actions/AskQuestion";
+import { askQuestion } from "@/lib/actions/AskQuestion";
 
 export async function Question() {
   const { mode } = useTheme();
