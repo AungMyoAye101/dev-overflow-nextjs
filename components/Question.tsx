@@ -19,11 +19,11 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Textarea } from "./ui/textarea";
 import { useTheme } from "./Theme";
-
 import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
+import { askQuestion } from "@/database/actions/AskQuestion";
 
-export function Question() {
+export async function Question() {
   const { mode } = useTheme();
   const [submit, setSubmit] = useState(false);
 
@@ -41,9 +41,9 @@ export function Question() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      // await askQuestion(values);
       setSubmit(true);
     } catch (error) {
       console.log(error);
