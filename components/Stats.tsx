@@ -5,11 +5,11 @@ const Stats = () => {
   return (
     <section className="space-y-4">
       <h1 className="h2-bold">Stats</h1>
-      <div className="flex flex-wrap gap-4">
-        <div className="bg_dark_white shadow_rounded py-4 px-6 flex flex-col items-center justify-center  font-noto_serif font-semibold ">
+      <div className="flex  gap-4">
+        <div className="text-sm bg_dark_white shadow_rounded py-3 px-5 flex flex-col items-center justify-center  font-noto_serif font-semibold ">
           <div className="space-x-2 ">
             <span>100</span>
-            <span>Question</span>
+            <span>Questions</span>
           </div>
           <div className="space-x-2  ">
             <span>100</span>
@@ -17,7 +17,7 @@ const Stats = () => {
           </div>
         </div>
 
-        <div className="bg_dark_white shadow_rounded py-4 px-6 flex items-center gap-4">
+        <div className="bg_dark_white shadow_rounded py-3 px-5 flex items-center gap-4">
           <Image
             src={"/assets/icons/gold.svg"}
             width={40}
@@ -29,7 +29,7 @@ const Stats = () => {
             <span>Gold Bage</span>
           </div>
         </div>
-        <div className="bg_dark_white shadow_rounded py-4 px-6 flex items-center gap-4">
+        <div className="bg_dark_white shadow_rounded py-3 px-5 flex items-center gap-4">
           <Image
             src={"/assets/icons/silver.svg"}
             width={40}
@@ -41,7 +41,7 @@ const Stats = () => {
             <span>Silver Bage</span>
           </div>
         </div>
-        <div className="bg_dark_white shadow_rounded py-4 px-6 flex items-center gap-4">
+        <div className="bg_dark_white shadow_rounded py-3 px-5 flex items-center gap-4">
           <Image
             src={"/assets/icons/bronze.svg"}
             width={40}
