@@ -1,5 +1,6 @@
 import LeftSideBar from "@/components/LeftSideBar";
 import LocalSearchBox from "@/components/LocalSearchBox";
+import Post from "@/components/Post";
 import RightSideBar from "@/components/RightSideBar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -20,6 +21,12 @@ export default function Home() {
       </div>
       <div>
         <LocalSearchBox />
+      </div>
+      <div className="flex flex-col gap-4">
+        <Post />
+        <Post />
+        <Post />
+        <Post />
       </div>
     </div>
   );
