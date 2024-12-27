@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let connected = false as boolean;
 
-const url = process.env.MONGO_URI as string;
+const url = process.env.MONGODB_URI as string;
 
 const connectToDB = async () => {
   mongoose.set("strictQuery", true);

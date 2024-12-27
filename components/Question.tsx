@@ -23,7 +23,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
 import { askQuestion } from "@/lib/actions/AskQuestion";
 
-export async function Question() {
+export function Question() {
   const { mode } = useTheme();
   const [submit, setSubmit] = useState(false);
 
@@ -41,15 +41,15 @@ export async function Question() {
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      // await askQuestion(values);
-      setSubmit(true);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmit(false);
-    }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // try {
+    //   // await askQuestion(values);
+    //   setSubmit(true);
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setSubmit(false);
+    // }
   }
 
   const handleOnKeyDown = (
