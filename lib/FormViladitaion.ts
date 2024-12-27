@@ -17,3 +17,18 @@ export const formSchema = z.object({
       message: "Tags can be up to 3",
     }),
 });
+
+export const editProfileSchema = z.object({
+  username: z.string().min(3, {
+    message: "Username must be at least 3 characters.",
+  }),
+  portfolio: z.string().min(4, {
+    message: "portfolio link must be at least 3 characters.",
+  }),
+  location: z.string().min(4, {
+    message: "Location link must be at least 3 characters.",
+  }),
+  bio: z.string().min(12, {
+    message: "bio must be at least 12 characters.",
+  }),
+});

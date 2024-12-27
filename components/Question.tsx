@@ -88,7 +88,10 @@ export function Question() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-6 "
+      >
         <FormField
           control={form.control}
           name="title"
@@ -96,7 +99,7 @@ export function Question() {
             <FormItem>
               <FormLabel>Qusetion Title</FormLabel>
               <FormControl>
-                <Textarea placeholder="Title" {...field} />
+                <Input placeholder="Title" {...field} />
               </FormControl>
               <FormDescription>
                 Be specific and imagine you’re asking a question to another
@@ -209,7 +212,7 @@ export function Question() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={submit} className="w-full">
+        <Button type="submit" disabled={submit} className="self-end btn-bg">
           {formType === "edit"
             ? submit
               ? "Editing..."
