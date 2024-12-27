@@ -77,9 +77,9 @@ const NavBar: React.FC = () => {
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
-        <div className="hidden md:block">
+        {/* <div className="hidden md:block">
           <UserButton />
-        </div>
+        </div> */}
         <div className="block md:hidden">
           <SideBar />
         </div>
