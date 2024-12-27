@@ -6,6 +6,9 @@
   .h1-bold {
     @apply text-4xl font-bold;
   }
+  .h2-bold {
+    @apply text-2xl font-bold;
+  }
   .active-link {
     @apply btn-bg;
   }
@@ -17,6 +20,10 @@
   }
   .page-container {
     @apply flex flex-col gap-10   custom-scrollbar pt-28 pb-10 px-4 md:px-10 bg-light-gray dark:bg-black border-2;
+  }
+
+  .shadow_rounded {
+    @apply shadow-md dark:shadow-none rounded-md;
   }
   .custom-scrollbar {
     scrollbar-width: thin;
