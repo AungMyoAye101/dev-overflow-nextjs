@@ -9,6 +9,9 @@
   .h2-bold {
     @apply text-2xl font-bold;
   }
+  .para {
+    @apply text-sm font-noto_serif;
+  }
   .active-link {
     @apply btn-bg;
   }
