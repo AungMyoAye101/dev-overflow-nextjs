@@ -20,9 +20,21 @@ import { IoSearchOutline } from "react-icons/io5";
 import SideBar from "./SideBar";
 import Image from "next/image";
 import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { getUser } from "@/lib/actions/getUser";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
+
+  const getuser = async () => {
+    try {
+      const res = await getUser("clerk11223");
+      console.log(res);
+    } catch (e) {
+      console.log("error");
+    }
+  };
+
   return (
     <nav className="border-2 flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full bg-white dark:bg-gray-900 shadow-md dark:shadow-none">
       <Link href="/" className="flex items-center gap-2">
@@ -77,6 +89,7 @@ const NavBar: React.FC = () => {
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
+        <Button onClick={getuser}>GetUser </Button>
         <div className="hidden md:block">
           <UserButton />
         </div>
