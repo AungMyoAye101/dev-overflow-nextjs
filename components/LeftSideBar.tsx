@@ -9,7 +9,7 @@ import { FaSignInAlt, FaSignOutAlt, FaUserPlus } from "react-icons/fa";
 const LeftSideBar = () => {
   const pathname = usePathname();
   return (
-    <section className="  overflow-hidden hidden sm:block sticky top-0 pt-[8rem] px-4 pb-10 h-screen   left-0 bg-white dark:bg-gray-900  sm:w-fit md:min-w-60  ">
+    <section className="  overflow-hidden hidden sm:block sticky top-0 pt-[7rem] px-4 pb-10 h-screen   left-0 bg-white dark:bg-gray-900  sm:w-fit md:min-w-60  ">
       <div className="flex flex-col justify-between  h-full">
         <div className="flex flex-col gap-4 ">
           {sideLinks.map((link, index) => (
@@ -27,7 +27,7 @@ const LeftSideBar = () => {
         </div>
         <div className="flex flex-col  gap-2 ">
           <Link
-            href={"/login"}
+            href={"/sign-in"}
             className={`side-links  ${
               pathname === "login" ? "active-link" : ""
             }`}
@@ -36,7 +36,7 @@ const LeftSideBar = () => {
             <span className="hidden md:block">Log in</span>
           </Link>
           <Link
-            href={"/login"}
+            href={"/sign-up"}
             className={`side-links  ${
               pathname === "signup" ? "active-link" : ""
             }`}
