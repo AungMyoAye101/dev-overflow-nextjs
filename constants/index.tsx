@@ -57,7 +57,7 @@ export const sideLinks = [
   {
     label: "Find Jobs",
     icon: <FaSuitcase />,
-    href: "/profile",
+    href: "/job",
   },
   {
     label: "Ask a Questions",
