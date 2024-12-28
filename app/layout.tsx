@@ -29,19 +29,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${poppins.variable} ${noto_serif.variable} bg-light-gray dark:bg-black text-dark-gray dark:text-light-gray`}
-      >
-        <ThemeProvider>
-          <NavBar />
-          <div className="flex overscroll-y-auto  ">
-            <LeftSideBar />
-            {children}
-            <RightSideBar />
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${poppins.variable} ${noto_serif.variable} bg-light-gray dark:bg-black text-dark-gray dark:text-light-gray`}
+        >
+          <ThemeProvider>
+            <NavBar />
+            <div className="flex overscroll-y-auto  ">
+              <LeftSideBar />
+              {children}
+              <RightSideBar />
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
