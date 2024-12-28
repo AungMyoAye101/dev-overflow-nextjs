@@ -13,6 +13,7 @@ const connectToDB = async () => {
   try {
     await mongoose.connect(url, {
       dbName: "DevOverFlow",
+      serverSelectionTimeoutMS: 30000,
     });
     connected = true;
     console.log("MongoDB connected successfully");
