@@ -21,7 +21,7 @@ import { Textarea } from "./ui/textarea";
 import { useTheme } from "./Theme";
 import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
-import { askQuestion } from "@/lib/actions/AskQuestion";
+import { askQuestion } from "@/lib/actions/ask.question";
 
 export function Question() {
   const { mode } = useTheme();
@@ -35,21 +35,45 @@ export function Question() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      description: "",
+      content: "",
       tags: [],
     },
   });
 
+  // {
+
+  //     "5f8d0d55b54764421b7156c1",
+  //     "5f8d0d55b54764421b7156c2"
+  //   ],
+  //   "views": 123,
+  //   "upvotes": [
+  //     "5f8d0d55b54764421b7156c3",
+  //     "5f8d0d55b54764421b7156c4"
+  //   ],
+  //   "downvotes": [
+  //     "5f8d0d55b54764421b7156c5"
+  //   ],
+  //   "author": "5f8d0d55b54764421b7156c6",
+  //   "answers": [
+  //     "5f8d0d55b54764421b7156c7",
+  //     "5f8d0d55b54764421b7156c8"
+  //   ],
+  //   "createdAt": "2024-12-28T15:39:00.000Z"
+  // }
+
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // try {
-    //   // await askQuestion(values);
-    //   setSubmit(true);
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setSubmit(false);
-    // }
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { title, content, tags } = values;
+    try {
+      const res = await askQuestion({
+        title,
+        content,
+        tags,
+        userId: "677017983f3e2956ec3fe5ce",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const handleOnKeyDown = (
@@ -111,7 +135,7 @@ export function Question() {
         />
         <FormField
           control={form.control}
-          name="description"
+          name="content"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>

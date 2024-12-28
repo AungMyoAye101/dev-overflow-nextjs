@@ -1,5 +1,6 @@
 import { Question } from "@/components/Question";
-import { getUserById } from "@/lib/actions/getUser";
+import { getAllQuestions } from "@/lib/actions/getAllQuestion";
+
 import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
@@ -11,6 +12,14 @@ const page = async () => {
 
   // const userId = await getUserById(clerId);
   // console.log(userId);
+
+  try {
+    const res = await getAllQuestions();
+    const question = await res;
+    console.log(question);
+  } catch (error) {
+    console.log(error);
+  }
   return (
     <div className="page-container flex-1 flex flex-col">
       <div>
