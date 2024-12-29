@@ -10,6 +10,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState("");
 
   const handleTheme = () => {
+    //@ts-nocheck
     if (
       localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&

@@ -1,3 +1,4 @@
+"use client";
 import LocalSearchBox from "@/components/LocalSearchBox";
 import { Badge } from "@/components/ui/badge";
 import React from "react";

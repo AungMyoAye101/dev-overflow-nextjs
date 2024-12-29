@@ -11,7 +11,9 @@ import {
 import { filteredSearch } from "@/constants";
 
 const LocalSearchBox: React.FC = () => {
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event);
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -22,6 +24,7 @@ const LocalSearchBox: React.FC = () => {
             type="text"
             placeholder="Search anything globally"
             className="border-none foucs:outline-none focus:ring-0 focus-visible:ring-0 bg-transparent"
+            onChange={handleInputChange}
           />
         </div>
         <div className="block lg:hidden">

@@ -1,3 +1,5 @@
+"use client";
+
 import LocalSearchBox from "@/components/LocalSearchBox";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";

@@ -1,11 +1,11 @@
 "use client";
 
 import { sideLinks } from "@/constants";
-import { createUser } from "@/lib/actions/create.user";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { FaSignInAlt, FaSignOutAlt, FaUserPlus } from "react-icons/fa";
+import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
 const LeftSideBar = () => {
   const pathname = usePathname();

@@ -1,25 +1,21 @@
+"use client";
+
 import LocalSearchBox from "@/components/LocalSearchBox";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import {
-  FaArrowRight,
-  FaClock,
-  FaDollarSign,
-  FaTimesCircle,
-} from "react-icons/fa";
+import { FaArrowRight, FaClock, FaDollarSign } from "react-icons/fa";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const page = () => {
+const Job = () => {
   return (
     <section className="page_padding">
       <h1 className="h1-bold">Jobs</h1>
@@ -94,4 +90,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Job;

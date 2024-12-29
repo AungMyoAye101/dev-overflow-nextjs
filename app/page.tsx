@@ -1,8 +1,7 @@
-import LeftSideBar from "@/components/LeftSideBar";
+"use client";
 import LocalSearchBox from "@/components/LocalSearchBox";
 import Post from "@/components/Post";
-import RightSideBar from "@/components/RightSideBar";
-import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
 
 export default function Home() {

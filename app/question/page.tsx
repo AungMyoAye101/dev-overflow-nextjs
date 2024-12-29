@@ -1,7 +1,6 @@
 import { Question } from "@/components/Question";
 import { getAllQuestions } from "@/lib/actions/getAllQuestion";
 
-import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
 const page = async () => {

@@ -7,7 +7,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,7 +17,8 @@ import { editProfileSchema } from "@/lib/FormViladitaion";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const page = () => {
+const ProfileEdit = () => {
+  //@ts-nocheck
   const form = useForm<z.infer<typeof editProfileSchema>>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
@@ -31,6 +31,7 @@ const page = () => {
 
   function onSubmit(values: z.infer<typeof editProfileSchema>) {
     //add logic
+    console.log(values);
   }
 
   return (
@@ -108,4 +109,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfileEdit;

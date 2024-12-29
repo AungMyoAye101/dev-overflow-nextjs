@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formSchema } from "@/lib/FormViladitaion";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,19 +17,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Textarea } from "./ui/textarea";
-import { useTheme } from "./Theme";
 import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
 import { askQuestion } from "@/lib/actions/ask.question";
 
 export function Question() {
-  const { mode } = useTheme();
   const [submit, setSubmit] = useState(false);
-
   const formType = "edit";
-
-  const editorRef = useRef<any>(null);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,37 +33,17 @@ export function Question() {
     },
   });
 
-  // {
-
-  //     "5f8d0d55b54764421b7156c1",
-  //     "5f8d0d55b54764421b7156c2"
-  //   ],
-  //   "views": 123,
-  //   "upvotes": [
-  //     "5f8d0d55b54764421b7156c3",
-  //     "5f8d0d55b54764421b7156c4"
-  //   ],
-  //   "downvotes": [
-  //     "5f8d0d55b54764421b7156c5"
-  //   ],
-  //   "author": "5f8d0d55b54764421b7156c6",
-  //   "answers": [
-  //     "5f8d0d55b54764421b7156c7",
-  //     "5f8d0d55b54764421b7156c8"
-  //   ],
-  //   "createdAt": "2024-12-28T15:39:00.000Z"
-  // }
-
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title, content, tags } = values;
     try {
-      const res = await askQuestion({
+      await askQuestion({
         title,
         content,
         tags,
         userId: "677017983f3e2956ec3fe5ce",
       });
+      setSubmit(true);
     } catch (error) {
       console.log(error);
     }
@@ -140,7 +113,12 @@ export function Question() {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <Editor
+                <Textarea
+                  placeholder="Content"
+                  {...field}
+                  className="min-h-40"
+                />
+                {/* <Editor
                   ref={editorRef}
                   apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
                   onInit={(_evt, editor) => {
@@ -180,7 +158,7 @@ export function Question() {
                   onEditorChange={(content) => {
                     field.onChange(content);
                   }}
-                />
+                /> */}
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.

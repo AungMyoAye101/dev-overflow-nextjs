@@ -2,15 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
-import { SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { useTheme } from "./Theme";
 import {
   Menubar,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { themeOptions } from "@/constants";
@@ -30,8 +28,8 @@ const NavBar: React.FC = () => {
     try {
       const res = await getUser("clerk11223");
       console.log(res);
-    } catch (e) {
-      console.log("error");
+    } catch (error) {
+      console.log("error", error);
     }
   };
 
