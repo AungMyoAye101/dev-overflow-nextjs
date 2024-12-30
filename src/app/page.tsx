@@ -1,5 +1,6 @@
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import Post from "@/src/components/Post";
+import { auth } from "@clerk/nextjs/server";
 
 import Link from "next/link";
 

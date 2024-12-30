@@ -3,6 +3,13 @@ export interface ThemeContextProps {
   setMode: (mode: string) => void;
 }
 
+export interface User {
+  name?: string;
+  username: string;
+  email: string;
+  picture?: string;
+}
+
 export interface CreateUser {
   clerkId: string;
   name: string;

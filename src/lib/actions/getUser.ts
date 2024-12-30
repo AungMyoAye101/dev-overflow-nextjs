@@ -2,12 +2,18 @@
 
 import connectToDB from "@/src/database/db";
 import User from "@/src/model/User.Model";
+import { currentUser } from "@clerk/nextjs/server";
 
-export const getUser = async (param: any) => {
+export const getUser = async () => {
   try {
     await connectToDB();
-    const exitUser = await User.findOne({ clerkId: param });
-    const user = await exitUser.json();
+    const currUser = await currentUser();
+    const userId = currUser?.id;
+    if (!userId) {
+      throw new Error("User ID not found");
+    }
+    const user = await User.findOne({ clerkId: userId });
+
     console.log(user);
     return { success: true, user };
   } catch (err: any) {

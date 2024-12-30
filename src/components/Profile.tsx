@@ -2,25 +2,27 @@ import Image from "next/image";
 import React from "react";
 import { FaCalendar, FaLink, FaLocationArrow } from "react-icons/fa";
 import { Button } from "./ui/button";
+import { User } from "../type";
 
-const Profile = () => {
+const Profile = ({ name, username, email, picture }: User) => {
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
       <div className="flex justify-between ">
-        <div className="flex items-start gap-4 ">
+        <div className="flex  gap-4 ">
           <Image
-            src={"/assets/icons/site-logo.svg"}
-            width={100}
-            height={100}
-            className="rounded-full size-32"
+            src={picture!}
+            width={300}
+            height={300}
+            className=" size-40 rounded-lg"
             alt="profile image"
           />
-          <div className="flex flex-col gap-4 mt-4">
+
+          <div className="flex flex-col gap-4 mt-4 ">
             <div className="flex flex-col gap-1">
               <h1 className="text-2xl font-poppins font-semibold capitalize">
-                JS Mystery
+                {username}
               </h1>
-              <p className="font-poppins text-xs opacity-95">js@gmail.com</p>
+              <p className="font-poppins text-xs opacity-95">{email}</p>
             </div>
             <div className="flex gap-4 items-center text-sm">
               <div className="flex gap-1 items-center">
