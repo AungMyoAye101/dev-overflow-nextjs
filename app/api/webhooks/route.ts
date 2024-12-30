@@ -1,7 +1,7 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { createUser } from "@/lib/actions/create.user";
+import { createUser, updateUser } from "@/lib/actions/create.user";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -67,6 +67,23 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: "ok", user: newUser });
+  }
+
+  if (eventType === "user.updated") {
+    const { id, username, first_name, last_name, image_url, email_addresses } =
+      evt.data;
+
+    const updatedUser = await updateUser({
+      clerkId: id,
+      updateData: {
+        name: `${first_name} ${last_name ? last_name : ""}`,
+        username,
+        email: email_addresses[0].email_address,
+        picture: image_url,
+      },
+    });
+
+    return NextResponse.json({ message: "ok", user: updatedUser });
   }
 
   return new Response("Webhook received", { status: 200 });
