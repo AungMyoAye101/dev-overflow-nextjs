@@ -5,6 +5,7 @@ export const createUser = async (params: any) => {
   try {
     await connectToDB();
     const newuser = await User.create(params);
+    console.log(newuser);
     return newuser;
   } catch (err: any) {
     console.log("Faild to create user", err.message);

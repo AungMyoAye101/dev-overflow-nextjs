@@ -26,7 +26,6 @@ const UserSchema = new Schema({
   },
   username: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
@@ -34,7 +33,6 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   bio: {
     type: String,
