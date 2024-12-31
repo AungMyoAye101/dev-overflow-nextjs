@@ -1,7 +1,8 @@
 "use server";
 import connectToDB from "@/src/database/db";
 import User from "@/src/model/User.Model";
-export const createUser = async (params: any) => {
+import { ClerkIdProp, CreateUser, UpdateUser } from "@/src/type";
+export const createUser = async (params: CreateUser) => {
   try {
     await connectToDB();
     const newuser = await User.create(params);
@@ -13,7 +14,7 @@ export const createUser = async (params: any) => {
   }
 };
 
-export const updateUser = async (params: any) => {
+export const updateUser = async (params: UpdateUser) => {
   const { clerkId, updateData } = params;
   try {
     await connectToDB();
@@ -24,7 +25,7 @@ export const updateUser = async (params: any) => {
   }
 };
 
-export const deleteUser = async (params: any) => {
+export const deleteUser = async (params: ClerkIdProp) => {
   const { clerkId } = params;
   try {
     await connectToDB();

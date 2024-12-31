@@ -9,7 +9,7 @@ export interface IUser extends Document {
   bio?: string;
   picture?: string;
   location?: string;
-  protfolio?: string;
+  portfolio?: string;
   reputation?: number;
   saved: Schema.Types.ObjectId[];
   joinedAt: Date;
@@ -44,7 +44,7 @@ const UserSchema = new Schema({
   location: {
     type: String,
   },
-  protfolio: {
+  portfolio: {
     type: String,
   },
   reputation: {
