@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { FaCalendar, FaLink, FaLocationArrow } from "react-icons/fa";
 import { Button } from "./ui/button";
-import { CreateUser, UserProps } from "../type";
+import { UserProps } from "../type";
 
 interface user {
   user: UserProps;
