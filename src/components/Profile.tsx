@@ -20,8 +20,9 @@ const Profile = ({ name, username, email, picture, createdAt }: User) => {
           <div className="flex flex-col gap-4 ">
             <div className="flex flex-col gap-1">
               <h1 className="text-2xl font-poppins font-semibold capitalize">
-                {username}
+                {name}
               </h1>
+              <h2>{username}</h2>
               <p className="font-poppins text-xs opacity-95">{email}</p>
             </div>
             <div className="flex gap-4 items-center text-sm">
