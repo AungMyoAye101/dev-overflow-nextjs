@@ -8,6 +8,7 @@ export interface User {
   username: string;
   email: string;
   picture?: string;
+  createdAt?: string;
 }
 
 export interface CreateUser {

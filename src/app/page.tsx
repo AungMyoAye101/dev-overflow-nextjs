@@ -18,9 +18,9 @@ export default function Home() {
           Ask a Question
         </Link>
       </div>
-      {/* <div>
+      <div>
         <LocalSearchBox />
-      </div> */}
+      </div>
       <div className="flex flex-col gap-4">
         <Post />
         <Post />

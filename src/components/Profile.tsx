@@ -4,11 +4,11 @@ import { FaCalendar, FaLink, FaLocationArrow } from "react-icons/fa";
 import { Button } from "./ui/button";
 import { User } from "../type";
 
-const Profile = ({ name, username, email, picture }: User) => {
+const Profile = ({ name, username, email, picture, createdAt }: User) => {
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
       <div className="flex justify-between ">
-        <div className="flex  gap-4 ">
+        <div className="flex items-start  gap-6 ">
           <Image
             src={picture!}
             width={300}
@@ -17,7 +17,7 @@ const Profile = ({ name, username, email, picture }: User) => {
             alt="profile image"
           />
 
-          <div className="flex flex-col gap-4 mt-4 ">
+          <div className="flex flex-col gap-4 ">
             <div className="flex flex-col gap-1">
               <h1 className="text-2xl font-poppins font-semibold capitalize">
                 {username}
@@ -35,7 +35,7 @@ const Profile = ({ name, username, email, picture }: User) => {
               </div>
               <div className="flex gap-1 items-center">
                 <FaCalendar />
-                <span>joined Feburary 2024</span>
+                <span>{createdAt}</span>
               </div>
             </div>
             <p className="font-noto_serif text-sm ">
@@ -47,7 +47,7 @@ const Profile = ({ name, username, email, picture }: User) => {
           </div>
         </div>
 
-        <Button className="mt-4 font-poppins btn-bg">Edit Profile</Button>
+        <Button className=" font-poppins btn-bg">Edit Profile</Button>
       </div>
     </section>
   );

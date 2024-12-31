@@ -12,10 +12,11 @@ const Page = async () => {
   return (
     <section className="pt-[8rem] pb-10 px-4 md:px-10 space-y-6">
       <Profile
-        name={user.name || null}
+        name={user.name}
         username={user.username}
         email={user.email}
         picture={user.picture}
+        createdAt={user.joinedAt}
       />
       <Stats />
       <UserPost />

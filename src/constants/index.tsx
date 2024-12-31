@@ -2,12 +2,8 @@ import React from "react";
 import {
   FaHome,
   FaLaptop,
-  FaLayerGroup,
   FaMoon,
-  FaObjectGroup,
-  FaPeopleArrows,
   FaQuestion,
-  FaQuestionCircle,
   FaStar,
   FaSuitcase,
   FaSun,
@@ -63,6 +59,11 @@ export const sideLinks = [
     label: "Ask a Questions",
     icon: <FaQuestion />,
     href: "/question",
+  },
+  {
+    label: "Profile",
+    icon: <FaUser />,
+    href: "/profile",
   },
 ];
 
