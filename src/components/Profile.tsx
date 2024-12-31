@@ -16,6 +16,7 @@ const Profile = ({ user }: user) => {
         day: "numeric",
       })
     : "Date not available";
+  console.log("user profile ", user);
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
       <div className="flex  ">
