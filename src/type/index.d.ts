@@ -41,3 +41,11 @@ export interface UpdateUser {
 export interface ClerkIdProp {
   clerkId: string;
 }
+
+export interface ProfileCardProps {
+  link: string;
+  username: string;
+  picture?: string;
+  email?: string;
+  tags?: string[];
+}

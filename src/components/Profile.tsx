@@ -19,7 +19,7 @@ const Profile = ({ user }: user) => {
   console.log("user profile ", user);
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
-      <div className="flex  ">
+      <div className="relative ">
         <div className="flex  gap-6 ">
           <Image
             src={user.picture!}
@@ -36,10 +36,21 @@ const Profile = ({ user }: user) => {
               </h1>
               <p className="font-poppins text-xs opacity-95">{user.email}</p>
             </div>
-            <div className="flex gap-4 items-center text-sm">
+            <div>
+              <p className="font-noto_serif w-fit ">
+                {user.bio ? user.bio : "add bio"}
+              </p>
+            </div>
+            <div className="flex gap-2 text-sm flex-wrap">
               <div className="flex gap-1 items-center">
                 <FaLink />
-                <span>{user.portfolio ? user.portfolio : "example.com"}</span>
+                <span>
+                  {user.portfolio ? (
+                    <a href={user.portfolio}>{user.portfolio}</a>
+                  ) : (
+                    "example.com"
+                  )}
+                </span>
               </div>
               <div className="flex gap-1 items-center">
                 <FaLocationArrow />
@@ -52,14 +63,13 @@ const Profile = ({ user }: user) => {
                 <span>{formattedDate}</span>
               </div>
             </div>
-            <p className="font-noto_serif text-sm w-fit px-6 py-2 self-start">
-              {user.bio ? user.bio : "add bio"}
-            </p>
           </div>
         </div>
 
-        <Link href={"profile/edit"} className=" font-poppins btn-bg">
-          Edit Profile
+        <Link href={"profile/edit"} className="absolute right-2 top-2">
+          <p className=" font-poppins btn-bg px-4 py-1.5 text-nowrap text-sm rounded-md">
+            Edit Profile
+          </p>
         </Link>
       </div>
     </section>

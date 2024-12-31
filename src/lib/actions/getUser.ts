@@ -21,3 +21,14 @@ export const getUser = async () => {
     return { success: false, error: err.message };
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    await connectToDB();
+    const allUsers = await User.find({});
+
+    return allUsers;
+  } catch (error) {
+    throw error;
+  }
+};
