@@ -9,14 +9,14 @@ interface user {
 }
 
 const Profile = ({ user }: user) => {
-  // const formattedDate = user.joinedAt
-  //   ? new Date(user.joinedAt).toLocaleDateString("en-US", {
-  //       year: "numeric",
-  //       month: "long",
-  //       day: "numeric",
-  //     })
-  //   : "Date not available";
-  // console.log("user profile ", user);
+  const formattedDate = user.joinedAt
+    ? new Date(user.joinedAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "Date not available";
+  console.log("user profile ", user);
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
       <div className="flex  ">
@@ -49,8 +49,7 @@ const Profile = ({ user }: user) => {
               </div>
               <div className="flex gap-1 items-center">
                 <FaCalendar />
-                {/* <span>{formattedDate}</span> */}
-                <span>date</span>
+                <span>{formattedDate}</span>
               </div>
             </div>
             <p className="font-noto_serif text-sm w-fit px-6 py-2 self-start">

@@ -7,7 +7,10 @@ import React from "react";
 
 const Page = async () => {
   const res = await getUser();
-  const user = res.user;
+  const user = res?.user;
+  if (!user) {
+    return <div>User not found</div>;
+  }
 
   return (
     <section className="pt-[8rem] pb-10 px-4 md:px-10 space-y-6">
