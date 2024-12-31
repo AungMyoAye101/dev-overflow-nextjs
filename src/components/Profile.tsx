@@ -1,22 +1,22 @@
 import Image from "next/image";
 import React from "react";
 import { FaCalendar, FaLink, FaLocationArrow } from "react-icons/fa";
-import { Button } from "./ui/button";
 import { UserProps } from "../type";
+import Link from "next/link";
 
 interface user {
   user: UserProps;
 }
 
 const Profile = ({ user }: user) => {
-  const formattedDate = user.joinedAt
-    ? new Date(user.joinedAt).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "Date not available";
-  console.log("user profile ", user);
+  // const formattedDate = user.joinedAt
+  //   ? new Date(user.joinedAt).toLocaleDateString("en-US", {
+  //       year: "numeric",
+  //       month: "long",
+  //       day: "numeric",
+  //     })
+  //   : "Date not available";
+  // console.log("user profile ", user);
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
       <div className="flex  ">
@@ -49,16 +49,19 @@ const Profile = ({ user }: user) => {
               </div>
               <div className="flex gap-1 items-center">
                 <FaCalendar />
-                <span>{formattedDate}</span>
+                {/* <span>{formattedDate}</span> */}
+                <span>date</span>
               </div>
             </div>
-            <p className="font-noto_serif text-sm ">
+            <p className="font-noto_serif text-sm w-fit px-6 py-2 self-start">
               {user.bio ? user.bio : "add bio"}
             </p>
           </div>
         </div>
 
-        <Button className=" font-poppins btn-bg">Edit Profile</Button>
+        <Link href={"profile/edit"} className=" font-poppins btn-bg">
+          Edit Profile
+        </Link>
       </div>
     </section>
   );

@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { editProfileSchema } from "@/src/lib/FormViladitaion";
 import { Textarea } from "@/src/components/ui/textarea";
 import { Button } from "@/src/components/ui/button";
+import { updateUser } from "@/src/lib/actions/create.user";
 
 const ProfileEdit = () => {
   //@ts-nocheck
@@ -28,9 +29,15 @@ const ProfileEdit = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof editProfileSchema>) {
+  async function onSubmit(values: z.infer<typeof editProfileSchema>) {
     //add logic
-    console.log(values);
+
+    const updateData = values;
+    try {
+      const user = await updateUser({ clerkId: "122", updateData });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -47,9 +54,9 @@ const ProfileEdit = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>User Name</FormLabel>
+                  <FormLabel> Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="username" {...field} />
+                    <Input placeholder="name" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -63,7 +70,7 @@ const ProfileEdit = () => {
                 <FormItem>
                   <FormLabel>Portfolio Link</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="you@gmai.com" {...field} />
+                    <Input type="text" placeholder="you@gmai.com" {...field} />
                   </FormControl>
 
                   <FormMessage />

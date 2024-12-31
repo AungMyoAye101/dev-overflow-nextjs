@@ -30,7 +30,7 @@ export interface CreateUser {
 export interface UpdateUser {
   clerkId: string;
   updateData: {
-    name: string;
+    name?: string;
     username: string | null;
     email?: string;
     password?: string;
