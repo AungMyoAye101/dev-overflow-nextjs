@@ -2,10 +2,10 @@ import Image from "next/image";
 import React from "react";
 import { FaCalendar, FaLink, FaLocationArrow } from "react-icons/fa";
 import { Button } from "./ui/button";
-import { CreateUser } from "../type";
+import { CreateUser, UserProps } from "../type";
 
 interface user {
-  user: CreateUser;
+  user: UserProps;
 }
 
 const Profile = ({ user }: user) => {
