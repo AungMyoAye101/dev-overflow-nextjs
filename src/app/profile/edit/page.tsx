@@ -35,6 +35,8 @@ const ProfileEdit = () => {
     const updateData = values;
     try {
       const user = await updateUser({ clerkId: "122", updateData });
+      console.log(user);
+      return user;
     } catch (error) {
       console.log(error);
     }
