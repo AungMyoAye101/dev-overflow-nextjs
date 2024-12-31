@@ -4,7 +4,7 @@ import { FaCalendar, FaLink, FaLocationArrow } from "react-icons/fa";
 import { Button } from "./ui/button";
 import { User } from "../type";
 
-const Profile = ({ name, username, email, picture, createdAt }: User) => {
+const Profile = ({ username, email, picture, createdAt }: User) => {
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
       <div className="flex justify-between ">
@@ -14,7 +14,7 @@ const Profile = ({ name, username, email, picture, createdAt }: User) => {
             width={300}
             height={300}
             className=" size-40 rounded-lg"
-            alt="profile image"
+            alt="profile image size-40 rounded-full"
           />
 
           <div className="flex flex-col gap-4 ">
