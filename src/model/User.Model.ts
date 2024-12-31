@@ -1,4 +1,5 @@
 import { Schema, models, model, Document } from "mongoose";
+import { unique } from "next/dist/build/utils";
 
 export interface IUser extends Document {
   clerkId: string;
@@ -31,6 +32,7 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,

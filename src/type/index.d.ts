@@ -3,7 +3,7 @@ export interface ThemeContextProps {
   setMode: (mode: string) => void;
 }
 
-export interface CreateUser {
+export interface UserProps {
   clerkId: string;
   name: string;
   username: string | null;
@@ -18,9 +18,24 @@ export interface CreateUser {
   joinedAt: Date;
 }
 
+export interface CreateUser {
+  clerkId: string;
+  name: string;
+  username: string | null;
+  email?: string;
+  password?: string;
+  picture?: string;
+}
+
 export interface UpdateUser {
   clerkId: string;
-  updateData: CreateUser;
+  updateData: {
+    name: string;
+    username: string | null;
+    email?: string;
+    password?: string;
+    picture?: string;
+  };
 }
 
 export interface ClerkIdProp {

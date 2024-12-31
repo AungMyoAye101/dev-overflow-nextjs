@@ -59,13 +59,14 @@ export async function POST(req: Request) {
     const { id, username, first_name, last_name, image_url, email_addresses } =
       evt.data;
 
-    const newUser = await createUser({
+    const user = {
       clerkId: id,
       name: `${first_name} ${last_name ? last_name : ""}`,
       username,
       email: email_addresses[0].email_address,
       picture: image_url,
-    });
+    };
+    const newUser = await createUser(user);
 
     return NextResponse.json({ message: "ok", user: newUser });
   }
