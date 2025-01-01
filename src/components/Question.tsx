@@ -23,7 +23,7 @@ import { askQuestion } from "@/src/lib/actions/ask.question";
 
 export function Question() {
   const [submit, setSubmit] = useState(false);
-  const formType = "edit";
+  const formType = "create question";
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,16 +36,18 @@ export function Question() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title, content, tags } = values;
+
     try {
       await askQuestion({
         title,
         content,
         tags,
-        userId: "677017983f3e2956ec3fe5ce",
       });
       setSubmit(true);
     } catch (error) {
       console.log(error);
+    } finally {
+      setSubmit(false);
     }
   }
 
@@ -65,11 +67,11 @@ export function Question() {
           message: "Tags must be lower than 3",
         });
       }
-      if (tagValue.length > 8) {
+      if (tagValue.length > 12) {
         console.log("here");
         return form.setError("tags", {
           type: "required",
-          message: "Tags must be lower than 8",
+          message: "Tags must be lower than 12",
         });
       }
 
@@ -215,7 +217,7 @@ export function Question() {
           )}
         />
         <Button type="submit" disabled={submit} className="self-end btn-bg">
-          {formType === "edit"
+          {formType === "create question"
             ? submit
               ? "Editing..."
               : "Edit"

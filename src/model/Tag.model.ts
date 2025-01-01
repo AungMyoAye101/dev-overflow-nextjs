@@ -15,7 +15,6 @@ const TagsSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   questions: [
     {
