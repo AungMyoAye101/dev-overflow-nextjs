@@ -32,3 +32,13 @@ export const getAllUsers = async () => {
     throw error;
   }
 };
+
+export const getUserById = async (id: string) => {
+  try {
+    await connectToDB();
+    const user = await User.findById(id);
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};

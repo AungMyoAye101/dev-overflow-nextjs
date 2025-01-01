@@ -6,7 +6,7 @@ export const getAllQuestions = async () => {
     await connectToDB();
     const questions = await Question.find({});
 
-    return JSON.stringify(questions);
+    return { success: true, questions };
   } catch (error) {
     return { success: false, error };
   }

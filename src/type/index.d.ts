@@ -49,3 +49,15 @@ export interface ProfileCardProps {
   email?: string;
   tags?: string[];
 }
+
+export interface QuestionProps {
+  title: string;
+  content: string;
+  tags: string[];
+  answers?: string[];
+  views?: number;
+  upvotes?: number;
+  downvotes?: number;
+  author: Schema.Types.ObjectId;
+  createdAt: Date;
+}

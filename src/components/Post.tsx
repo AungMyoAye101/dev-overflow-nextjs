@@ -2,29 +2,46 @@ import React from "react";
 import { Badge } from "./ui/badge";
 import { FaComment, FaEye, FaThumbsUp } from "react-icons/fa";
 import Image from "next/image";
+import { QuestionProps } from "../type";
+import { getUser, getUserById } from "../lib/actions/getUser";
+import { get } from "http";
+import { getTagById } from "../lib/actions/get.tags";
 
-const Post = () => {
+interface PostProps {
+  key?: string;
+  question: QuestionProps;
+}
+
+const Post = async ({ question }: PostProps) => {
+  const user = await getUserById(question.author);
+
+  const tags = [];
+  for (const tag of question.tags) {
+    const tagData = await getTagById(tag);
+    tags.push(tagData);
+  }
+  if (!user) return null;
+
   return (
     <div className="flex flex-col gap-6 px-6 py-10 rounded-md shadow dark:shadow-none bg_dark_white">
-      <h2 className="text-xl font-poppins font-bold">
-        The Lightning Component c:LWC_PizzaTracker generated invalid output for
-        field status. Error How to solve this
-      </h2>
+      <h2 className="text-xl font-poppins font-bold">{question.title}</h2>
       <div className="flex items-center gap-4">
-        <Badge className="px-3 py-1.5 font-poppins">Next JS</Badge>
-        <Badge className="px-3 py-1.5 font-poppins">React JS</Badge>
-        <Badge className="px-3 py-1.5 font-poppins">Node JS</Badge>
+        {tags.map((tag) => (
+          <Badge key={tag.name} className="px-3 py-1.5 font-poppins">
+            {tag.name}
+          </Badge>
+        ))}
       </div>
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 font-noto_serif">
           <Image
-            src={"/assets/icons/site-logo.svg"}
+            src={user.picture!}
             alt="user"
-            width={25}
-            height={25}
-            className="rounded-full"
+            width={40}
+            height={40}
+            className="w-8 h-8 rounded-full"
           />
-          <h3 className="text-sm font-semibold ">user name</h3>
+          <h3 className="text-sm font-semibold ">{user.name}</h3>
 
           <p className="text-xs">asked 2 min ago</p>
         </div>
