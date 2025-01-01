@@ -21,9 +21,9 @@ import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
 import { askQuestion } from "@/src/lib/actions/ask.question";
 
-export function Question() {
-  const [submit, setSubmit] = useState(false);
-  const formType = "create question";
+export function Question({ formType }: { formType: string }) {
+  const [isSubmiting, setSubmiting] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,11 +43,11 @@ export function Question() {
         content,
         tags,
       });
-      setSubmit(true);
+      setSubmiting(true);
     } catch (error) {
       console.log(error);
     } finally {
-      setSubmit(false);
+      setSubmiting(false);
     }
   }
 
@@ -68,7 +68,6 @@ export function Question() {
         });
       }
       if (tagValue.length > 12) {
-        console.log("here");
         return form.setError("tags", {
           type: "required",
           message: "Tags must be lower than 12",
@@ -216,14 +215,18 @@ export function Question() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={submit} className="self-end btn-bg">
-          {formType === "create question"
-            ? submit
-              ? "Editing..."
-              : "Edit"
-            : submit
-            ? "Posting..."
-            : "Ask a question"}
+        <Button
+          type="submit"
+          disabled={isSubmiting}
+          className="self-end btn-bg"
+        >
+          {formType === "create"
+            ? isSubmiting
+              ? "Creating"
+              : "Create"
+            : isSubmiting
+            ? "Editing"
+            : "Edit"}
         </Button>
       </form>
     </Form>

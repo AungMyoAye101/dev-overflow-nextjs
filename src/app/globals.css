@@ -48,7 +48,7 @@
     border: 1px solid #f1f1f1;
   }
   .btn-bg {
-    @apply bg-gradient-to-tr from-orange to-yellow-500;
+    @apply bg-gradient-to-tr from-orange to-yellow-500 text-white;
   }
 }
 

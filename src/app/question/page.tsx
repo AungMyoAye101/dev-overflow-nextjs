@@ -9,7 +9,7 @@ const page = async () => {
         <h1 className="h1-bold">Question</h1>
       </div>
       <div>
-        <Question />
+        <Question formType="Create" />
       </div>
     </div>
   );
