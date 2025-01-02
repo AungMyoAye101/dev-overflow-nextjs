@@ -51,6 +51,7 @@ export interface ProfileCardProps {
 }
 
 export interface QuestionProps {
+  _id?: string;
   title: string;
   content: string;
   tags: string[];

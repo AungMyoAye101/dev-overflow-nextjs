@@ -4,9 +4,10 @@ import Question from "@/src/model/question.model";
 import connectToDB from "../../database/db";
 import Tags from "@/src/model/Tag.model";
 import { getUser } from "./getUser";
+import { revalidatePath } from "next/cache";
 
 export const askQuestion = async (params: any) => {
-  const { title, content, tags } = params;
+  const { title, content, tags, path } = params;
   try {
     await connectToDB();
     const user = await getUser();
@@ -36,9 +37,10 @@ export const askQuestion = async (params: any) => {
       $push: { tags: { $each: tagsId } },
     });
 
-    return { success: true, question };
+    revalidatePath(path);
+    return question;
   } catch (error: any) {
     console.error("Error asking question:", error.message);
-    return { success: false, error };
+    throw error;
   }
 };

@@ -20,9 +20,13 @@ import { Textarea } from "./ui/textarea";
 import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
 import { askQuestion } from "@/src/lib/actions/ask.question";
+import { usePathname, useRouter } from "next/navigation";
 
 export function Question({ formType }: { formType: string }) {
   const [isSubmiting, setSubmiting] = useState(false);
+
+  const path = usePathname();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,12 +46,14 @@ export function Question({ formType }: { formType: string }) {
         title,
         content,
         tags,
+        path,
       });
       setSubmiting(true);
     } catch (error) {
       console.log(error);
     } finally {
       setSubmiting(false);
+      router.push("/");
     }
   }
 
