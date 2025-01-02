@@ -9,6 +9,9 @@
   .h2-bold {
     @apply font-poppins text-2xl font-bold;
   }
+  .h3-bold {
+    @apply font-poppins text-xl font-bold;
+  }
   .para {
     @apply text-sm font-noto_serif;
   }

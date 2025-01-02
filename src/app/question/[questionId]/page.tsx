@@ -1,3 +1,4 @@
+import Answer from "@/src/components/Answer";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/getAllQuestion";
@@ -21,6 +22,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
   return (
     <section className="page_padding">
       <div className="flex flex-col gap-6 bg_dark_white px-6 py-6 rounded-lg shadow-md dark:shadow-none">
+        {/* User profile and votes */}
         <div className="flex justify-between items-center ">
           <Link
             href={`/profile/${questionDetail.author._id}`}
@@ -68,6 +70,9 @@ const page = async ({ params }: { params: { questionId: string } }) => {
           </div>
         </div>
       </div>
+
+      {/* answer section */}
+      <Answer />
     </section>
   );
 };
