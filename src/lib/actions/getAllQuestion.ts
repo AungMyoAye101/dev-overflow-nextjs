@@ -11,3 +11,26 @@ export const getAllQuestions = async () => {
     throw error;
   }
 };
+
+export const getQuestionById = async (id: string) => {
+  try {
+    await connectToDB();
+    const question = await Question.findById(id)
+      .populate({
+        path: "author",
+        select: "name picture ",
+      })
+      .populate({
+        path: "tags",
+        select: "name  ",
+      });
+
+    if (!question) {
+      return console.log("question not found");
+    }
+    console.log(question);
+    return question;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -4,10 +4,10 @@
 
 @layer utilities {
   .h1-bold {
-    @apply text-4xl font-bold;
+    @apply font-poppins text-4xl font-bold;
   }
   .h2-bold {
-    @apply text-2xl font-bold;
+    @apply font-poppins text-2xl font-bold;
   }
   .para {
     @apply text-sm font-noto_serif;
@@ -25,7 +25,7 @@
     @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:btn-bg;
   }
   .page-container {
-    @apply flex flex-col gap-10   custom-scrollbar pt-28 pb-10 px-4 md:px-10 bg-light-gray dark:bg-black border-2;
+    @apply flex-1 flex flex-col gap-10   custom-scrollbar pt-28 pb-10 px-4 md:px-10 bg-light-gray dark:bg-black border-2;
   }
 
   .shadow_rounded {
