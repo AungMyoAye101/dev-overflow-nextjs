@@ -50,15 +50,28 @@ export interface ProfileCardProps {
   tags?: string[];
 }
 
+export interface TagProps {
+  _id: string;
+  name: string;
+  description?: string;
+  questions: Schema.Types.ObjectId[];
+  followers: Schema.Types.ObjectId[];
+  createdOn: Date;
+}
+
 export interface QuestionProps {
   _id?: string;
   title: string;
   content: string;
-  tags: string[];
+  tags: TagProps[];
   answers?: string[];
   views?: number;
-  upvotes?: number;
-  downvotes?: number;
-  author: Schema.Types.ObjectId;
+  upvotes?: string[];
+  downvotes?: string[];
+  author: {
+    _id: string;
+    name: string;
+    picture?: string;
+  };
   createdAt: Date;
 }

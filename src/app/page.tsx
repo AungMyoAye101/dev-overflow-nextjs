@@ -3,10 +3,13 @@ import Post from "@/src/components/Post";
 
 import Link from "next/link";
 import { getAllQuestions } from "../lib/actions/getAllQuestion";
+import { getUser } from "../lib/actions/getUser";
 
 export default async function Home() {
-  const { questions } = await getAllQuestions();
-  if (!questions) return { notFound: true };
+  const questions = await getAllQuestions();
+
+  if (!questions) return;
+  console.log(questions);
 
   return (
     <div className="flex-1 flex flex-col gap-10   custom-scrollbar pt-[8rem] pb-10  px-4 md:px-10 bg-light-gray dark:bg-black border-2 ">

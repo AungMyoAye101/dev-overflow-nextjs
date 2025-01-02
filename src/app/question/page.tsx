@@ -6,10 +6,10 @@ const page = async () => {
   return (
     <div className="page-container flex-1 flex flex-col">
       <div>
-        <h1 className="h1-bold">Question</h1>
+        <h1 className="h1-bold">Create Question</h1>
       </div>
       <div>
-        <Question formType="Create" />
+        <Question formType="create" />
       </div>
     </div>
   );

@@ -12,11 +12,11 @@ export const askQuestion = async (params: any) => {
     await connectToDB();
     const user = await getUser();
     if (!user) return;
-    const userId = user.user?._id;
+
     const question = await Question.create({
       title,
       content,
-      author: userId,
+      author: user._id,
     });
 
     const tagsId = [];

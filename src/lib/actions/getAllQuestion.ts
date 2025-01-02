@@ -4,9 +4,11 @@ import Question from "@/src/model/question.model";
 export const getAllQuestions = async () => {
   try {
     await connectToDB();
-    const questions = await Question.find();
+    const questions = await Question.find()
+      .populate({ path: "author", select: "_id name picture " })
+      .populate({ path: "tags", select: "_id name  " });
     if (!questions) return console.log("No questions found");
-    return { success: true, questions };
+    return questions;
   } catch (error) {
     throw error;
   }
