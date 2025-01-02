@@ -1,4 +1,5 @@
 import { Badge } from "@/src/components/ui/badge";
+import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/getAllQuestion";
 import { getUser } from "@/src/lib/actions/getUser";
 import { timestamp } from "@/src/lib/utils";
@@ -36,7 +37,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
               {questionDetail.author.name}
             </h1>
           </Link>
-          <div>Voting</div>
+          <Votes />
         </div>
 
         <div className="flex flex-col gap-4 ">
