@@ -73,7 +73,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
       </div>
 
       {/* answer section */}
-      <Answer user={user} />
+      <Answer user={user} questionId={questionDetail._id} />
     </section>
   );
 };

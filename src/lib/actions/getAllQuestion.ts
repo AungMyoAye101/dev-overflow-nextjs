@@ -10,7 +10,7 @@ export const getAllQuestions = async () => {
       .populate({ path: "author", model: User })
       .populate({ path: "tags", model: Tags });
     if (!questions) return console.log("No questions found");
-    console.log(questions);
+
     return questions;
   } catch (error) {
     throw error;
@@ -23,17 +23,17 @@ export const getQuestionById = async (id: string) => {
     const question = await Question.findById(id)
       .populate({
         path: "author",
-        select: "name picture ",
+        model: User,
       })
       .populate({
         path: "tags",
-        select: "name  ",
+        model: Tags,
       });
 
     if (!question) {
       return console.log("question not found");
     }
-    console.log(question);
+
     return question;
   } catch (error) {
     throw error;

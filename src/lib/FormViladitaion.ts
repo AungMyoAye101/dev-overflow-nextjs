@@ -30,3 +30,9 @@ export const editProfileSchema = z.object({
     message: "bio must be at least 12 characters.",
   }),
 });
+
+export const answerSchema = z.object({
+  answer: z.string().min(12, {
+    message: "Answer must be at least 12 characters",
+  }),
+});

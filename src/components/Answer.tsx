@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/src/components/ui/button";
-import { formSchema } from "@/src/lib/FormViladitaion";
+import { answerSchema, formSchema } from "@/src/lib/FormViladitaion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -27,23 +27,27 @@ import Link from "next/link";
 import Votes from "./Votes";
 import { Textarea } from "./ui/textarea";
 import { UserProps } from "../type";
+import { createAnswer } from "../lib/actions/create.answer";
 interface user {
   user: UserProps;
+  questionId: string;
 }
 
-const Answer = ({ user }: user) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      content: "",
-      tags: [],
-    },
-  });
+const Answer = ({ user, questionId }: user) => {
+  const handleSubmit = async (formdata: FormData) => {
+    const answer = formdata.get("answer");
+    try {
+      const res = await createAnswer({
+        answer,
+        userId: user._id,
+        question: questionId,
+      });
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
   return (
     <section className="flex flex-col gap-6 bg_dark_white px-6 py-6 rounded-lg shadow-md dark:shadow-none">
       <div className="flex justify-between items-center">
@@ -76,28 +80,35 @@ const Answer = ({ user }: user) => {
         <Votes />
       </div>
 
-      <Form {...form}>
+      {/* <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-6 "
         >
           <FormField
             control={form.control}
-            name="title"
+            name="answer"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>What is your answer</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Title" {...field} />
+                  <Textarea placeholder="Enter your though" {...field} />
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className="px-4 py-1.5 btn-bg self-end">Post Answer</Button>
+          <Button type="submit" className="px-4 py-1.5 btn-bg self-end">
+            Post Answer
+          </Button>
         </form>
-      </Form>
+      </Form> */}
+
+      <form action={handleSubmit} className="flex flex-col gap-6 ">
+        <textarea name="answer" id="" placeholder="enter your answer" />
+        <button type="submit">Submit</button>
+      </form>
     </section>
   );
 };

@@ -6,7 +6,7 @@ export const createUser = async (params: CreateUser) => {
   try {
     await connectToDB();
     const newuser = await User.create(params);
-    console.log(newuser);
+
     return newuser;
   } catch (err: any) {
     console.log("Faild to create user", err.message);
@@ -19,6 +19,7 @@ export const updateUser = async (params: UpdateUser) => {
   try {
     await connectToDB();
     await User.findOneAndUpdate({ clerkId }, updateData, { new: true });
+    return { success: true };
   } catch (err: any) {
     console.log("Faild to create user", err.message);
     return { success: false, error: err.message };

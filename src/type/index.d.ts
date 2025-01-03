@@ -4,6 +4,7 @@ export interface ThemeContextProps {
 }
 
 export interface UserProps {
+  _id?: string;
   clerkId: string;
   name: string;
   username: string | null;
