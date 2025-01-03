@@ -6,17 +6,13 @@ import { getUser } from "@/src/lib/actions/getUser";
 import React from "react";
 
 const Page = async () => {
-  const res = await getUser();
-  const user = res?.user;
-  if (!user) {
-    return <div>User not found</div>;
-  }
+  const user = await getUser();
 
   return (
     <section className="page_padding">
       <Profile user={user} />
       <Stats />
-      <UserPost />
+      {/* <UserPost /> */}
     </section>
   );
 };

@@ -8,13 +8,11 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/src/components/ui/form";
-import { Input } from "@/src/components/ui/input";
 import { useForm } from "react-hook-form";
 import {
   Select,
@@ -28,8 +26,12 @@ import Image from "next/image";
 import Link from "next/link";
 import Votes from "./Votes";
 import { Textarea } from "./ui/textarea";
+import { UserProps } from "../type";
+interface user {
+  user: UserProps;
+}
 
-const Answer = () => {
+const Answer = ({ user }: user) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,15 +65,13 @@ const Answer = () => {
       <div className="flex justify-between items-center ">
         <Link href={`/profile`} className="flex items-center gap-2">
           <Image
-            src={"/assets/icons/site-logo.png"}
+            src={user.picture!}
             width={40}
             height={40}
             alt="profile"
             className="w-8 h-8 rounded-full"
           />
-          <h1 className="font-semibold font-poppins ">
-            {/* {questionDetail.author.name} */} happy
-          </h1>
+          <h1 className="font-semibold font-poppins ">{user.name}</h1>
         </Link>
         <Votes />
       </div>
@@ -95,7 +95,7 @@ const Answer = () => {
               </FormItem>
             )}
           />
-          <Button>Post Answer</Button>
+          <Button className="px-4 py-1.5 btn-bg self-end">Post Answer</Button>
         </form>
       </Form>
     </section>

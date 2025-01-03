@@ -15,12 +15,11 @@ interface PostProps {
 }
 
 const Post = async ({ question }: PostProps) => {
-  console.log("post", question);
   const formatDate = timestamp(question.createdAt);
   return (
     <div className="flex flex-col gap-6 px-6 py-10 rounded-md shadow dark:shadow-none bg_dark_white">
       <Link href={`/question/${question._id}`}>
-        <h2 className="text-xl font-poppins font-bold">{question.title}</h2>
+        <h2 className="h3-bold hover:text-orange">{question.title}</h2>
       </Link>
       <div className="flex items-center gap-4">
         {question.tags.map((tag) => (
@@ -30,9 +29,12 @@ const Post = async ({ question }: PostProps) => {
         ))}
       </div>
       <div className="flex items-center justify-between gap-4">
-        {/* <div className="flex items-center gap-2 font-noto_serif">
+        <Link
+          href={`/profile/${question.author._id}`}
+          className="flex items-center gap-2 font-noto_serif"
+        >
           <Image
-            src={question.author.picture || ""}
+            src={question.author.picture!}
             alt="user"
             width={40}
             height={40}
@@ -41,7 +43,7 @@ const Post = async ({ question }: PostProps) => {
           <h3 className="text-sm font-semibold ">{question.author.name}</h3>
 
           <p className="text-xs">{formatDate}</p>
-        </div> */}
+        </Link>
         <div className="flex items-center gap-2 text-sm font-noto_serif">
           <div className="flex items-center gap-1">
             <FaThumbsUp className="text-blue-600 cursor-pointer" />

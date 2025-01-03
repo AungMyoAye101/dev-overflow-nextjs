@@ -18,6 +18,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
     return console.log("question detail not found");
   }
   const formattedDate = timestamp(questionDetail.createdAt);
+  const user = await getUser();
 
   return (
     <section className="page_padding">
@@ -72,7 +73,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
       </div>
 
       {/* answer section */}
-      <Answer />
+      <Answer user={user} />
     </section>
   );
 };

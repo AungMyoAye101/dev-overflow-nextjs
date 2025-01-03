@@ -1,13 +1,16 @@
 import connectToDB from "@/src/database/db";
 import Question from "@/src/model/question.model";
+import Tags from "@/src/model/Tag.model";
+import User from "@/src/model/User.Model";
 
 export const getAllQuestions = async () => {
   try {
     await connectToDB();
     const questions = await Question.find()
-      .populate({ path: "author", select: "_id name picture " })
-      .populate({ path: "tags", select: "_id name  " });
+      .populate({ path: "author", model: User })
+      .populate({ path: "tags", model: Tags });
     if (!questions) return console.log("No questions found");
+    console.log(questions);
     return questions;
   } catch (error) {
     throw error;

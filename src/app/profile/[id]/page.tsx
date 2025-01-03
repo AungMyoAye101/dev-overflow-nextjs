@@ -10,7 +10,7 @@ const page = async ({ params }: { params: { id: string } }) => {
     <section className="page_padding">
       <Profile user={user} />
       <Stats />
-      <UserPost />
+      {/* <UserPost /> */}
     </section>
   );
 };
