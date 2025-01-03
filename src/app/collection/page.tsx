@@ -11,7 +11,6 @@ const page = () => {
           .fill(null)
           .map((t, i) => (
             <div key={i} className="flex bg_dark_white ">
-              <Post />
               <FaStar className="text-orange text-2xl mt-10 mr-4" />
             </div>
           ))}

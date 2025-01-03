@@ -2,20 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Badge } from "./ui/badge";
-import { ProfileCardProps } from "../type";
+import { ProfileCardProps, UserProps } from "../type";
+
 interface CardProps {
-  key?: number;
-  user: ProfileCardProps;
+  user: UserProps;
 }
 
-const Card = ({ user, key }: CardProps) => {
+const Card = ({ user }: CardProps) => {
   return (
     <Link
-      key={key}
-      href={`/profile/${user.link}`}
+      href={`/profile/${user._id}`}
       className="bg_dark_white flex flex-col justify-center items-center gap-4 px-4 py-6 shadow_rounded w-fit"
     >
-      <Image src={user.picture!} width={40} height={40} alt="user photo" />
+      <Image
+        src={user.picture!}
+        width={40}
+        height={40}
+        alt="user photo"
+        className="w-20 h-20 rounded-full "
+      />
 
       <div className="text-center font-poppins">
         <h3 className="text-lg font-semibold">{user.username}</h3>

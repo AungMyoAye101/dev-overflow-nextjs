@@ -1,15 +1,14 @@
 import Card from "@/src/components/Card";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
-import { Badge } from "@/src/components/ui/badge";
+
 import { getAllUsers } from "@/src/lib/actions/getUser";
-import Image from "next/image";
+
 import React from "react";
 
 const Page = async () => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const allUsers = await getAllUsers();
-  if (!allUsers) return;
-
+  if (!allUsers) return console.log("failed tp fetch all users");
+  console.log("all user", allUsers);
   return (
     <section className="page_padding">
       <h1 className="h1-bold">All Users</h1>
@@ -17,8 +16,9 @@ const Page = async () => {
 
       {/* Grid container */}
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-4 place-items-center">
-        {allUsers.length < 0 &&
-          allUsers.map((user, i) => <Card user={user} key={i} />)}
+        {allUsers.map((user) => (
+          <Card user={user} key={user._id} />
+        ))}
       </div>
     </section>
   );

@@ -20,7 +20,7 @@ export const getUser = async () => {
 export const getAllUsers = async () => {
   try {
     await connectToDB();
-    const allUsers = await User.find({});
+    const allUsers = await User.find();
 
     return allUsers;
   } catch (error) {
