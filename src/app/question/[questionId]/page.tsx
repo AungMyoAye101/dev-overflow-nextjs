@@ -11,7 +11,7 @@ import React from "react";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
 const page = async ({ params }: { params: { questionId: string } }) => {
-  const { questionId } = params;
+  const { questionId } = await params;
 
   const res = await getQuestionById(questionId);
   const question = JSON.parse(JSON.stringify(res));

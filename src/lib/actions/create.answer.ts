@@ -1,13 +1,17 @@
+"use server";
+
 import connectToDB from "@/src/database/db";
-import Answer from "@/src/model/answer.model";
+
 import { AnswerProps } from "@/src/type";
 import { getUser } from "./getUser";
-import Question from "@/src/model/question.model";
+
 import { revalidatePath } from "next/cache";
+import Answer from "@/src/model/answer.model";
+import Question from "@/src/model/question.model";
 
 export const createAnswer = async (params: AnswerProps) => {
   const { content, questionId, path } = params;
-  console.log(content, questionId);
+
   try {
     await connectToDB();
     const user = await getUser();
@@ -21,10 +25,17 @@ export const createAnswer = async (params: AnswerProps) => {
       author: user._id,
     });
 
-    await Question.findByIdAndUpdate(questionId, { answers: newAnswer._id });
+    await Question.findByIdAndUpdate(
+      questionId,
+      {
+        $push: { answers: newAnswer._id },
+      },
+      { new: true }
+    );
 
     revalidatePath(path);
   } catch (error) {
+    console.log("failed to create answer", error);
     throw error;
   }
 };

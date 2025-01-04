@@ -37,14 +37,14 @@ const Answer = ({ questionId }: Props) => {
   async function submitHandler(values: z.infer<typeof answerSchema>) {
     setSubmiting(true);
     const { content } = values;
-    // try {
-    //   await createAnswer({ content, questionId, path });
-    //   form.reset();
-    // } catch (error) {
-    //   throw error;
-    // } finally {
-    //   setSubmiting(false);
-    // }
+    try {
+      await createAnswer({ content, questionId, path });
+      form.reset();
+    } catch (error) {
+      throw error;
+    } finally {
+      setSubmiting(false);
+    }
   }
 
   return (
