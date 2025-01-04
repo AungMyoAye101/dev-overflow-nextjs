@@ -3,6 +3,7 @@ import Answer from "@/src/components/Answer";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/getAllQuestion";
+import { getUser } from "@/src/lib/actions/getUser";
 
 import { timestamp } from "@/src/lib/utils";
 
@@ -18,6 +19,10 @@ const page = async ({ params }: { params: { questionId: string } }) => {
   const question = JSON.parse(JSON.stringify(res));
 
   const formattedDate = timestamp(question.createdAt);
+
+  const user = await getUser();
+  if (!user) return;
+  const currUserId = user._id;
 
   return (
     <section className="page_padding">
@@ -39,7 +44,15 @@ const page = async ({ params }: { params: { questionId: string } }) => {
               {question.author.name}
             </h1>
           </Link>
-          <Votes />
+          <Votes
+            questionId={question._id}
+            userId={currUserId.toString()}
+            upVotes={question.upvotes.length}
+            downVotes={question.downvotes.length}
+            hasUpvoted={question.upvotes.includes(currUserId)}
+            hasDownvoted={question.downvotes.includes(currUserId)}
+            hasSaved={user.saved.includes(question._id)}
+          />
         </div>
 
         <div className="flex flex-col gap-4 ">

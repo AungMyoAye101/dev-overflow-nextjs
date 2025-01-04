@@ -87,3 +87,21 @@ export interface AnswerProps {
   questionId: string;
   path: string;
 }
+
+export interface VotesProps {
+  questionId: string;
+  userId: string;
+  upVotes: number;
+  downVotes: number;
+  hasUpvoted: boolean;
+  hasDownvoted: boolean;
+  hasSaved: boolean;
+}
+
+export interface VotesParams {
+  questionId: string;
+  userId: string;
+  hasUpvoted: boolean;
+  hasDownvoted: boolean;
+  path: string;
+}
