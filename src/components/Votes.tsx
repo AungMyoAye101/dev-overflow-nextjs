@@ -8,11 +8,11 @@ const Votes = () => {
       <div className="flex items-center gap-1 ">
         <ImArrowUp className="text-lg" />
 
-        <p className="bg-gray-400 text-xs px-1 py-1 rounded ">12</p>
+        <p className="bg-gray-200 text-black text-xs px-1 py-1 rounded ">12</p>
       </div>
       <div className="flex items-center gap-1 ">
         <ImArrowDown className="text-lg" />
-        <p className="bg-gray-400 text-xs px-1 py-1 rounded ">12</p>
+        <p className="bg-gray-200 text-black text-xs px-1 py-1 rounded ">12</p>
       </div>
       <div>
         <FaRegStar className="text-lg" />

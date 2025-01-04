@@ -1,24 +1,23 @@
+import AllAnswer from "@/src/components/AllAnswer";
 import Answer from "@/src/components/Answer";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/getAllQuestion";
-import { getUser } from "@/src/lib/actions/getUser";
+
 import { timestamp } from "@/src/lib/utils";
-import { QuestionProps } from "@/src/type";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaClock, FaComment, FaEye, FaThumbsUp } from "react-icons/fa";
+import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
 const page = async ({ params }: { params: { questionId: string } }) => {
-  const { questionId } = params;
+  const { questionId } = await params;
 
-  const questionDetail = await getQuestionById(questionId);
-  if (!questionDetail) {
-    return console.log("question detail not found");
-  }
-  const formattedDate = timestamp(questionDetail.createdAt);
-  const user = await getUser();
+  const res = await getQuestionById(questionId);
+  const question = JSON.parse(JSON.stringify(res));
+
+  const formattedDate = timestamp(question.createdAt);
 
   return (
     <section className="page_padding">
@@ -26,25 +25,25 @@ const page = async ({ params }: { params: { questionId: string } }) => {
         {/* User profile and votes */}
         <div className="flex justify-between items-center ">
           <Link
-            href={`/profile/${questionDetail.author._id}`}
+            href={`/profile/${question.author._id}`}
             className="flex items-center gap-2"
           >
             <Image
-              src={questionDetail.author.picture}
+              src={question.author.picture}
               width={40}
               height={40}
-              alt={`${questionDetail.author.name} profile`}
+              alt={`${question.author.name} profile`}
               className="w-8 h-8 rounded-full"
             />
             <h1 className="font-semibold font-poppins ">
-              {questionDetail.author.name}
+              {question.author.name}
             </h1>
           </Link>
           <Votes />
         </div>
 
         <div className="flex flex-col gap-4 ">
-          <h1 className="h2-bold">{questionDetail.title}</h1>
+          <h1 className="h2-bold">{question.title}</h1>
 
           <div className="flex items-center gap-3 text-sm font-noto_serif">
             <div className="flex items-center gap-1">
@@ -54,16 +53,16 @@ const page = async ({ params }: { params: { questionId: string } }) => {
 
             <div className="flex items-center gap-1">
               <FaComment className="text-blue-600 cursor-pointer" />
-              <p>{questionDetail.answers.length} Answers</p>
+              <p>{question.answers.length} Answers</p>
             </div>
             <div className="flex items-center gap-1">
               <FaEye className="text-blue-600 cursor-pointer" />
-              <p>{questionDetail.views} Views</p>
+              <p>{question.views} Views</p>
             </div>
           </div>
-          <p className="para">{questionDetail.content}</p>
+          <p className="para">{question.content}</p>
           <div className="flex items-center gap-4 ">
-            {questionDetail.tags.map((tag: { _id: string; name: string }) => (
+            {question.tags.map((tag: { _id: string; name: string }) => (
               <Badge key={tag._id} className="px-4 py-1.5">
                 {tag.name}
               </Badge>
@@ -72,8 +71,10 @@ const page = async ({ params }: { params: { questionId: string } }) => {
         </div>
       </div>
 
-      {/* answer section */}
-      <Answer user={user} />
+      {/* Answers */}
+      <AllAnswer questionId={question._id} />
+
+      <Answer questionId={question._id} />
     </section>
   );
 };

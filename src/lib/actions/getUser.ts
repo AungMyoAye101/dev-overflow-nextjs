@@ -9,7 +9,6 @@ export const getUser = async () => {
     await connectToDB();
     const { userId } = await auth();
     const user = await User.findOne({ clerkId: userId });
-    console.log("user", user);
     return user;
   } catch (err: any) {
     console.log("Faild to fetch user", err.message);
@@ -20,7 +19,7 @@ export const getUser = async () => {
 export const getAllUsers = async () => {
   try {
     await connectToDB();
-    const allUsers = await User.find();
+    const allUsers = await User.find().lean();
 
     return allUsers;
   } catch (error) {
@@ -31,8 +30,8 @@ export const getAllUsers = async () => {
 export const getUserById = async (id: string) => {
   try {
     await connectToDB();
-    const user = await User.findById(id);
-    console.log("user", user);
+    const user = await User.findById(id).lean();
+
     return user;
   } catch (error) {
     throw error;

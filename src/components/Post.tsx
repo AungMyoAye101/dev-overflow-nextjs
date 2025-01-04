@@ -10,7 +10,6 @@ import Link from "next/link";
 import { timestamp } from "../lib/utils";
 
 interface PostProps {
-  key?: string;
   question: QuestionProps;
 }
 

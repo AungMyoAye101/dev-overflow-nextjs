@@ -4,6 +4,7 @@ export interface ThemeContextProps {
 }
 
 export interface UserProps {
+  _id?: string;
   clerkId: string;
   name: string;
   username: string | null;
@@ -68,10 +69,21 @@ export interface QuestionProps {
   views?: number;
   upvotes?: string[];
   downvotes?: string[];
-  author: {
-    _id: string;
-    name: string;
-    picture?: string;
-  };
+  author: UserProps;
   createdAt: Date;
+}
+
+export interface AnswerTypes {
+  _id: string;
+  content: string;
+  question: string;
+  upvotes?: string[];
+  downvotes?: string[];
+  author: UserProps;
+  createdAt: Date;
+}
+export interface AnswerProps {
+  content: string;
+  questionId: string;
+  path: string;
 }
