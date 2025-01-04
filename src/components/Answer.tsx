@@ -29,23 +29,22 @@ import { Textarea } from "./ui/textarea";
 import { UserProps } from "../type";
 import { createAnswer } from "../lib/actions/create.answer";
 interface user {
-  user: UserProps;
   questionId: string;
 }
 
-const Answer = ({ user, questionId }: user) => {
+const Answer = ({ questionId }: user) => {
   const handleSubmit = async (formdata: FormData) => {
-    const answer = formdata.get("answer");
-    try {
-      const res = await createAnswer({
-        answer,
-        userId: user._id,
-        question: questionId,
-      });
-      return res;
-    } catch (error) {
-      console.log(error);
-    }
+    // const answer = formdata.get("answer");
+    // try {
+    //   const res = await createAnswer({
+    //     answer,
+    //     userId: user._id,
+    //     question: questionId,
+    //   });
+    //   return res;
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
@@ -66,7 +65,7 @@ const Answer = ({ user, questionId }: user) => {
         </Select>
       </div>
       {/* User profile and votes */}
-      <div className="flex justify-between items-center ">
+      {/* <div className="flex justify-between items-center ">
         <Link href={`/profile`} className="flex items-center gap-2">
           <Image
             src={user.picture!}
@@ -78,7 +77,7 @@ const Answer = ({ user, questionId }: user) => {
           <h1 className="font-semibold font-poppins ">{user.name}</h1>
         </Link>
         <Votes />
-      </div>
+      </div> */}
 
       {/* <Form {...form}>
         <form

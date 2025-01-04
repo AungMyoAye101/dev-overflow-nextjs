@@ -69,10 +69,6 @@ export interface QuestionProps {
   views?: number;
   upvotes?: string[];
   downvotes?: string[];
-  author: {
-    _id: string;
-    name: string;
-    picture?: string;
-  };
+  author: UserProps;
   createdAt: Date;
 }

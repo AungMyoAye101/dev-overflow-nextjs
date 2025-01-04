@@ -8,7 +8,8 @@ export const getAllQuestions = async () => {
     await connectToDB();
     const questions = await Question.find()
       .populate({ path: "author", model: User })
-      .populate({ path: "tags", model: Tags });
+      .populate({ path: "tags", model: Tags })
+      .lean();
     if (!questions) return console.log("No questions found");
 
     return questions;
@@ -21,19 +22,21 @@ export const getQuestionById = async (id: string) => {
   try {
     await connectToDB();
     const question = await Question.findById(id)
+
+      .populate({
+        path: "tags",
+        model: Tags,
+      })
       .populate({
         path: "author",
         model: User,
       })
-      .populate({
-        path: "tags",
-        model: Tags,
-      });
+      .lean();
 
     if (!question) {
       return console.log("question not found");
     }
-
+    console.log(question);
     return question;
   } catch (error) {
     throw error;

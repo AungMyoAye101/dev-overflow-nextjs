@@ -20,7 +20,7 @@ export const getUser = async () => {
 export const getAllUsers = async () => {
   try {
     await connectToDB();
-    const allUsers = await User.find();
+    const allUsers = await User.find().lean();
 
     return allUsers;
   } catch (error) {
@@ -31,7 +31,7 @@ export const getAllUsers = async () => {
 export const getUserById = async (id: string) => {
   try {
     await connectToDB();
-    const user = await User.findById(id);
+    const user = await User.findById(id).lean();
 
     return user;
   } catch (error) {
