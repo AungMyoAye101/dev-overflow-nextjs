@@ -72,7 +72,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
       </div>
 
       {/* Answers */}
-      <AllAnswer />
+      <AllAnswer questionId={question._id} />
 
       <Answer questionId={question._id} />
     </section>

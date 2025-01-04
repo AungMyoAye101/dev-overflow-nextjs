@@ -1,10 +1,8 @@
 "use server";
 
 import connectToDB from "@/src/database/db";
-
 import { AnswerProps } from "@/src/type";
 import { getUser } from "./getUser";
-
 import { revalidatePath } from "next/cache";
 import Answer from "@/src/model/answer.model";
 import Question from "@/src/model/question.model";
@@ -41,17 +39,25 @@ export const createAnswer = async (params: AnswerProps) => {
   }
 };
 
-export const getAllAnswers = async () => {
+export const getAllAnswers = async (id: string) => {
   try {
     await connectToDB();
-    const answers = await Answer.find().populate({
-      path: "author",
-      model: User,
+    const question = await Question.findById(id).populate({
+      path: "answers",
+      populate: {
+        path: "author",
+        model: User,
+        select: "name username email picture",
+      },
     });
 
-    console.log(answers);
-    return answers;
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    return question.answers;
   } catch (error) {
+    console.error("Failed to fetch answers", error);
     throw error;
   }
 };

@@ -73,6 +73,15 @@ export interface QuestionProps {
   createdAt: Date;
 }
 
+export interface AnswerTypes {
+  _id: string;
+  content: string;
+  question: string;
+  upvotes?: string[];
+  downvotes?: string[];
+  author: UserProps;
+  createdAt: Date;
+}
 export interface AnswerProps {
   content: string;
   questionId: string;
