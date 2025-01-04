@@ -55,7 +55,7 @@ const AllAnswer = async () => {
             </Link>
             <Votes />
           </div>
-          <div className="mt-4">{answer.content}</div>
+          <div className="mt-4 font-noto_serif">{answer.content}</div>
         </main>
       ))}
 
