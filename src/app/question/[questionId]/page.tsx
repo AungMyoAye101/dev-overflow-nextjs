@@ -1,3 +1,4 @@
+import AllAnswer from "@/src/components/AllAnswer";
 import Answer from "@/src/components/Answer";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
@@ -71,6 +72,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
       </div>
 
       {/* Answers */}
+      <AllAnswer />
 
       <Answer questionId={question._id} />
     </section>
