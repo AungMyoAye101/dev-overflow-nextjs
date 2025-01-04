@@ -36,7 +36,7 @@ export const getQuestionById = async (id: string) => {
     if (!question) {
       return console.log("question not found");
     }
-    console.log(question);
+
     return question;
   } catch (error) {
     throw error;

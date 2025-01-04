@@ -1,7 +1,16 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, Document } from "mongoose";
 
-const answerSchema = new Schema({
-  answer: {
+interface IAnswer extends Document {
+  content: string;
+  question: Schema.Types.ObjectId;
+  upvotes: Schema.Types.ObjectId[];
+  downvotes: Schema.Types.ObjectId[];
+  author: Schema.Types.ObjectId;
+  createdAt: Date;
+}
+
+const AnswerSchema = new Schema({
+  content: {
     type: String,
     required: true,
   },
@@ -31,6 +40,6 @@ const answerSchema = new Schema({
   },
 });
 
-const Answer = models.Answer || model("Answer", answerSchema);
+const Answer = models.Answer || model<IAnswer>("Answer", AnswerSchema);
 
 export default Answer;

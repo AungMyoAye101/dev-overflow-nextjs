@@ -2,24 +2,20 @@ import Answer from "@/src/components/Answer";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/getAllQuestion";
-import { getUser } from "@/src/lib/actions/getUser";
+
 import { timestamp } from "@/src/lib/utils";
-import { QuestionProps } from "@/src/type";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaClock, FaComment, FaEye, FaThumbsUp } from "react-icons/fa";
+import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
 const page = async ({ params }: { params: { questionId: string } }) => {
-  const { questionId } = await params;
+  const { questionId } = params;
 
   const res = await getQuestionById(questionId);
   const question = JSON.parse(JSON.stringify(res));
 
-  // const questionDetail = await getQuestionById(questionId);
-  // if (!question) {
-  //   return console.log("question detail not found");
-  // }
   const formattedDate = timestamp(question.createdAt);
 
   return (
@@ -74,7 +70,8 @@ const page = async ({ params }: { params: { questionId: string } }) => {
         </div>
       </div>
 
-      {/* answer section */}
+      {/* Answers */}
+
       <Answer questionId={question._id} />
     </section>
   );

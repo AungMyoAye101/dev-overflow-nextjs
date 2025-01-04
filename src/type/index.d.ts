@@ -72,3 +72,9 @@ export interface QuestionProps {
   author: UserProps;
   createdAt: Date;
 }
+
+export interface AnswerProps {
+  content: string;
+  questionId: string;
+  path: string;
+}

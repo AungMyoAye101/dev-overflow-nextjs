@@ -3,7 +3,6 @@
 import connectToDB from "@/src/database/db";
 import User from "@/src/model/User.Model";
 import { auth } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
 
 export const getUser = async () => {
   try {

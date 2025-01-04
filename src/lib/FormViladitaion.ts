@@ -32,7 +32,7 @@ export const editProfileSchema = z.object({
 });
 
 export const answerSchema = z.object({
-  answer: z.string().min(12, {
+  content: z.string().min(12, {
     message: "Answer must be at least 12 characters",
   }),
 });
