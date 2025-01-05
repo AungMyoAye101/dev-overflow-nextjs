@@ -48,7 +48,7 @@ export const askQuestion = async (params: any) => {
 };
 
 export const createUpVotes = async (params: VotesParams) => {
-  const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
+  const { itemId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
     await connectToDB();
     console.log(userId);
@@ -57,13 +57,15 @@ export const createUpVotes = async (params: VotesParams) => {
     if (hasUpvoted) {
       updateQuery = { $pull: { upvotes: userId } };
     } else if (hasDownvoted) {
-      updateQuery = { $pull: { downvotes: userId } };
-      updateQuery = { $push: { upvotes: userId } };
+      updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId },
+      };
     } else {
       updateQuery = { $addToSet: { upvotes: userId } };
     }
 
-    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+    const question = await Question.findByIdAndUpdate(itemId, updateQuery, {
       new: true,
     });
     if (!question) {
@@ -82,7 +84,7 @@ export const createUpVotes = async (params: VotesParams) => {
 };
 
 export const createDownVotes = async (params: VotesParams) => {
-  const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
+  const { itemId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
     await connectToDB();
     let updateQuery = {};
@@ -90,13 +92,15 @@ export const createDownVotes = async (params: VotesParams) => {
     if (hasDownvoted) {
       updateQuery = { $pull: { downvotes: userId } };
     } else if (hasUpvoted) {
-      updateQuery = { $pull: { upvotes: userId } };
-      updateQuery = { $push: { downvotes: userId } };
+      updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downvotes: userId },
+      };
     } else {
       updateQuery = { $addToSet: { downvotes: userId } };
     }
 
-    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+    const question = await Question.findByIdAndUpdate(itemId, updateQuery, {
       new: true,
     });
     if (!question) {

@@ -4,12 +4,9 @@ import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/getAllQuestion";
 import { getUser } from "@/src/lib/actions/getUser";
-
 import { timestamp } from "@/src/lib/utils";
-
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
 const page = async ({ params }: { params: { questionId: string } }) => {
@@ -22,7 +19,7 @@ const page = async ({ params }: { params: { questionId: string } }) => {
 
   const user = await getUser();
   if (!user) return;
-  const currUserId = user._id;
+  const currUserId = user._id.toString();
 
   return (
     <section className="page_padding">
@@ -45,13 +42,14 @@ const page = async ({ params }: { params: { questionId: string } }) => {
             </h1>
           </Link>
           <Votes
-            questionId={question._id}
-            userId={currUserId.toString()}
+            itemId={question._id}
+            userId={currUserId}
             upVotes={question.upvotes.length}
             downVotes={question.downvotes.length}
             hasUpvoted={question.upvotes.includes(currUserId)}
             hasDownvoted={question.downvotes.includes(currUserId)}
             hasSaved={user.saved.includes(question._id)}
+            type="question"
           />
         </div>
 
