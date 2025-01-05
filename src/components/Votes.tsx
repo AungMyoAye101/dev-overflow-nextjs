@@ -1,12 +1,13 @@
 "use client";
 
 import React, { FC } from "react";
-import { FaRegStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { ImArrowDown, ImArrowUp } from "react-icons/im";
 import { createDownVotes, createUpVotes } from "../lib/actions/ask.question";
 import { VotesProps } from "../type";
 import { answerDownVotes, answerUpVotes } from "../lib/actions/create.answer";
 import { usePathname } from "next/navigation";
+import { saveQuestion } from "../lib/actions/create.user";
 
 const Votes = ({
   itemId,
@@ -18,7 +19,6 @@ const Votes = ({
   hasSaved,
   type,
 }: VotesProps) => {
-  console.log(hasUpvoted, hasDownvoted);
   const path = usePathname();
   const upvoteHandle = async () => {
     if (type === "question") {
@@ -75,18 +75,29 @@ const Votes = ({
       }
     }
   };
+
+  //Saved the question function
+
+  const savedHandle = async () => {
+    try {
+      await saveQuestion({ userId, questionId: itemId, hasSaved, path });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <section className="flex gap-4 items-center">
       <div className="flex items-center gap-1 ">
         <button onClick={upvoteHandle}>
           <ImArrowUp
             className={`text-lg ${
-              hasUpvoted ? "text-orange" : "text-gray-200"
+              hasUpvoted ? "text-orange" : "text-gray-300"
             }`}
           />
         </button>
 
-        <p className="bg-gray-200 text-black text-xs px-2 py-1 rounded ">
+        <p className="bg-gray-300 text-black text-xs px-2 py-1 rounded ">
           {upVotes}
         </p>
       </div>
@@ -94,17 +105,20 @@ const Votes = ({
         <button onClick={downvoteHandle}>
           <ImArrowDown
             className={`text-lg ${
-              hasDownvoted ? "text-orange" : "text-gray-200"
+              hasDownvoted ? "text-orange" : "text-gray-300"
             }`}
           />
         </button>
-        <p className="bg-gray-200 text-black text-xs px-2 py-1 rounded ">
+        <p className="bg-gray-300 text-black text-xs px-2 py-1 rounded ">
           {downVotes}
         </p>
       </div>
       {type === "question" && (
-        <button className={`text-lg ${hasSaved ? "text-orange" : ""}`}>
-          <FaRegStar />
+        <button
+          className={`text-lg ${hasSaved ? "text-orange" : "text-gray-300"}`}
+          onClick={savedHandle}
+        >
+          <FaStar />
         </button>
       )}
     </section>

@@ -106,3 +106,10 @@ export interface VotesParams {
   hasDownvoted: boolean;
   path: string;
 }
+
+export interface SavedParams {
+  userId: string;
+  questionId: string;
+  hasSaved: boolean;
+  path: string;
+}
