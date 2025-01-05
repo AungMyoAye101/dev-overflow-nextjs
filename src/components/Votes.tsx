@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import React, { FC } from "react";
 import { FaRegStar } from "react-icons/fa";
 import { ImArrowDown, ImArrowUp } from "react-icons/im";
-import { createUpVotes } from "../lib/actions/ask.question";
+import { createDownVotes, createUpVotes } from "../lib/actions/ask.question";
 import { VotesProps } from "../type";
 
 const Votes: FC<VotesProps> = ({
@@ -42,7 +42,18 @@ const Votes: FC<VotesProps> = ({
     }
   };
   const downvoteHandle = async () => {
-    console.log("click");
+    try {
+      await createDownVotes({
+        questionId,
+        userId,
+        hasUpvoted,
+        hasDownvoted,
+        path,
+      });
+      console.log("downvoted");
+    } catch (error: any) {
+      console.error("Error upvoting:", error.message);
+    }
   };
   return (
     <section className="flex gap-4 items-center">

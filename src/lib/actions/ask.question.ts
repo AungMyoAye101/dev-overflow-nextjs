@@ -57,10 +57,8 @@ export const createUpVotes = async (params: VotesParams) => {
     if (hasUpvoted) {
       updateQuery = { $pull: { upvotes: userId } };
     } else if (hasDownvoted) {
-      updateQuery = {
-        $pull: { downvotes: userId },
-        $push: { upvotes: userId },
-      };
+      updateQuery = { $pull: { downvotes: userId } };
+      updateQuery = { $push: { upvotes: userId } };
     } else {
       updateQuery = { $addToSet: { upvotes: userId } };
     }
@@ -76,6 +74,39 @@ export const createUpVotes = async (params: VotesParams) => {
 
     //TODO : increasement of user repuration
     console.log("successfully upvoted");
+    revalidatePath(path);
+  } catch (error: any) {
+    console.log(error.message);
+    throw new Error("Failed to upvote question", error.message);
+  }
+};
+
+export const createDownVotes = async (params: VotesParams) => {
+  const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
+  try {
+    await connectToDB();
+    let updateQuery = {};
+
+    if (hasDownvoted) {
+      updateQuery = { $pull: { downvotes: userId } };
+    } else if (hasUpvoted) {
+      updateQuery = { $pull: { upvotes: userId } };
+      updateQuery = { $push: { downvotes: userId } };
+    } else {
+      updateQuery = { $addToSet: { downvotes: userId } };
+    }
+
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    console.log("voting", question);
+
+    //TODO : increasement of user repuration
+    console.log("successfully downvoted");
     revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
