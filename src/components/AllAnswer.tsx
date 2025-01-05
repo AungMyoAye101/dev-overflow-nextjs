@@ -25,7 +25,7 @@ const AllAnswer = async ({ questionId }: Props) => {
   if (!answers) return;
   const user = await getUser();
   if (!user) return;
-  const currUserId = user._id;
+  const currUserId = user._id.toString();
 
   return (
     <section className="flex flex-col gap-4">
@@ -73,9 +73,9 @@ const AllAnswer = async ({ questionId }: Props) => {
               </Link>
               <Votes
                 itemId={answer._id}
-                userId={currUserId.toString()}
-                upVotes={answer.upvotes?.length!}
-                downVotes={answer.downvotes?.length!}
+                userId={currUserId}
+                upVotes={answer.upvotes.length}
+                downVotes={answer.downvotes.length}
                 hasUpvoted={answer.upvotes?.includes(currUserId)!}
                 hasDownvoted={answer.downvotes?.includes(currUserId)!}
                 hasSaved={user.saved.includes(answer._id)}

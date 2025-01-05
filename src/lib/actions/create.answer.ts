@@ -66,14 +66,16 @@ export const answerUpVotes = async (params: VotesParams) => {
   const { itemId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
     await connectToDB();
-    console.log(userId);
+
     let updateQuery = {};
 
     if (hasUpvoted) {
       updateQuery = { $pull: { upvotes: userId } };
     } else if (hasDownvoted) {
-      updateQuery = { $pull: { downvotes: userId } };
-      updateQuery = { $push: { upvotes: userId } };
+      updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId },
+      };
     } else {
       updateQuery = { $addToSet: { upvotes: userId } };
     }
@@ -84,8 +86,6 @@ export const answerUpVotes = async (params: VotesParams) => {
     if (!answer) {
       throw new Error("Question not found");
     }
-
-    console.log("voting", answer);
 
     //TODO : increasement of user repuration
     console.log("successfully upvoted");
@@ -118,8 +118,6 @@ export const answerDownVotes = async (params: VotesParams) => {
     if (!answer) {
       throw new Error("Question not found");
     }
-
-    console.log("voting", answer);
 
     //TODO : increasement of user repuration
     console.log("successfully upvoted");

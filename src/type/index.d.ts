@@ -77,8 +77,8 @@ export interface AnswerTypes {
   _id: string;
   content: string;
   question: string;
-  upvotes?: string[];
-  downvotes?: string[];
+  upvotes: string[];
+  downvotes: string[];
   author: UserProps;
   createdAt: Date;
 }
