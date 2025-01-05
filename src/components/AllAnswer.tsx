@@ -21,8 +21,9 @@ interface Props {
 }
 
 const AllAnswer = async ({ questionId }: Props) => {
-  const answers: AnswerTypes[] = await getAllAnswers(questionId);
-  if (!answers) return;
+  const question = await getAllAnswers(questionId);
+  if (!question) return;
+  const answers = JSON.parse(JSON.stringify(question));
   const user = await getUser();
   if (!user) return;
   const currUserId = user._id.toString();
@@ -47,7 +48,7 @@ const AllAnswer = async ({ questionId }: Props) => {
         </Select>
       </div>
       {answers.length > 0 &&
-        answers.map((answer) => (
+        answers.map((answer: any) => (
           <main
             key={answer._id}
             className="flex flex-col gap-4 bg_dark_white p-4 rounded-lg shadow-md dark:shadow-none"
@@ -85,25 +86,6 @@ const AllAnswer = async ({ questionId }: Props) => {
             <div className="mt-4 font-noto_serif">{answer.content}</div>
           </main>
         ))}
-
-      {/* <div className="flex justify-between items-center ">
-          <Link
-            href={`/profile/${answers.author._id}`}
-            className="flex items-center gap-2"
-          >
-            <Image
-              src={answers.author.picture}
-              width={40}
-              height={40}
-              alt={`${answers.author.name} profile`}
-              className="w-8 h-8 rounded-full"
-            />
-            <h1 className="font-semibold font-poppins ">
-              {answers.author.name}
-            </h1>
-          </Link>
-          <Votes />
-        </div> */}
     </section>
   );
 };

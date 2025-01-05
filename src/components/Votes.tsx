@@ -58,7 +58,6 @@ const Votes = ({
           hasDownvoted,
           path,
         });
-        console.log("downvoted");
       } catch (error: any) {
         console.error("Error upvoting:", error.message);
       }
@@ -71,7 +70,6 @@ const Votes = ({
           hasDownvoted,
           path,
         });
-        console.log("downvoted");
       } catch (error: any) {
         console.error("Error upvoting:", error.message);
       }
@@ -81,27 +79,33 @@ const Votes = ({
     <section className="flex gap-4 items-center">
       <div className="flex items-center gap-1 ">
         <button onClick={upvoteHandle}>
-          <ImArrowUp className={`text-lg ${hasUpvoted ? "text-orange" : ""}`} />
+          <ImArrowUp
+            className={`text-lg ${
+              hasUpvoted ? "text-orange" : "text-gray-200"
+            }`}
+          />
         </button>
 
-        <p className="bg-gray-200 text-black text-xs px-1 py-1 rounded ">
+        <p className="bg-gray-200 text-black text-xs px-2 py-1 rounded ">
           {upVotes}
         </p>
       </div>
       <div className="flex items-center gap-1 ">
         <button onClick={downvoteHandle}>
           <ImArrowDown
-            className={`text-lg ${hasDownvoted ? "text-orange" : ""}`}
+            className={`text-lg ${
+              hasDownvoted ? "text-orange" : "text-gray-200"
+            }`}
           />
         </button>
-        <p className="bg-gray-200 text-black text-xs px-1 py-1 rounded ">
+        <p className="bg-gray-200 text-black text-xs px-2 py-1 rounded ">
           {downVotes}
         </p>
       </div>
       {type === "question" && (
-        <div>
-          <FaRegStar className="text-lg" />
-        </div>
+        <button className={`text-lg ${hasSaved ? "text-orange" : ""}`}>
+          <FaRegStar />
+        </button>
       )}
     </section>
   );
