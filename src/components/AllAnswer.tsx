@@ -14,6 +14,7 @@ import Image from "next/image";
 import { timestamp } from "../lib/utils";
 import { getAllAnswers } from "../lib/actions/create.answer";
 import { AnswerTypes } from "../type";
+import { getUser } from "../lib/actions/getUser";
 
 interface Props {
   questionId: string;
@@ -22,6 +23,9 @@ interface Props {
 const AllAnswer = async ({ questionId }: Props) => {
   const answers: AnswerTypes[] = await getAllAnswers(questionId);
   if (!answers) return;
+  const user = await getUser();
+  if (!user) return;
+  const currUserId = user._id.toString();
 
   return (
     <section className="flex flex-col gap-4">
@@ -67,7 +71,16 @@ const AllAnswer = async ({ questionId }: Props) => {
                   {timestamp(answer.createdAt)}
                 </p>
               </Link>
-              <Votes />
+              <Votes
+                itemId={answer._id}
+                userId={currUserId}
+                upVotes={answer.upvotes.length}
+                downVotes={answer.downvotes.length}
+                hasUpvoted={answer.upvotes?.includes(currUserId)!}
+                hasDownvoted={answer.downvotes?.includes(currUserId)!}
+                hasSaved={user.saved.includes(answer._id)}
+                type="answer"
+              />
             </div>
             <div className="mt-4 font-noto_serif">{answer.content}</div>
           </main>
@@ -91,8 +104,6 @@ const AllAnswer = async ({ questionId }: Props) => {
           </Link>
           <Votes />
         </div> */}
-
-      <div></div>
     </section>
   );
 };

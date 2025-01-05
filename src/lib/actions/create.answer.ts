@@ -1,7 +1,7 @@
 "use server";
 
 import connectToDB from "@/src/database/db";
-import { AnswerProps } from "@/src/type";
+import { AnswerProps, VotesParams } from "@/src/type";
 import { getUser } from "./getUser";
 import { revalidatePath } from "next/cache";
 import Answer from "@/src/model/answer.model";
@@ -59,5 +59,71 @@ export const getAllAnswers = async (id: string) => {
   } catch (error) {
     console.error("Failed to fetch answers", error);
     throw error;
+  }
+};
+
+export const answerUpVotes = async (params: VotesParams) => {
+  const { itemId, userId, hasUpvoted, hasDownvoted, path } = params;
+  try {
+    await connectToDB();
+
+    let updateQuery = {};
+
+    if (hasUpvoted) {
+      updateQuery = { $pull: { upvotes: userId } };
+    } else if (hasDownvoted) {
+      updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId },
+      };
+    } else {
+      updateQuery = { $addToSet: { upvotes: userId } };
+    }
+
+    const answer = await Answer.findByIdAndUpdate(itemId, updateQuery, {
+      new: true,
+    });
+    if (!answer) {
+      throw new Error("Question not found");
+    }
+
+    //TODO : increasement of user repuration
+    console.log("successfully upvoted");
+    revalidatePath(path);
+  } catch (error: any) {
+    console.log(error.message);
+    throw new Error("Failed to upvote answer", error.message);
+  }
+};
+export const answerDownVotes = async (params: VotesParams) => {
+  const { itemId, userId, hasUpvoted, hasDownvoted, path } = params;
+  try {
+    await connectToDB();
+    let updateQuery = {};
+
+    if (hasDownvoted) {
+      updateQuery = { $pull: { downvotes: userId } };
+    } else if (hasUpvoted) {
+      updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downvotes: userId },
+      };
+    } else {
+      updateQuery = { $addToSet: { downvotes: userId } };
+    }
+
+    const answer = await Answer.findByIdAndUpdate(itemId, updateQuery, {
+      new: true,
+    });
+    if (!answer) {
+      throw new Error("Question not found");
+    }
+
+    //TODO : increasement of user repuration
+    console.log("successfully upvoted");
+    revalidatePath(path);
+  } catch (error: any) {
+    console.log(error.message);
+    throw new Error("Failed to upvote answer", error.message);
   }
 };

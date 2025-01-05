@@ -77,13 +77,32 @@ export interface AnswerTypes {
   _id: string;
   content: string;
   question: string;
-  upvotes?: string[];
-  downvotes?: string[];
+  upvotes: string[];
+  downvotes: string[];
   author: UserProps;
   createdAt: Date;
 }
 export interface AnswerProps {
   content: string;
   questionId: string;
+  path: string;
+}
+
+export interface VotesProps {
+  itemId: string;
+  userId: string;
+  upVotes: number;
+  downVotes: number;
+  hasUpvoted: boolean;
+  hasDownvoted: boolean;
+  hasSaved: boolean;
+  type: string;
+}
+
+export interface VotesParams {
+  itemId: string;
+  userId: string;
+  hasUpvoted: boolean;
+  hasDownvoted: boolean;
   path: string;
 }

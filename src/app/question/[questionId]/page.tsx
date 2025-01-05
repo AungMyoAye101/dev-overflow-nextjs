@@ -3,12 +3,10 @@ import Answer from "@/src/components/Answer";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/getAllQuestion";
-
+import { getUser } from "@/src/lib/actions/getUser";
 import { timestamp } from "@/src/lib/utils";
-
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
 const page = async ({ params }: { params: { questionId: string } }) => {
@@ -18,6 +16,10 @@ const page = async ({ params }: { params: { questionId: string } }) => {
   const question = JSON.parse(JSON.stringify(res));
 
   const formattedDate = timestamp(question.createdAt);
+
+  const user = await getUser();
+  if (!user) return;
+  const currUserId = user._id.toString();
 
   return (
     <section className="page_padding">
@@ -39,7 +41,16 @@ const page = async ({ params }: { params: { questionId: string } }) => {
               {question.author.name}
             </h1>
           </Link>
-          <Votes />
+          <Votes
+            itemId={question._id}
+            userId={currUserId}
+            upVotes={question.upvotes.length}
+            downVotes={question.downvotes.length}
+            hasUpvoted={question.upvotes.includes(currUserId)}
+            hasDownvoted={question.downvotes.includes(currUserId)}
+            hasSaved={user.saved.includes(question._id)}
+            type="question"
+          />
         </div>
 
         <div className="flex flex-col gap-4 ">
