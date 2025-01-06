@@ -3,9 +3,7 @@
 import Question from "@/src/model/question.model";
 import connectToDB from "../../database/db";
 import Tags from "@/src/model/Tag.model";
-
 import { revalidatePath } from "next/cache";
-
 import { VotesParams } from "@/src/type";
 import User from "@/src/model/User.Model";
 import { auth } from "@clerk/nextjs/server";
@@ -27,7 +25,7 @@ export const askQuestion = async (params: any) => {
     const tagsId = [];
 
     for (const tagName of tags) {
-      let tag = await Tags.findOneAndUpdate(
+      const tag = await Tags.findOneAndUpdate(
         { name: tagName },
         {
           $setOnInsert: { name: tagName },

@@ -1,9 +1,6 @@
 "use server";
-
-import { Question } from "@/src/components/Question";
 import connectToDB from "@/src/database/db";
 import Tags from "@/src/model/Tag.model";
-import { NextResponse } from "next/server";
 
 export const getTagById = async (id: string) => {
   try {
@@ -22,7 +19,7 @@ export const getAllTags = async () => {
       path: "questions",
       select: "_id title description",
     });
-    console.log(tags);
+
     return tags;
   } catch (error: any) {
     console.log("Failed to fetch tags", error.message);

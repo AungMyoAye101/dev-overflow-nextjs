@@ -67,7 +67,9 @@ export const getUserById = async (id: string) => {
   try {
     await connectToDB();
     const user = await User.findById(id);
-
+    if (!user) {
+      throw new Error("user not find");
+    }
     return user;
   } catch (error) {
     throw error;
@@ -89,7 +91,7 @@ export const saveQuestion = async (params: SavedParams) => {
     await User.findByIdAndUpdate(userId, updateQuery, { new: true });
     console.log("question saved successfull");
     revalidatePath(path);
-  } catch (error) {
-    throw new Error("Failed to save question");
+  } catch (error: any) {
+    throw new Error("Failed to save question", error.message);
   }
 };

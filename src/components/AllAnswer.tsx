@@ -75,8 +75,8 @@ const AllAnswer = async ({ questionId }: Props) => {
                 userId={currUserId}
                 upVotes={answer.upvotes.length}
                 downVotes={answer.downvotes.length}
-                hasUpvoted={answer.upvotes?.includes(currUserId)!}
-                hasDownvoted={answer.downvotes?.includes(currUserId)!}
+                hasUpvoted={answer.upvotes?.includes(currUserId)}
+                hasDownvoted={answer.downvotes?.includes(currUserId)}
                 hasSaved={user.saved.includes(answer._id)}
                 type="answer"
               />
