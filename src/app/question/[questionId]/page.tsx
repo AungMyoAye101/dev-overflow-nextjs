@@ -9,7 +9,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
-const page = async ({ params }: { params: { questionId: string } }) => {
+const page = async ({
+  params,
+}: {
+  params: Promise<{ questionId: string }>;
+}) => {
   const { questionId } = await params;
 
   const res = await getQuestionById(questionId);
