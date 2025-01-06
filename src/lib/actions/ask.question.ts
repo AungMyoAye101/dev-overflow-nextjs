@@ -7,6 +7,8 @@ import { getUser } from "./getUser";
 import { revalidatePath } from "next/cache";
 
 import { VotesParams } from "@/src/type";
+import User from "@/src/model/User.Model";
+import { auth } from "@clerk/nextjs/server";
 
 export const askQuestion = async (params: any) => {
   const { title, content, tags, path } = params;
@@ -115,5 +117,34 @@ export const createDownVotes = async (params: VotesParams) => {
   } catch (error: any) {
     console.log(error.message);
     throw new Error("Failed to upvote question", error.message);
+  }
+};
+
+export const getSavedQuestion = async () => {
+  const { userId: clerkId } = await auth();
+  try {
+    await connectToDB();
+    const user = await User.findOne({ clerkId }).populate({
+      path: "saved",
+      model: Question,
+      populate: [
+        {
+          path: "author",
+          model: User,
+          select: "_id name picture ",
+        },
+        {
+          path: "tags",
+          model: Tags,
+          select: "_id name ",
+        },
+      ],
+    });
+
+    console.log("success", user);
+    return user;
+  } catch (error: any) {
+    console.log(error.message);
+    throw new Error("Failed to get saved questions");
   }
 };
