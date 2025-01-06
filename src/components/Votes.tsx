@@ -1,13 +1,12 @@
 "use client";
 
-import React, { FC } from "react";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { ImArrowDown, ImArrowUp } from "react-icons/im";
-import { createDownVotes, createUpVotes } from "../lib/actions/ask.question";
+import { createDownVotes, createUpVotes } from "../lib/actions/question.action";
 import { VotesProps } from "../type";
-import { answerDownVotes, answerUpVotes } from "../lib/actions/create.answer";
+import { answerDownVotes, answerUpVotes } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
-import { saveQuestion } from "../lib/actions/create.user";
+import { saveQuestion } from "../lib/actions/user.action";
 
 const Votes = ({
   itemId,

@@ -1,7 +1,6 @@
 import Profile from "@/src/components/Profile";
 import Stats from "@/src/components/Stats";
-import UserPost from "@/src/components/UserPost";
-import { getUserById } from "@/src/lib/actions/getUser";
+import { getUserById } from "@/src/lib/actions/user.action";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;

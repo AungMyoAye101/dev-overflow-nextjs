@@ -1,6 +1,6 @@
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import { Badge } from "@/src/components/ui/badge";
-import { getAllTags } from "@/src/lib/actions/get.tags";
+import { getAllTags } from "@/src/lib/actions/tags.action";
 
 import React from "react";
 

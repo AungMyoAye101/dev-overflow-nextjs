@@ -3,12 +3,13 @@
 import Question from "@/src/model/question.model";
 import connectToDB from "../../database/db";
 import Tags from "@/src/model/Tag.model";
-import { getUser } from "./getUser";
+
 import { revalidatePath } from "next/cache";
 
 import { VotesParams } from "@/src/type";
 import User from "@/src/model/User.Model";
 import { auth } from "@clerk/nextjs/server";
+import { getUser } from "./user.action";
 
 export const askQuestion = async (params: any) => {
   const { title, content, tags, path } = params;
@@ -45,6 +46,46 @@ export const askQuestion = async (params: any) => {
     return question;
   } catch (error: any) {
     console.error("Error asking question:", error.message);
+    throw error;
+  }
+};
+
+export const getAllQuestions = async () => {
+  try {
+    await connectToDB();
+    const questions = await Question.find()
+      .populate({ path: "author", model: User })
+      .populate({ path: "tags", model: Tags });
+
+    if (!questions) return console.log("No questions found");
+
+    return questions;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getQuestionById = async (id: string) => {
+  try {
+    await connectToDB();
+    const question = await Question.findById(id)
+
+      .populate({
+        path: "tags",
+        model: Tags,
+      })
+      .populate({
+        path: "author",
+        model: User,
+      })
+      .lean();
+
+    if (!question) {
+      return console.log("question not found");
+    }
+
+    return question;
+  } catch (error) {
     throw error;
   }
 };

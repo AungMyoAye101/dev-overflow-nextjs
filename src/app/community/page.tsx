@@ -1,7 +1,6 @@
 import Card from "@/src/components/Card";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
-
-import { getAllUsers } from "@/src/lib/actions/getUser";
+import { getAllUsers } from "@/src/lib/actions/user.action";
 
 import React from "react";
 

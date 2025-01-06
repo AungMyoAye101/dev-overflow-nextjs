@@ -3,9 +3,6 @@ import { Badge } from "./ui/badge";
 import { FaComment, FaEye, FaThumbsUp } from "react-icons/fa";
 import Image from "next/image";
 import { QuestionProps } from "../type";
-import { getUser, getUserById } from "../lib/actions/getUser";
-import { get } from "http";
-import { getTagById } from "../lib/actions/get.tags";
 import Link from "next/link";
 import { timestamp } from "../lib/utils";
 

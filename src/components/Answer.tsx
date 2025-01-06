@@ -16,7 +16,7 @@ import {
 import { useForm } from "react-hook-form";
 
 import { Textarea } from "./ui/textarea";
-import { createAnswer } from "../lib/actions/create.answer";
+import { createAnswer } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
 interface Props {
   questionId: string;

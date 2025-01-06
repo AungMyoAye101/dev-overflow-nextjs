@@ -1,5 +1,5 @@
 import Post from "@/src/components/Post";
-import { getSavedQuestion } from "@/src/lib/actions/ask.question";
+import { getSavedQuestion } from "@/src/lib/actions/question.action";
 
 import React from "react";
 

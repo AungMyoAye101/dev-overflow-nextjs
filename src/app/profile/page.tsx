@@ -1,8 +1,6 @@
 import Profile from "@/src/components/Profile";
 import Stats from "@/src/components/Stats";
-
-import UserPost from "@/src/components/UserPost";
-import { getUser } from "@/src/lib/actions/getUser";
+import { getUser } from "@/src/lib/actions/user.action";
 import React from "react";
 
 const Page = async () => {
@@ -12,7 +10,6 @@ const Page = async () => {
     <section className="page_padding">
       <Profile user={user} />
       <Stats />
-      {/* <UserPost /> */}
     </section>
   );
 };

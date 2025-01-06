@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { editProfileSchema } from "@/src/lib/FormViladitaion";
 import { Textarea } from "@/src/components/ui/textarea";
 import { Button } from "@/src/components/ui/button";
-import { updateUser } from "@/src/lib/actions/create.user";
+import { updateUser } from "@/src/lib/actions/user.action";
 import { ClerkIdProp } from "../type";
 
 const ProfileEdit = ({ clerkId }: ClerkIdProp) => {

@@ -7,14 +7,12 @@ import {
   SelectValue,
 } from "./ui/select";
 import { filteredSearch } from "../constants";
-
 import Link from "next/link";
 import Votes from "./Votes";
 import Image from "next/image";
 import { timestamp } from "../lib/utils";
-import { getAllAnswers } from "../lib/actions/create.answer";
-import { AnswerTypes } from "../type";
-import { getUser } from "../lib/actions/getUser";
+import { getAllAnswers } from "../lib/actions/answer.action";
+import { getUser } from "../lib/actions/user.action";
 
 interface Props {
   questionId: string;
