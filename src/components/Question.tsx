@@ -40,7 +40,7 @@ export function Question({ formType }: { formType: string }) {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title, content, tags } = values;
-
+    setSubmiting(true);
     try {
       await askQuestion({
         title,
@@ -48,7 +48,6 @@ export function Question({ formType }: { formType: string }) {
         tags,
         path,
       });
-      setSubmiting(true);
     } catch (error) {
       console.log(error);
     } finally {

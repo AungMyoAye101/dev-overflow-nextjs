@@ -3,6 +3,7 @@ import Post from "@/src/components/Post";
 
 import Link from "next/link";
 import { getAllQuestions } from "../lib/actions/question.action";
+import Empty from "../components/Empty";
 
 export default async function Home() {
   const questions = await getAllQuestions();
@@ -29,22 +30,14 @@ export default async function Home() {
         {questions.length > 0 ? (
           questions.map((q) => <Post key={q._id} question={q} />)
         ) : (
-          <div className="flex flex-col items-center gap-4 w-[90%] sm:w-[60%]  mx-auto text-center">
-            <h2 className="text-2xl font-poppins font-semibold">
-              There is no question to show{" "}
-            </h2>
-            <p className="para ">
-              Be the first to break the silence! 🚀 Ask a Question and kickstart
-              the discussion. our query could be the next big thing others learn
-              from. Get involved!{" "}
-            </p>
-            <Link
-              href="/question"
-              className="btn-bg font-poppins font-semibold py-2 px-4 rounded-md"
-            >
-              Ask a Question
-            </Link>
-          </div>
+          <Empty
+            title="There is no question to show"
+            desecription="  Be the first to break the silence! 🚀 Ask a Question and kickstart the
+        discussion. our query could be the next big thing others learn from. Get
+        involved!"
+            link="/question"
+            btn="ask a question"
+          />
         )}
       </div>
     </div>

@@ -113,3 +113,10 @@ export interface SavedParams {
   hasSaved: boolean;
   path: string;
 }
+
+export interface EmptyProps {
+  title: string;
+  desecription: string;
+  link: string;
+  btn: string;
+}
