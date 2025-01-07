@@ -5,8 +5,10 @@ import { ImArrowDown, ImArrowUp } from "react-icons/im";
 import { createDownVotes, createUpVotes } from "../lib/actions/question.action";
 import { VotesProps } from "../type";
 import { answerDownVotes, answerUpVotes } from "../lib/actions/answer.action";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { saveQuestion } from "../lib/actions/user.action";
+import { useEffect } from "react";
+import { viewQuestion } from "../lib/actions/interaction.action";
 
 const Votes = ({
   itemId,
@@ -19,6 +21,7 @@ const Votes = ({
   type,
 }: VotesProps) => {
   const path = usePathname();
+  const router = useRouter();
   const upvoteHandle = async () => {
     if (type === "question") {
       try {
@@ -84,6 +87,11 @@ const Votes = ({
       console.log(error.message);
     }
   };
+
+  useEffect(() => {
+    viewQuestion({ questionId: itemId, userId });
+    alert("viewed");
+  }, [itemId, userId, path]);
 
   return (
     <section className="flex gap-4 items-center">

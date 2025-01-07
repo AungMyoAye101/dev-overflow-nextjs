@@ -8,7 +8,7 @@ export interface IQuestion extends Document {
   upvotes: Schema.Types.ObjectId[];
   downvotes: Schema.Types.ObjectId[];
   author: Schema.Types.ObjectId;
-  answerw: Schema.Types.ObjectId[];
+  answer: Schema.Types.ObjectId[];
   createdAt: Date;
 }
 
