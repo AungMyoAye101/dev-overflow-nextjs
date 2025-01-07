@@ -12,6 +12,7 @@ const page = async ({ params }: PageProps) => {
   if (!user) {
     return console.log("user not find");
   }
+  console.log(user);
   return (
     <section className="page_padding">
       <Profile user={user} />

@@ -1,6 +1,7 @@
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import { Badge } from "@/src/components/ui/badge";
 import { getAllTags } from "@/src/lib/actions/tags.action";
+import Link from "next/link";
 
 import React from "react";
 
@@ -19,7 +20,9 @@ const Page = async () => {
             key={tag._id}
             className="bg_dark_white flex flex-col  gap-4 px-4 py-6 shadow_rounded w-fit"
           >
-            <Badge className="py-2 px-4 w-fit">{tag.name}</Badge>
+            <Link href={`/tags/${tag._id}`}>
+              <Badge className="py-2 px-4 w-fit">{tag.name}</Badge>
+            </Link>
             <p className="text-sm font-noto_serif line-clamp-3">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est
               optio sed modi
