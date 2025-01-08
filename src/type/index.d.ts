@@ -120,3 +120,12 @@ export interface EmptyProps {
   link: string;
   btn: string;
 }
+
+export interface TagsPrams {
+  tagId: string;
+}
+
+export interface TagsDetailProps {
+  name: string;
+  questions: QuestionProps[];
+}

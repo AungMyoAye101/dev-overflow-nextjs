@@ -19,9 +19,9 @@ const Post = async ({ question }: PostProps) => {
       </Link>
       <div className="flex items-center gap-4">
         {question.tags.map((tag) => (
-          <Badge key={tag.name} className="px-3 py-1.5 font-poppins">
-            {tag.name}
-          </Badge>
+          <Link href={`/tags/${tag._id}`} key={tag.name}>
+            <Badge className="px-3 py-1.5 font-poppins">{tag.name}</Badge>
+          </Link>
         ))}
       </div>
       <div className="flex items-center justify-between gap-4">

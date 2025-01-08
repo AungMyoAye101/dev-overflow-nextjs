@@ -3,6 +3,7 @@ import connectToDB from "@/src/database/db";
 import Question from "@/src/model/question.model";
 import Tags from "@/src/model/Tag.model";
 import User from "@/src/model/User.Model";
+import { TagsPrams } from "@/src/type";
 
 export const getTagById = async (id: string) => {
   try {
@@ -29,7 +30,7 @@ export const getAllTags = async () => {
   }
 };
 
-export const getQuestionByTagId = async (params: any) => {
+export const getQuestionByTagId = async (params: TagsPrams) => {
   const { tagId } = params;
   try {
     const tag = await Tags.findById(tagId).populate({
@@ -52,8 +53,8 @@ export const getQuestionByTagId = async (params: any) => {
     if (!tag) {
       throw new Error("Tags not found");
     }
-    console.log("successfully fetch questions by tag");
-    return { name: tag.name, questions: tag.questons };
+    console.log("successfully fetch questions by tag", tag.questions);
+    return { name: tag.name, questions: tag.questions };
   } catch (error: any) {
     console.log(error.message);
     throw error;
