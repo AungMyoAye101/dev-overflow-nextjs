@@ -89,9 +89,8 @@ const Votes = ({
   };
 
   useEffect(() => {
-    viewQuestion({ questionId: itemId, userId });
-    alert("viewed");
-  }, [itemId, userId, path]);
+    viewQuestion({ questionId: itemId, userId, path });
+  }, [itemId, userId, path, router]);
 
   return (
     <section className="flex gap-4 items-center">
