@@ -28,7 +28,7 @@ export const askQuestion = async (params: any) => {
       const tag = await Tags.findOneAndUpdate(
         { name: tagName },
         {
-          $setOnInsert: { name: tagName },
+          $setOnInsert: { name: tagName.toCapitalize() },
           $push: { questions: question._id },
         },
         { upsert: true, new: true }
@@ -53,7 +53,8 @@ export const getAllQuestions = async () => {
     await connectToDB();
     const questions = await Question.find()
       .populate({ path: "author", model: User })
-      .populate({ path: "tags", model: Tags });
+      .populate({ path: "tags", model: Tags })
+      .sort({ createdAt: -1 });
 
     if (!questions) return console.log("No questions found");
 
