@@ -1,6 +1,7 @@
 import Profile from "@/src/components/Profile";
 import Stats from "@/src/components/Stats";
-import { getUserById } from "@/src/lib/actions/user.action";
+import { getUserByClerkId } from "@/src/lib/actions/user.action";
+import { auth } from "@clerk/nextjs/server";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -8,14 +9,15 @@ interface PageProps {
 
 const page = async ({ params }: PageProps) => {
   const { id } = await params;
-  const user = await getUserById(id);
+  const { userId: clerkId } = await auth();
+  const user = await getUserByClerkId(id);
   if (!user) {
     return console.log("user not find");
   }
-  console.log(user);
+
   return (
     <section className="page_padding">
-      <Profile user={user} />
+      <Profile user={user} clerkId={clerkId} />
       <Stats />
       {/* <UserPost /> */}
     </section>

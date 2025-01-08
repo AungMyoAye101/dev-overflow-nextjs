@@ -75,6 +75,18 @@ export const getUserById = async (id: string) => {
     throw error;
   }
 };
+export const getUserByClerkId = async (id: string) => {
+  try {
+    await connectToDB();
+    const user = await User.findOne({ clerkId: id });
+    if (!user) {
+      throw new Error("user not find");
+    }
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const saveQuestion = async (params: SavedParams) => {
   const { userId, questionId, hasSaved, path } = params;

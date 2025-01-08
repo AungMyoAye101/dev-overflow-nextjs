@@ -6,9 +6,10 @@ import Link from "next/link";
 
 interface user {
   user: UserProps;
+  clerkId: string | null;
 }
 
-const Profile = ({ user }: user) => {
+const Profile = ({ user, clerkId }: user) => {
   const formattedDate = user.joinedAt
     ? new Date(user.joinedAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -24,7 +25,7 @@ const Profile = ({ user }: user) => {
             src={user.picture!}
             width={100}
             height={100}
-            className="object-cover w-20 h-20  rounded-full"
+            className="object-cover  w-20 h-20  rounded-full"
             alt="profile image "
           />
 
@@ -64,12 +65,13 @@ const Profile = ({ user }: user) => {
             </div>
           </div>
         </div>
-
-        <Link href={"profile/edit"} className="absolute right-2 top-2">
-          <p className=" font-poppins btn-bg px-4 py-1.5 text-nowrap text-sm rounded-md">
-            Edit Profile
-          </p>
-        </Link>
+        {user.clerkId === clerkId && (
+          <Link href={"profile/edit"} className="absolute right-2 top-2">
+            <p className=" font-poppins btn-bg px-4 py-1.5 text-nowrap text-sm rounded-md">
+              Edit Profile
+            </p>
+          </Link>
+        )}
       </div>
     </section>
   );

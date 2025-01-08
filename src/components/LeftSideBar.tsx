@@ -1,13 +1,15 @@
 "use client";
 
 import { sideLinks } from "@/src/constants";
-
+import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
 const LeftSideBar = () => {
+  const { userId: clerkId } = useAuth();
+  const profileUrl = clerkId ? `/profile/${clerkId}` : "";
+
   const pathname = usePathname();
   return (
     <section className="  overflow-hidden hidden sm:block sticky top-0 pt-[7rem] px-4 pb-10 h-screen   left-0 bg-white dark:bg-gray-900  sm:w-fit md:min-w-60  ">
@@ -15,7 +17,7 @@ const LeftSideBar = () => {
         <div className="flex flex-col gap-4 ">
           {sideLinks.map((link, index) => (
             <Link
-              href={link.href}
+              href={link.href === "/profile" ? profileUrl : link.href}
               key={index}
               className={`side-links  ${
                 pathname === link.href ? "active-link" : ""

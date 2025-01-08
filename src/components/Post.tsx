@@ -26,7 +26,7 @@ const Post = async ({ question }: PostProps) => {
       </div>
       <div className="flex items-center justify-between gap-4">
         <Link
-          href={`/profile/${question.author._id}`}
+          href={`/profile/${question.author.clerkId}`}
           className="flex items-center gap-2 font-noto_serif"
         >
           <Image
