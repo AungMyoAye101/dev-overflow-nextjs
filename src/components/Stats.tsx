@@ -1,19 +1,20 @@
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
+import { StatsProps } from "../type";
 
-const Stats = () => {
+const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer }) => {
   return (
     <section className="space-y-4">
       <h1 className="h2-bold">Stats</h1>
       <div className="flex  gap-4">
-        <div className="text-sm bg_dark_white shadow_rounded py-3 px-5 flex flex-col items-center justify-center  font-noto_serif font-semibold ">
+        <div className="text-sm  bg_dark_white shadow_rounded py-3 px-5 flex flex-col items-center justify-center  font-noto_serif font-bold ">
           <div className="space-x-2 ">
-            <span>100</span>
-            <span>Questions</span>
+            <span>{totalQuestion}</span>
+            <span>{totalQuestion > 1 ? "Questions" : "Question"}</span>
           </div>
           <div className="space-x-2  ">
-            <span>100</span>
-            <span>Answers</span>
+            <span>{totalAnswer}</span>
+            <span>{totalAnswer > 1 ? "Answers" : "Answer"}</span>
           </div>
         </div>
 

@@ -1,5 +1,8 @@
 "use server";
+
 import connectToDB from "@/src/database/db";
+import Answer from "@/src/model/answer.model";
+import Question from "@/src/model/question.model";
 import User from "@/src/model/User.Model";
 import { ClerkIdProp, CreateUser, SavedParams, UpdateUser } from "@/src/type";
 import { auth } from "@clerk/nextjs/server";
@@ -75,14 +78,17 @@ export const getUserById = async (id: string) => {
     throw error;
   }
 };
-export const getUserByClerkId = async (id: string) => {
+export const getUserInfo = async (id: string) => {
   try {
     await connectToDB();
     const user = await User.findOne({ clerkId: id });
     if (!user) {
       throw new Error("user not find");
     }
-    return user;
+    const totalQuestions = await Question.countDocuments({ author: user._id });
+    const totalAnswers = await Answer.countDocuments({ author: user._id });
+
+    return { user, totalQuestions, totalAnswers };
   } catch (error) {
     throw error;
   }

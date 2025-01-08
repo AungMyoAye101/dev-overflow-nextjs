@@ -129,3 +129,8 @@ export interface TagsDetailProps {
   name: string;
   questions: QuestionProps[];
 }
+
+export interface StatsProps {
+  totalQuestion: number;
+  totalAnswer: number;
+}

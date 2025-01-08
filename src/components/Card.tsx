@@ -11,7 +11,7 @@ interface CardProps {
 const Card = ({ user }: CardProps) => {
   return (
     <Link
-      href={`/profile/${user._id}`}
+      href={`/profile/${user.clerkId}`}
       className="bg_dark_white flex flex-col justify-center items-center gap-4 px-4 py-6 shadow_rounded w-fit"
     >
       <Image

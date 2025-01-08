@@ -11,6 +11,7 @@ const LeftSideBar = () => {
   const profileUrl = clerkId ? `/profile/${clerkId}` : "";
 
   const pathname = usePathname();
+
   return (
     <section className="  overflow-hidden hidden sm:block sticky top-0 pt-[7rem] px-4 pb-10 h-screen   left-0 bg-white dark:bg-gray-900  sm:w-fit md:min-w-60  ">
       <div className="flex flex-col justify-between  h-full">
@@ -20,7 +21,10 @@ const LeftSideBar = () => {
               href={link.href === "/profile" ? profileUrl : link.href}
               key={index}
               className={`side-links  ${
-                pathname === link.href ? "active-link" : ""
+                (pathname.includes(link.href) && link.href.length > 1) ||
+                pathname === link.href
+                  ? "active-link"
+                  : ""
               }`}
             >
               <span className="text-lg ">{link.icon}</span>
