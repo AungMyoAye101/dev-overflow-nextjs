@@ -188,3 +188,25 @@ export const getSavedQuestion = async () => {
     throw new Error("Failed to get saved questions");
   }
 };
+
+export const getUserQuestions = async (userId: string) => {
+  try {
+    await connectToDB();
+
+    const totalQuestions = await Question.countDocuments({ author: userId });
+
+    const questions = await Question.find({ author: userId })
+      .populate({
+        path: "tags",
+        model: Tags,
+      })
+      .populate({
+        path: "author",
+        model: User,
+      })
+      .sort({ view: -1, upvotes: -1 });
+
+    console.log("getUserQuestion", totalQuestions, questions);
+    return { totalQuestions, questions };
+  } catch (error) {}
+};

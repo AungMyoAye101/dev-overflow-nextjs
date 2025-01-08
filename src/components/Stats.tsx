@@ -2,6 +2,24 @@ import Image from "next/image";
 import React, { FC } from "react";
 import { StatsProps } from "../type";
 
+interface StatsBadgeProps {
+  imgUrl: string;
+  value: number;
+  name: string;
+}
+
+const StatsBadge: FC<StatsBadgeProps> = ({ imgUrl, value, name }) => {
+  return (
+    <div className="bg_dark_white shadow_rounded py-3 px-5 flex items-center gap-4">
+      <Image src={imgUrl} width={40} height={40} alt={name} />
+      <div className="flex flex-col font-noto_serif font-semibold text-sm">
+        <span>{value}</span>
+        <span>{name}</span>
+      </div>
+    </div>
+  );
+};
+
 const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer }) => {
   return (
     <section className="space-y-4">
@@ -18,42 +36,23 @@ const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer }) => {
           </div>
         </div>
 
-        <div className="bg_dark_white shadow_rounded py-3 px-5 flex items-center gap-4">
-          <Image
-            src={"/assets/icons/gold.svg"}
-            width={40}
-            height={40}
-            alt="gold badge"
-          />
-          <div className="flex flex-col font-noto_serif font-semibold text-sm">
-            <span>100</span>
-            <span>Gold Bage</span>
-          </div>
-        </div>
-        <div className="bg_dark_white shadow_rounded py-3 px-5 flex items-center gap-4">
-          <Image
-            src={"/assets/icons/silver.svg"}
-            width={40}
-            height={40}
-            alt="silver badge"
-          />
-          <div className="flex flex-col font-noto_serif font-semibold text-sm">
-            <span>100</span>
-            <span>Silver Bage</span>
-          </div>
-        </div>
-        <div className="bg_dark_white shadow_rounded py-3 px-5 flex items-center gap-4">
-          <Image
-            src={"/assets/icons/bronze.svg"}
-            width={40}
-            height={40}
-            alt="bronze badge"
-          />
-          <div className="flex flex-col font-noto_serif font-semibold text-sm">
-            <span>100</span>
-            <span>Bronze Bage</span>
-          </div>
-        </div>
+        <StatsBadge
+          imgUrl="/assets/icons/gold.svg"
+          value={0}
+          name="Gold Badge"
+        />
+
+        <StatsBadge
+          imgUrl="/assets/icons/silver.svg"
+          value={0}
+          name="Silver Badge"
+        />
+
+        <StatsBadge
+          imgUrl="/assets/icons/bronze.svg"
+          value={0}
+          name="Bronze Badge"
+        />
       </div>
     </section>
   );
