@@ -1,7 +1,7 @@
 import React from "react";
 import { getUserQuestions } from "../lib/actions/question.action";
 import Post from "./Post";
-interface UserQuestionProps {
+export interface UserQuestionProps {
   userId: string;
 }
 const UserQuestion = async ({ userId }: UserQuestionProps) => {

@@ -127,3 +127,18 @@ export const answerDownVotes = async (params: VotesParams) => {
     throw new Error("Failed to upvote answer", error.message);
   }
 };
+
+export const getUserAnsers = async (userId: string) => {
+  try {
+    await connectToDB();
+    const totalAnswers = await Answer.countDocuments({ author: userId });
+    const answers = await Answer.find({ author: userId })
+      .populate({
+        path: "author",
+        model: User,
+      })
+      .sort({ upvotes: -1 });
+    console.log(totalAnswers, answers);
+    return { totalAnswers, answers };
+  } catch (error) {}
+};
