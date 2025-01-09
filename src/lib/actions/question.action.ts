@@ -204,7 +204,7 @@ export const getUserQuestions = async (userId: string) => {
         path: "author",
         model: User,
       })
-      .sort({ view: -1, upvotes: -1 });
+      .sort({ views: -1, upvotes: -1 });
 
     console.log("getUserQuestion", totalQuestions, questions);
     return { totalQuestions, questions };

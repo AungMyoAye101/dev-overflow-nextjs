@@ -11,23 +11,23 @@ const UserAnswers = async ({ userId }: UserQuestionProps) => {
     throw new Error("results not found !");
   }
 
-  const { totalAnswers, answers } = results;
+  const { totalAnswers, answers } = JSON.parse(JSON.stringify(results));
   return (
-    <div>
-      <div>
-        {answers.length > 1 ? (
-          answers.map((a) => <AnswerCard key={a._id} answer={a} />)
-        ) : (
-          <Empty
-            title="There is no question to show"
-            desecription="  Be the first to break the silence! 🚀 Ask a Question and kickstart the
+    <div className="flex flex-col gap-4">
+      {answers.length > 0 ? (
+        answers.map((a: any) => (
+          <AnswerCard key={a._id} answer={a} currUserId={userId} />
+        ))
+      ) : (
+        <Empty
+          title="There is no question to show"
+          desecription="  Be the first to break the silence! 🚀 Ask a Question and kickstart the
         discussion. our query could be the next big thing others learn from. Get
         involved!"
-            link="/question"
-            btn="ask a question"
-          />
-        )}
-      </div>
+          link="/question"
+          btn="ask a question"
+        />
+      )}
     </div>
   );
 };

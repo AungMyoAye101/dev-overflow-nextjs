@@ -9,14 +9,12 @@ const UserQuestion = async ({ userId }: UserQuestionProps) => {
   if (!results) {
     throw new Error("No user questions found!");
   }
-  const totalQuestion = results.totalQuestions;
-  const questions = results.questions;
+  const { totalQuestion, questions } = JSON.parse(JSON.stringify(results));
+
   return (
-    <div>
-      <div>
-        {questions.length > 0 &&
-          questions.map((q) => <Post key={q._id} question={q} />)}
-      </div>
+    <div className="flex flex-col gap-4">
+      {questions.length > 0 &&
+        questions.map((q: any) => <Post key={q._id} question={q} />)}
     </div>
   );
 };

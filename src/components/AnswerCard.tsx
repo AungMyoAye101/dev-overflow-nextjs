@@ -6,9 +6,10 @@ import Votes from "./Votes";
 import Link from "next/link";
 interface AnswerCardProps {
   answers: AnswerProps[];
+  currUserId: string;
 }
 
-const AnswerCard = ({ answer }: any) => {
+const AnswerCard = ({ answer, currUserId }: any) => {
   const formatDate = timestamp(answer.createdAt);
   return (
     <>
@@ -35,16 +36,16 @@ const AnswerCard = ({ answer }: any) => {
               {timestamp(answer.createdAt)}
             </p>
           </Link>
-          {/* <Votes
-                    itemId={answer._id}
-                    userId={currUserId}
-                    upVotes={answer.upvotes.length}
-                    downVotes={answer.downvotes.length}
-                    hasUpvoted={answer.upvotes?.includes(currUserId)}
-                    hasDownvoted={answer.downvotes?.includes(currUserId)}
-                    hasSaved={user.saved.includes(answer._id)}
-                    type="answer"
-                  /> */}
+          <Votes
+            itemId={answer._id}
+            userId={currUserId}
+            upVotes={answer.upvotes.length}
+            downVotes={answer.downvotes.length}
+            hasUpvoted={answer.upvotes?.includes(currUserId)}
+            hasDownvoted={answer.downvotes?.includes(currUserId)}
+            hasSaved={false}
+            type="answer"
+          />
         </div>
         <div className="mt-4 font-noto_serif">{answer.content}</div>
       </main>
