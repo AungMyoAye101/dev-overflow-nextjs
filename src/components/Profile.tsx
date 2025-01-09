@@ -66,7 +66,7 @@ const Profile = ({ user, clerkId }: user) => {
           </div>
         </div>
         {user.clerkId === clerkId && (
-          <Link href={"profile/edit"} className="absolute right-2 top-2">
+          <Link href={"/profile/edit"} className="absolute right-2 top-2">
             <p className=" font-poppins btn-bg px-4 py-1.5 text-nowrap text-sm rounded-md">
               Edit Profile
             </p>

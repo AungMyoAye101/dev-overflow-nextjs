@@ -205,8 +205,6 @@ export const getUserQuestions = async (userId: string) => {
         model: User,
       })
       .sort({ views: -1, upvotes: -1 });
-
-    console.log("getUserQuestion", totalQuestions, questions);
     return { totalQuestions, questions };
   } catch (error) {}
 };

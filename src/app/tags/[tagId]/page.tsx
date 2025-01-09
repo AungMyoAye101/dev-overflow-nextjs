@@ -13,9 +13,8 @@ const page = async ({ params }: { params: Promise<{ tagId: string }> }) => {
   console.log("result", result);
   return (
     <section className="page_padding flex flex-col  ">
-      <div>
-        <h1 className="h2-bold">{result.name}</h1>
-      </div>
+      <h1 className="h2-bold capitalize">{result.name}</h1>
+
       <div>
         <LocalSearchBox />
       </div>

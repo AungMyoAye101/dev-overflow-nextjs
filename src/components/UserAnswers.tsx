@@ -1,12 +1,12 @@
 import React from "react";
 import { UserQuestionProps } from "./UserQuestion";
-import { getUserAnsers } from "../lib/actions/answer.action";
+import { getUserAnswers } from "../lib/actions/answer.action";
 import Answer from "./Answer";
 import AnswerCard from "./AnswerCard";
 import Empty from "./Empty";
 
 const UserAnswers = async ({ userId }: UserQuestionProps) => {
-  const results = await getUserAnsers(userId);
+  const results = await getUserAnswers(userId);
   if (!results) {
     throw new Error("results not found !");
   }

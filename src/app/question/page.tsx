@@ -5,9 +5,7 @@ import React from "react";
 const page = async () => {
   return (
     <div className="page-container flex-1 flex flex-col">
-      <div>
-        <h1 className="h1-bold">Create Question</h1>
-      </div>
+      <h1 className="h1-bold">Create Question</h1>
       <div>
         <Question formType="create" />
       </div>

@@ -128,7 +128,7 @@ export const answerDownVotes = async (params: VotesParams) => {
   }
 };
 
-export const getUserAnsers = async (userId: string) => {
+export const getUserAnswers = async (userId: string) => {
   try {
     await connectToDB();
     const totalAnswers = await Answer.countDocuments({ author: userId });
@@ -138,7 +138,7 @@ export const getUserAnsers = async (userId: string) => {
         model: User,
       })
       .sort({ upvotes: -1 });
-    console.log(totalAnswers, answers);
+
     return { totalAnswers, answers };
   } catch (error) {}
 };

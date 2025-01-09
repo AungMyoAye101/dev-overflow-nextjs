@@ -31,7 +31,7 @@ const page = async ({
         {/* User profile and votes */}
         <div className="flex justify-between items-center ">
           <Link
-            href={`/profile/${question.author._id}`}
+            href={`/profile/${question.author.clerkId}`}
             className="flex items-center gap-2"
           >
             <Image
