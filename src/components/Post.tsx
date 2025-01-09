@@ -8,15 +8,23 @@ import { timestamp } from "../lib/utils";
 
 interface PostProps {
   question: QuestionProps;
+  ownProfile?: boolean;
 }
 
-const Post = async ({ question }: PostProps) => {
+const Post = async ({ question, ownProfile }: PostProps) => {
   const formatDate = timestamp(question.createdAt);
   return (
     <div className="flex flex-col gap-6 px-6 py-10 rounded-md shadow dark:shadow-none bg_dark_white">
-      <Link href={`/question/${question._id}`}>
-        <h2 className="h3-bold hover:text-orange">{question.title}</h2>
-      </Link>
+      <div className="flex justify-between">
+        <Link href={`/question/${question._id}`}>
+          <h2 className="h3-bold hover:text-orange">{question.title}</h2>
+        </Link>
+        {ownProfile && (
+          <div>
+            <Link href={`/question/edit/${question._id}`}>Edit</Link>
+          </div>
+        )}
+      </div>
       <div className="flex items-center gap-4">
         {question.tags.map((tag) => (
           <Link href={`/tags/${tag._id}`} key={tag.name}>

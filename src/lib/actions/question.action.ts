@@ -68,7 +68,6 @@ export const getQuestionById = async (id: string) => {
   try {
     await connectToDB();
     const question = await Question.findById(id)
-
       .populate({
         path: "tags",
         model: Tags,

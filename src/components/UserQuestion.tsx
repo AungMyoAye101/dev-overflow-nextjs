@@ -14,7 +14,9 @@ const UserQuestion = async ({ userId }: UserQuestionProps) => {
   return (
     <div className="flex flex-col gap-4">
       {questions.length > 0 &&
-        questions.map((q: any) => <Post key={q._id} question={q} />)}
+        questions.map((q: any) => (
+          <Post key={q._id} question={q} ownProfile={true} />
+        ))}
     </div>
   );
 };

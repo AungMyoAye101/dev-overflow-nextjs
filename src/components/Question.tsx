@@ -21,8 +21,14 @@ import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
 import { askQuestion } from "@/src/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
+import { QuestionProps } from "../type";
 
-export function Question({ formType }: { formType: string }) {
+interface QuestionEdit {
+  formType: string;
+  question?: QuestionProps | undefined;
+}
+
+export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   const [isSubmiting, setSubmiting] = useState(false);
 
   const path = usePathname();
@@ -31,12 +37,13 @@ export function Question({ formType }: { formType: string }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      content: "",
+      title: question?.title || "",
+      content: question?.content || "",
       tags: [],
     },
   });
 
+  console.log(question);
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title, content, tags } = values;
@@ -185,6 +192,7 @@ export function Question({ formType }: { formType: string }) {
                   <Input
                     placeholder="tags"
                     // {...field}
+                    disabled={formType === "Edit"}
                     onKeyDown={(e) => handleOnKeyDown(e, field)}
                   />
                   {field.value.length > 0 && (
@@ -213,8 +221,7 @@ export function Question({ formType }: { formType: string }) {
                 </div>
               </FormControl>
               <FormDescription>
-                Add up to 5 tags to describe what your question is about. Start
-                typing to see suggestions
+                Add up to 3 tags to describe what your question is about.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -236,4 +243,6 @@ export function Question({ formType }: { formType: string }) {
       </form>
     </Form>
   );
-}
+};
+
+export default QuestionForm;
