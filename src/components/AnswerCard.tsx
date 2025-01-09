@@ -36,18 +36,10 @@ const AnswerCard = ({ answer, currUserId }: any) => {
               {timestamp(answer.createdAt)}
             </p>
           </Link>
-          {/* <Votes
-            itemId={answer._id}
-            userId={currUserId}
-            upVotes={answer.upvotes.length}
-            downVotes={answer.downvotes.length}
-            hasUpvoted={answer.upvotes?.includes(currUserId)}
-            hasDownvoted={answer.downvotes?.includes(currUserId)}
-            hasSaved={false}
-            type="answer"
-          /> */}
         </div>
-        <div className="mt-4 font-noto_serif">{answer.content}</div>
+        <div className="mt-4 font-noto_serif">
+          <Link href={`/question/${answer.question}`}>{answer.content}</Link>
+        </div>
       </main>
     </>
   );

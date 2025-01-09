@@ -15,12 +15,9 @@ const page = async ({
   params: Promise<{ questionId: string }>;
 }) => {
   const { questionId } = await params;
-
   const res = await getQuestionById(questionId);
   const question = JSON.parse(JSON.stringify(res));
-
   const formattedDate = timestamp(question.createdAt);
-
   const user = await getUser();
   if (!user) return;
   const currUserId = user._id.toString();

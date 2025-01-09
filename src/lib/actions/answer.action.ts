@@ -47,7 +47,6 @@ export const getAllAnswers = async (id: string) => {
       populate: {
         path: "author",
         model: User,
-        select: "name username email picture",
       },
     });
 
