@@ -30,15 +30,19 @@ const page = async ({ params }: PageProps) => {
         totalQuestion={result.totalQuestions}
         totalAnswer={result.totalAnswers}
       />
-      <Tabs defaultValue="account" className="">
-        <TabsList>
-          <TabsTrigger value="question">Top Questions</TabsTrigger>
-          <TabsTrigger value="answer">Answers</TabsTrigger>
+      <Tabs defaultValue="question">
+        <TabsList className="overflow-hidden  bg_dark_white ">
+          <TabsTrigger value="question" className="p-2 rounded-none">
+            Top Questions
+          </TabsTrigger>
+          <TabsTrigger value="answer" className="p-2 rounded-none">
+            Answers
+          </TabsTrigger>
         </TabsList>
-        <TabsContent value="question">
+        <TabsContent value="question" className="mt-4">
           <UserQuestion userId={result.user._id} />
         </TabsContent>
-        <TabsContent value="answer">
+        <TabsContent value="answer" className="mt-4">
           <UserAnswers userId={result.user._id} />
         </TabsContent>
       </Tabs>
