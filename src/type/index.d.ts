@@ -37,6 +37,7 @@ export interface UpdateUser {
     password?: string;
     picture?: string;
   };
+  path?: string;
 }
 
 export interface ClerkIdProp {

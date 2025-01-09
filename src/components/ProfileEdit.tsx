@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "@/src/components/ui/input";
-import React from "react";
+import React, { FC, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -16,30 +16,42 @@ import { editProfileSchema } from "@/src/lib/FormViladitaion";
 import { Textarea } from "@/src/components/ui/textarea";
 import { Button } from "@/src/components/ui/button";
 import { updateUser } from "@/src/lib/actions/user.action";
-import { ClerkIdProp } from "../type";
+import { ClerkIdProp, UserProps } from "../type";
+import { usePathname, useRouter } from "next/navigation";
 
-const ProfileEdit = ({ clerkId }: ClerkIdProp) => {
+interface ProfileProps {
+  user: UserProps;
+}
+
+const ProfileEdit: FC<ProfileProps> = ({ user }) => {
+  const [edit, setEdit] = useState(false);
+  const router = useRouter();
+  const path = usePathname();
   //@ts-nocheck
   const form = useForm<z.infer<typeof editProfileSchema>>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
-      username: "",
-      portfolio: "",
-      location: "",
-      bio: "",
+      name: user.name || "",
+      username: user.username || "",
+      email: user.email || "",
+      portfolio: user.portfolio || "",
+      bio: user.bio || "",
+      location: user.location || "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof editProfileSchema>) {
     //add logic
-
+    const { clerkId } = user;
     const updateData = values;
     try {
-      const user = await updateUser({ clerkId, updateData });
-      console.log(user);
-      return user;
+      await updateUser({ clerkId, updateData, path });
+      setEdit(true);
+      router.push(`/profile/${clerkId}`);
     } catch (error) {
       console.log(error);
+    } finally {
+      setEdit(false);
     }
   }
 
@@ -54,7 +66,7 @@ const ProfileEdit = ({ clerkId }: ClerkIdProp) => {
           >
             <FormField
               control={form.control}
-              name="username"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel> Name</FormLabel>
@@ -68,12 +80,26 @@ const ProfileEdit = ({ clerkId }: ClerkIdProp) => {
             />
             <FormField
               control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel> Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="username" {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="portfolio"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Portfolio Link</FormLabel>
                   <FormControl>
-                    <Input type="text" placeholder="you@gmai.com" {...field} />
+                    <Input type="text" placeholder="you@gmail.com" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -108,8 +134,12 @@ const ProfileEdit = ({ clerkId }: ClerkIdProp) => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="btn-bg self-end px-6">
-              Edit
+            <Button
+              type="submit"
+              disabled={edit}
+              className="btn-bg self-end px-6"
+            >
+              {edit ? "Editing" : "Edit"}
             </Button>
           </form>
         </Form>

@@ -17,17 +17,21 @@ export const formSchema = z.object({
 });
 
 export const editProfileSchema = z.object({
+  name: z.string().min(3, {
+    message: "Name must be at least 3 characters.",
+  }),
   username: z.string().min(3, {
     message: "Username must be at least 3 characters.",
   }),
-  portfolio: z.string().min(4, {
+  email: z.string().email(),
+  portfolio: z.string().url().min(4, {
     message: "portfolio link must be at least 3 characters.",
-  }),
-  location: z.string().min(4, {
-    message: "Location link must be at least 3 characters.",
   }),
   bio: z.string().min(12, {
     message: "bio must be at least 12 characters.",
+  }),
+  location: z.string().min(4, {
+    message: "Location link must be at least 3 characters.",
   }),
 });
 

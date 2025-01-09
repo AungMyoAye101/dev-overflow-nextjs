@@ -31,7 +31,7 @@ const page = async ({ params }: PageProps) => {
         totalAnswer={result.totalAnswers}
       />
       <Tabs defaultValue="question">
-        <TabsList className="overflow-hidden  bg_dark_white ">
+        <TabsList className="overflow-hidden  bg_dark_white shadow-md dark:shadow-none ">
           <TabsTrigger value="question" className="p-2 rounded-none">
             Top Questions
           </TabsTrigger>

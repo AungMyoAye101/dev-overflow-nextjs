@@ -21,10 +21,14 @@ export const createUser = async (params: CreateUser) => {
 };
 
 export const updateUser = async (params: UpdateUser) => {
-  const { clerkId, updateData } = params;
+  const { clerkId, updateData, path } = params;
   try {
     await connectToDB();
     await User.findOneAndUpdate({ clerkId }, updateData, { new: true });
+
+    if (path) {
+      revalidatePath(path);
+    }
     return { success: true };
   } catch (err: any) {
     console.log("Faild to create user", err.message);

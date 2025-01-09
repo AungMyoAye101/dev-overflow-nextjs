@@ -36,7 +36,7 @@ const AnswerCard = ({ answer, currUserId }: any) => {
               {timestamp(answer.createdAt)}
             </p>
           </Link>
-          <Votes
+          {/* <Votes
             itemId={answer._id}
             userId={currUserId}
             upVotes={answer.upvotes.length}
@@ -45,7 +45,7 @@ const AnswerCard = ({ answer, currUserId }: any) => {
             hasDownvoted={answer.downvotes?.includes(currUserId)}
             hasSaved={false}
             type="answer"
-          />
+          /> */}
         </div>
         <div className="mt-4 font-noto_serif">{answer.content}</div>
       </main>
