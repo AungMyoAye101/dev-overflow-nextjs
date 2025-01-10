@@ -1,16 +1,16 @@
 import React from "react";
-import { AnswerProps } from "../type";
+import { AnswerTypes } from "../type";
 import Image from "next/image";
 import { timestamp } from "../lib/utils";
-import Votes from "./Votes";
 import Link from "next/link";
 import EditDeleteAction from "./EditDeleteAction";
+import { FaRegThumbsUp } from "react-icons/fa";
 interface AnswerCardProps {
-  answers: AnswerProps[];
+  answer: AnswerTypes;
   currUserId: string;
 }
 
-const AnswerCard = ({ answer, currUserId }: any) => {
+const AnswerCard = ({ answer, currUserId }: AnswerCardProps) => {
   const formatDate = timestamp(answer.createdAt);
   return (
     <>
@@ -34,13 +34,18 @@ const AnswerCard = ({ answer, currUserId }: any) => {
               {answer.author.name}
             </h1>
             <p className="text-xs font-noto_serif opacity-80 capitalize">
-              {timestamp(answer.createdAt)}
+              {formatDate}
             </p>
           </Link>
           {currUserId && <EditDeleteAction type="answer" id={answer._id} />}
         </div>
         <div className=" font-noto_serif">
           <Link href={`/question/${answer.question}`}>{answer.content}</Link>
+        </div>
+
+        <div className="flex items-center gap-1  text-sm font-noto_serif">
+          <FaRegThumbsUp className="text-blue-600 cursor-pointer" />
+          <p>{answer.upvotes?.length} Votes</p>
         </div>
       </main>
     </>
