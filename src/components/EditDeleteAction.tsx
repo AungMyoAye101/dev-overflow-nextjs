@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { FC } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { deleteQuestion } from "../lib/actions/question.action";
+import { deleteAnswer } from "../lib/actions/answer.action";
 
 interface EditDeleteActionProps {
   type: string;
@@ -22,6 +23,14 @@ const EditDeleteAction: FC<EditDeleteActionProps> = ({ type, id }) => {
         confirm("Are you sure ");
         await deleteQuestion({
           questionId: id,
+          path,
+        });
+      }
+
+      if (type === "answer") {
+        confirm("Are you sure ");
+        await deleteAnswer({
+          answerId: id,
           path,
         });
       }

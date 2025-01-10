@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import Answer from "@/src/model/answer.model";
 import Question from "@/src/model/question.model";
 import User from "@/src/model/User.Model";
+import Interaction from "@/src/model/Interaction.model";
 
 export const createAnswer = async (params: AnswerProps) => {
   const { content, questionId, path } = params;
@@ -140,4 +141,32 @@ export const getUserAnswers = async (userId: string) => {
 
     return { totalAnswers, answers };
   } catch (error) {}
+};
+
+export const deleteAnswer = async (params: any) => {
+  const { answerId, path } = params;
+
+  try {
+    await connectToDB();
+    const answer = await Answer.findById(answerId);
+    if (!answer) {
+      throw new Error("Answer not found");
+    }
+    await Answer.findByIdAndDelete(answerId);
+    await Question.findByIdAndUpdate(
+      { _id: answer.question },
+      {
+        $pull: {
+          answers: answerId,
+        },
+      }
+    );
+    await Interaction.deleteMany({ answer: answerId });
+
+    console.log("delete question successfully");
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };

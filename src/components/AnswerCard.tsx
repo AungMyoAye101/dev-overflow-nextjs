@@ -4,6 +4,7 @@ import Image from "next/image";
 import { timestamp } from "../lib/utils";
 import Votes from "./Votes";
 import Link from "next/link";
+import EditDeleteAction from "./EditDeleteAction";
 interface AnswerCardProps {
   answers: AnswerProps[];
   currUserId: string;
@@ -36,8 +37,9 @@ const AnswerCard = ({ answer, currUserId }: any) => {
               {timestamp(answer.createdAt)}
             </p>
           </Link>
+          {currUserId && <EditDeleteAction type="answer" id={answer._id} />}
         </div>
-        <div className="mt-4 font-noto_serif">
+        <div className=" font-noto_serif">
           <Link href={`/question/${answer.question}`}>{answer.content}</Link>
         </div>
       </main>
