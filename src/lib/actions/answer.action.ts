@@ -140,7 +140,9 @@ export const getUserAnswers = async (userId: string) => {
       .sort({ upvotes: -1 });
 
     return { totalAnswers, answers };
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const deleteAnswer = async (params: any) => {

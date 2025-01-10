@@ -16,7 +16,7 @@ import { editProfileSchema } from "@/src/lib/FormViladitaion";
 import { Textarea } from "@/src/components/ui/textarea";
 import { Button } from "@/src/components/ui/button";
 import { updateUser } from "@/src/lib/actions/user.action";
-import { ClerkIdProp, UserProps } from "../type";
+import { UserProps } from "../type";
 import { usePathname, useRouter } from "next/navigation";
 
 interface ProfileProps {

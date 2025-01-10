@@ -1,7 +1,5 @@
-import React from "react";
 import { UserQuestionProps } from "./UserQuestion";
 import { getUserAnswers } from "../lib/actions/answer.action";
-import Answer from "./Answer";
 import AnswerCard from "./AnswerCard";
 import Empty from "./Empty";
 
@@ -12,6 +10,7 @@ const UserAnswers = async ({ userId }: UserQuestionProps) => {
   }
 
   const { totalAnswers, answers } = JSON.parse(JSON.stringify(results));
+  console.log(totalAnswers);
   return (
     <div className="flex flex-col gap-4">
       {answers.length > 0 ? (

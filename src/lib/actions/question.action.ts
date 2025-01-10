@@ -207,7 +207,9 @@ export const getUserQuestions = async (userId: string) => {
       })
       .sort({ views: -1, upvotes: -1 });
     return { totalQuestions, questions };
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const deleteQuestion = async (params: any) => {
