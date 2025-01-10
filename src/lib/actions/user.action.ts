@@ -6,6 +6,7 @@ import Question from "@/src/model/question.model";
 import User from "@/src/model/User.Model";
 import { ClerkIdProp, CreateUser, SavedParams, UpdateUser } from "@/src/type";
 import { auth } from "@clerk/nextjs/server";
+import { FilterQuery } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 export const createUser = async (params: CreateUser) => {
@@ -59,10 +60,18 @@ export const getUser = async () => {
   }
 };
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (params: { searchQuery?: string } = {}) => {
   try {
     await connectToDB();
-    const allUsers = await User.find();
+    const { searchQuery } = params;
+    const query: FilterQuery<typeof User> = {};
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: new RegExp(searchQuery, "i") } },
+        { username: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+    const allUsers = await User.find(query);
 
     return allUsers;
   } catch (error) {
