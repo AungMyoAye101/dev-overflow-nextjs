@@ -135,3 +135,9 @@ export interface StatsProps {
   totalQuestion: number;
   totalAnswer: number;
 }
+
+export interface TopTagsType {
+  _id: string;
+  name: string;
+  numberOfQuestions: number;
+}

@@ -7,10 +7,10 @@ import React from "react";
 
 const page = async ({ params }: { params: Promise<{ tagId: string }> }) => {
   const { tagId } = await params;
-  const result: TagsDetailProps = await getQuestionByTagId({
+  const res = await getQuestionByTagId({
     tagId,
   });
-  console.log("result", result);
+  const result: TagsDetailProps = JSON.parse(JSON.stringify(res));
   return (
     <section className="page_padding flex flex-col  ">
       <h1 className="h2-bold capitalize">{result.name}</h1>

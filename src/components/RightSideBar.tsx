@@ -2,15 +2,18 @@ import { FaGreaterThan } from "react-icons/fa";
 import { Badge } from "./ui/badge";
 import { getTopQuestions } from "../lib/actions/question.action";
 import Link from "next/link";
-import { QuestionProps } from "../type";
+import { QuestionProps, TopTagsType } from "../type";
+import { getTopTags } from "../lib/actions/tags.action";
 
 const RightSideBar = async () => {
   const res = await getTopQuestions();
   const topQuestion: QuestionProps[] = JSON.parse(JSON.stringify(res));
+  const tags = await getTopTags();
+  const topTags: TopTagsType[] = JSON.parse(JSON.stringify(tags));
 
   return (
     <section className="hidden lg:block  h-screen overflow-hidden overflow-y-scroll custom-scrollbar sticky right-0 top-0  pt-[7rem] pb-10 px-4   max-w-80 bg-white dark:bg-gray-900 ">
-      <div className="flex flex-col gap-4 pt-4">
+      <div className="flex flex-col gap-4 pt-4 ">
         <div>
           <h1 className="text-xl font-poppins font-semibold">Top Questions</h1>
         </div>
@@ -34,26 +37,20 @@ const RightSideBar = async () => {
 
         {/* tags container */}
         <div className="flex flex-col gap-4">
-          <div>
-            <h1 className="text-xl font-poppins font-semibold">Popular Tags</h1>
-          </div>
+          <h1 className="text-xl font-poppins font-semibold">Popular Tags</h1>
+
           <div className="flex flex-col gap-4 font-semibold font-poppins">
-            <button className="flex justify-between items-center">
-              <Badge className="px-4 py-2 font-noto_serif ">Next js</Badge>
-              <span>1069</span>
-            </button>
-            <button className="flex justify-between items-center">
-              <Badge className="px-4 py-2 font-noto_serif ">Next js</Badge>
-              <span>1069</span>
-            </button>
-            <button className="flex justify-between items-center">
-              <Badge className="px-4 py-2 font-noto_serif ">Next js</Badge>
-              <span>1069</span>
-            </button>
-            <button className="flex justify-between items-center">
-              <Badge className="px-4 py-2 font-noto_serif ">Next js</Badge>
-              <span>1069</span>
-            </button>
+            {topTags.length > 0 &&
+              topTags.map((t) => (
+                <Link
+                  key={t._id}
+                  href={`/tags/${t._id}`}
+                  className="flex justify-between items-center"
+                >
+                  <Badge className="px-3 py-1 font-noto_serif ">{t.name}</Badge>
+                  <span>{t.numberOfQuestions}</span>
+                </Link>
+              ))}
           </div>
         </div>
       </div>

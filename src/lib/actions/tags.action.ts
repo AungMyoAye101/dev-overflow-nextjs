@@ -43,20 +43,46 @@ export const getQuestionByTagId = async (params: TagsPrams) => {
         {
           path: "author",
           model: User,
+          select: "_id name username picture",
         },
         {
           path: "tags",
           model: Tags,
+          select: "_id name ",
         },
       ],
     });
+
     if (!tag) {
       throw new Error("Tags not found");
     }
-    console.log("successfully fetch questions by tag", tag.questions);
+
     return { name: tag.name, questions: tag.questions };
   } catch (error: any) {
     console.log(error.message);
+    throw error;
+  }
+};
+
+export const getTopTags = async () => {
+  try {
+    await connectToDB();
+    const topTags = await Tags.aggregate([
+      {
+        $project: {
+          name: 1,
+          numberOfQuestions: { $size: "$questions" },
+        },
+      },
+      { $sort: { numberOfQuestions: -1 } },
+      { $limit: 5 },
+    ]);
+    if (!topTags) {
+      throw new Error("No Populer tags found!");
+    }
+    console.log(topTags);
+    return topTags;
+  } catch (error) {
     throw error;
   }
 };
