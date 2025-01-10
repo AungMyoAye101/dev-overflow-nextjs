@@ -174,24 +174,25 @@ export const getSavedQuestion = async () => {
   const { userId: clerkId } = await auth();
   try {
     await connectToDB();
-    const user = await User.findOne({ clerkId }).populate({
-      path: "saved",
-      model: Question,
-      populate: [
-        {
-          path: "author",
-          model: User,
-          select: "_id name picture ",
-        },
-        {
-          path: "tags",
-          model: Tags,
-          select: "_id name ",
-        },
-      ],
-    });
+    const user = await User.findOne({ clerkId })
+      .lean()
+      .populate({
+        path: "saved",
+        model: Question,
+        populate: [
+          {
+            path: "author",
+            model: User,
+            select: "_id name picture ",
+          },
+          {
+            path: "tags",
+            model: Tags,
+            select: "_id name ",
+          },
+        ],
+      });
 
-    console.log("success", user);
     return user;
   } catch (error: any) {
     console.log(error.message);

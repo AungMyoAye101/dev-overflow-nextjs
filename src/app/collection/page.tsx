@@ -4,11 +4,11 @@ import { getSavedQuestion } from "@/src/lib/actions/question.action";
 import React from "react";
 
 const page = async () => {
-  const user = await getSavedQuestion();
-  if (!user) {
+  const res = await getSavedQuestion();
+  if (!res) {
     return console.log("No queston found  ");
   }
-  console.log(user);
+  const user = JSON.parse(JSON.stringify(res));
   return (
     <section className="page_padding">
       <h1 className="h1-bold">Saved Questions</h1>
