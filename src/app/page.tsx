@@ -4,11 +4,13 @@ import Post from "@/src/components/Post";
 import Link from "next/link";
 import { getAllQuestions } from "../lib/actions/question.action";
 import Empty from "../components/Empty";
+import { QuestionProps } from "../type";
 
 export default async function Home() {
-  const questions = await getAllQuestions();
+  const res = await getAllQuestions();
 
-  if (!questions) return;
+  if (!res) return;
+  const questions: QuestionProps[] = JSON.parse(JSON.stringify(res));
 
   return (
     <div className="flex-1 flex flex-col gap-10   custom-scrollbar pt-[8rem] pb-10  px-4 md:px-10 bg-light-gray dark:bg-black border-2 ">

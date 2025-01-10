@@ -59,7 +59,7 @@ const Answer = ({ questionId }: Props) => {
             name="content"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>What is your content</FormLabel>
+                <FormLabel>What is your answer</FormLabel>
                 <FormControl>
                   <Textarea placeholder="Enter your though" {...field} />
                 </FormControl>

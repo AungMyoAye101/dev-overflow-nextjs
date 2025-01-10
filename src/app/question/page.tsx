@@ -1,5 +1,4 @@
-import { Question } from "@/src/components/Question";
-
+import QuestionForm from "@/src/components/Question";
 import React from "react";
 
 const page = async () => {
@@ -7,7 +6,7 @@ const page = async () => {
     <div className="page-container flex-1 flex flex-col">
       <h1 className="h1-bold">Create Question</h1>
       <div>
-        <Question formType="create" />
+        <QuestionForm formType="create" />
       </div>
     </div>
   );

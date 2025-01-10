@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Badge } from "./ui/badge";
 import { FaComment, FaEye, FaThumbsUp } from "react-icons/fa";
@@ -5,22 +6,33 @@ import Image from "next/image";
 import { QuestionProps } from "../type";
 import Link from "next/link";
 import { timestamp } from "../lib/utils";
+import EditDeleteAction from "./EditDeleteAction";
+import { useAuth } from "@clerk/nextjs";
 
 interface PostProps {
   question: QuestionProps;
+  ownProfile?: boolean;
 }
 
-const Post = async ({ question }: PostProps) => {
+const Post = ({ question }: PostProps) => {
   const formatDate = timestamp(question.createdAt);
+  const { userId } = useAuth();
+
   return (
     <div className="flex flex-col gap-6 px-6 py-10 rounded-md shadow dark:shadow-none bg_dark_white">
-      <Link href={`/question/${question._id}`}>
-        <h2 className="h3-bold hover:text-orange">{question.title}</h2>
-      </Link>
+      <div className="flex justify-between gap-4 items-start">
+        <Link href={`/question/${question._id}`} className="hover:text-orange">
+          <h2 className="h3-bold ">{question.title}</h2>
+          <p className="para line-clamp-2 mt-2">{question.content}</p>
+        </Link>
+        {userId === question.author.clerkId && (
+          <EditDeleteAction type="question" id={question._id!} />
+        )}
+      </div>
       <div className="flex items-center gap-4">
         {question.tags.map((tag) => (
           <Link href={`/tags/${tag._id}`} key={tag.name}>
-            <Badge className="px-3 py-1.5 font-poppins">{tag.name}</Badge>
+            <Badge className="px-2 py-1 font-poppins">{tag.name}</Badge>
           </Link>
         ))}
       </div>

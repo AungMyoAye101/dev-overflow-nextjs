@@ -89,7 +89,7 @@ const Votes = ({
   };
 
   useEffect(() => {
-    viewQuestion({ questionId: itemId, userId, path });
+    viewQuestion({ itemId, userId, path });
   }, [itemId, userId, path, router]);
 
   return (

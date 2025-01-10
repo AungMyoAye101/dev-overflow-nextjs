@@ -8,6 +8,8 @@ import { VotesParams } from "@/src/type";
 import User from "@/src/model/User.Model";
 import { auth } from "@clerk/nextjs/server";
 import { getUser } from "./user.action";
+import Answer from "@/src/model/answer.model";
+import Interaction from "@/src/model/Interaction.model";
 
 export const askQuestion = async (params: any) => {
   const { title, content, tags, path } = params;
@@ -41,7 +43,6 @@ export const askQuestion = async (params: any) => {
     });
 
     revalidatePath(path);
-    return question;
   } catch (error: any) {
     console.error("Error asking question:", error.message);
     throw error;
@@ -51,12 +52,13 @@ export const askQuestion = async (params: any) => {
 export const getAllQuestions = async () => {
   try {
     await connectToDB();
-    const questions = await Question.find()
+    const questions = await Question.find({})
       .populate({ path: "author", model: User })
       .populate({ path: "tags", model: Tags })
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
 
-    if (!questions) return console.log("No questions found");
+    if (!questions) return [];
 
     return questions;
   } catch (error) {
@@ -68,7 +70,6 @@ export const getQuestionById = async (id: string) => {
   try {
     await connectToDB();
     const question = await Question.findById(id)
-
       .populate({
         path: "tags",
         model: Tags,
@@ -207,4 +208,25 @@ export const getUserQuestions = async (userId: string) => {
       .sort({ views: -1, upvotes: -1 });
     return { totalQuestions, questions };
   } catch (error) {}
+};
+
+export const deleteQuestion = async (params: any) => {
+  const { questionId, path } = params;
+
+  try {
+    await connectToDB();
+    await Question.findByIdAndDelete(questionId);
+    await Answer.deleteMany({ question: questionId });
+    await Interaction.deleteMany({ question: questionId });
+    await Tags.updateMany(
+      { question: questionId },
+      { $pull: { question: questionId } }
+    );
+
+    console.log("delete question successfully");
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };

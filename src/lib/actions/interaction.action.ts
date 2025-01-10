@@ -1,21 +1,22 @@
 "use server";
 import connectToDB from "@/src/database/db";
+import Answer from "@/src/model/answer.model";
 import Interaction from "@/src/model/Interaction.model";
 import Question from "@/src/model/question.model";
 import { revalidatePath } from "next/cache";
 
 export const viewQuestion = async (params: any) => {
-  const { questionId, userId, path } = params;
+  const { itemId, userId, path } = params;
   try {
     await connectToDB();
-    await Question.findByIdAndUpdate(questionId, { $inc: { views: 1 } });
+    await Question.findByIdAndUpdate(itemId, { $inc: { views: 1 } });
     if (userId) {
       const existingUser = await Interaction.findOne({ user: userId });
 
       if (existingUser) {
         return console.log("user already view");
       }
-      await Interaction.create({ user: userId, question: questionId });
+      await Interaction.create({ user: userId, question: itemId });
     }
 
     revalidatePath(path);
