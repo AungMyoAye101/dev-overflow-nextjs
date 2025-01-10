@@ -7,7 +7,8 @@ import Empty from "../components/Empty";
 import { QuestionProps, SearchParamsProps } from "../type";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  const res = await getAllQuestions({ searchQuery: searchParams.q });
+  const query = await searchParams;
+  const res = await getAllQuestions({ searchQuery: query.q });
 
   if (!res) return;
   const questions: QuestionProps[] = JSON.parse(JSON.stringify(res));

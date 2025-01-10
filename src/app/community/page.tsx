@@ -6,7 +6,8 @@ import { SearchParamsProps } from "@/src/type";
 import React from "react";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
-  const allUsers = await getAllUsers({ searchQuery: searchParams.q });
+  const query = await searchParams;
+  const allUsers = await getAllUsers({ searchQuery: query.q });
   if (!allUsers) return console.log("failed tp fetch all users");
 
   return (

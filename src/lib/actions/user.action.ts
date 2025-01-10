@@ -60,7 +60,7 @@ export const getUser = async () => {
   }
 };
 
-export const getAllUsers = async (params: { searchQuery?: string } = {}) => {
+export const getAllUsers = async (params: { searchQuery?: string }) => {
   try {
     await connectToDB();
     const { searchQuery } = params;

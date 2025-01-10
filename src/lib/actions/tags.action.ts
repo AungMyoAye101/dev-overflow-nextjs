@@ -4,6 +4,7 @@ import Question from "@/src/model/question.model";
 import Tags from "@/src/model/Tag.model";
 import User from "@/src/model/User.Model";
 import { TagsPrams } from "@/src/type";
+import { FilterQuery } from "mongoose";
 
 export const getTagById = async (id: string) => {
   try {
@@ -15,10 +16,19 @@ export const getTagById = async (id: string) => {
     throw error;
   }
 };
-export const getAllTags = async () => {
+export const getAllTags = async (params: { searchQuery?: string }) => {
   try {
     await connectToDB();
-    const tags = await Tags.find().populate({
+    const { searchQuery } = params;
+    const query: FilterQuery<typeof Tags> = {};
+    if (searchQuery) {
+      query.$or = [
+        {
+          name: { $regex: new RegExp(searchQuery, "i") },
+        },
+      ];
+    }
+    const tags = await Tags.find(query).populate({
       path: "questions",
       select: "_id title description",
     });

@@ -50,9 +50,7 @@ export const askQuestion = async (params: any) => {
   }
 };
 
-export const getAllQuestions = async (
-  params: { searchQuery?: string } = {}
-) => {
+export const getAllQuestions = async (params: { searchQuery?: string }) => {
   try {
     await connectToDB();
     const { searchQuery } = params;
