@@ -80,7 +80,7 @@ export const getTopTags = async () => {
     if (!topTags) {
       throw new Error("No Populer tags found!");
     }
-    console.log(topTags);
+
     return topTags;
   } catch (error) {
     throw error;

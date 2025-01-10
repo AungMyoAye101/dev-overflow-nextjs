@@ -6,8 +6,12 @@ import { getAllQuestions } from "../lib/actions/question.action";
 import Empty from "../components/Empty";
 import { QuestionProps } from "../type";
 
-export default async function Home() {
-  const res = await getAllQuestions();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { q: string };
+}) {
+  const res = await getAllQuestions({ searchQuery: searchParams.q });
 
   if (!res) return;
   const questions: QuestionProps[] = JSON.parse(JSON.stringify(res));
