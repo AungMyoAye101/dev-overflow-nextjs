@@ -1,13 +1,14 @@
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import { Badge } from "@/src/components/ui/badge";
 import { getAllTags } from "@/src/lib/actions/tags.action";
+import { SearchParamsProps } from "@/src/type";
 import Link from "next/link";
 
 import React from "react";
 
-const Page = async () => {
-  const tags = await getAllTags();
-  console.log("page", tags);
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const query = await searchParams;
+  const tags = await getAllTags({ searchQuery: query.q });
   if (!tags) return <div>Loading...</div>;
 
   return (

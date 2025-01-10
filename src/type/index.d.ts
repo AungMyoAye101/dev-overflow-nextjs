@@ -141,3 +141,7 @@ export interface TopTagsType {
   name: string;
   numberOfQuestions: number;
 }
+
+export interface SearchParamsProps {
+  searchParams: Promise<{ q: string }>;
+}

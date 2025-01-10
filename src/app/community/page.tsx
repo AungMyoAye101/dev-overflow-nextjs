@@ -1,13 +1,15 @@
 import Card from "@/src/components/Card";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import { getAllUsers } from "@/src/lib/actions/user.action";
+import { SearchParamsProps } from "@/src/type";
 
 import React from "react";
 
-const Page = async () => {
-  const allUsers = await getAllUsers();
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const query = await searchParams;
+  const allUsers = await getAllUsers({ searchQuery: query.q });
   if (!allUsers) return console.log("failed tp fetch all users");
-  console.log("all user", allUsers);
+
   return (
     <section className="page_padding">
       <h1 className="h1-bold">All Users</h1>

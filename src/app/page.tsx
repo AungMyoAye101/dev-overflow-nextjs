@@ -4,10 +4,11 @@ import Post from "@/src/components/Post";
 import Link from "next/link";
 import { getAllQuestions } from "../lib/actions/question.action";
 import Empty from "../components/Empty";
-import { QuestionProps } from "../type";
+import { QuestionProps, SearchParamsProps } from "../type";
 
-export default async function Home() {
-  const res = await getAllQuestions();
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const query = await searchParams;
+  const res = await getAllQuestions({ searchQuery: query.q });
 
   if (!res) return;
   const questions: QuestionProps[] = JSON.parse(JSON.stringify(res));
