@@ -1,30 +1,27 @@
+"use client";
 import React from "react";
 import { Badge } from "./ui/badge";
-import { FaComment, FaEye, FaThumbsUp } from "react-icons/fa";
+import { FaComment, FaEdit, FaEye, FaThumbsUp, FaTrash } from "react-icons/fa";
 import Image from "next/image";
 import { QuestionProps } from "../type";
 import Link from "next/link";
 import { timestamp } from "../lib/utils";
+import { deleteQuestion } from "../lib/actions/question.action";
+import { usePathname } from "next/navigation";
 
 interface PostProps {
   question: QuestionProps;
   ownProfile?: boolean;
 }
 
-const Post = async ({ question, ownProfile }: PostProps) => {
+const Post = ({ question }: PostProps) => {
   const formatDate = timestamp(question.createdAt);
+
   return (
     <div className="flex flex-col gap-6 px-6 py-10 rounded-md shadow dark:shadow-none bg_dark_white">
-      <div className="flex justify-between">
-        <Link href={`/question/${question._id}`}>
-          <h2 className="h3-bold hover:text-orange">{question.title}</h2>
-        </Link>
-        {ownProfile && (
-          <div>
-            <Link href={`/question/edit/${question._id}`}>Edit</Link>
-          </div>
-        )}
-      </div>
+      <Link href={`/question/${question._id}`}>
+        <h2 className="h3-bold hover:text-orange">{question.title}</h2>
+      </Link>
       <div className="flex items-center gap-4">
         {question.tags.map((tag) => (
           <Link href={`/tags/${tag._id}`} key={tag.name}>
