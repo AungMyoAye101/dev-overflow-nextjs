@@ -1,8 +1,13 @@
-import React from "react";
 import { FaGreaterThan } from "react-icons/fa";
 import { Badge } from "./ui/badge";
+import { getTopQuestions } from "../lib/actions/question.action";
+import Link from "next/link";
+import { QuestionProps } from "../type";
 
-const RightSideBar = () => {
+const RightSideBar = async () => {
+  const res = await getTopQuestions();
+  const topQuestion: QuestionProps[] = JSON.parse(JSON.stringify(res));
+
   return (
     <section className="hidden lg:block  h-screen overflow-hidden overflow-y-scroll custom-scrollbar sticky right-0 top-0  pt-[7rem] pb-10 px-4   max-w-80 bg-white dark:bg-gray-900 ">
       <div className="flex flex-col gap-4 pt-4">
@@ -12,42 +17,19 @@ const RightSideBar = () => {
 
         {/* top question container */}
         <div className="flex flex-col gap-4">
-          <div className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif ">
-            <p>
-              How to Ensure Unique User Profile with ON CONFLICT in PostgreSQL
-              Using Drizzle ORM?
-            </p>
-            <button className="hover:text-orange">
-              <FaGreaterThan />
-            </button>
-          </div>
-          <div className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif ">
-            <p>
-              How to Ensure Unique User Profile with ON CONFLICT in PostgreSQL
-              Using Drizzle ORM?
-            </p>
-            <button className="hover:text-orange">
-              <FaGreaterThan />
-            </button>
-          </div>
-          <div className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif ">
-            <p>
-              How to Ensure Unique User Profile with ON CONFLICT in PostgreSQL
-              Using Drizzle ORM?
-            </p>
-            <button className="hover:text-orange">
-              <FaGreaterThan />
-            </button>
-          </div>
-          <div className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif ">
-            <p>
-              How to Ensure Unique User Profile with ON CONFLICT in PostgreSQL
-              Using Drizzle ORM?
-            </p>
-            <button className="hover:text-orange">
-              <FaGreaterThan />
-            </button>
-          </div>
+          {topQuestion.length > 0 &&
+            topQuestion.map((q) => (
+              <Link
+                href={`/question/${q._id!}`}
+                key={q._id}
+                className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif hover:text-orange "
+              >
+                <p>{q.title}</p>
+                <button>
+                  <FaGreaterThan />
+                </button>
+              </Link>
+            ))}
         </div>
 
         {/* tags container */}

@@ -230,3 +230,18 @@ export const deleteQuestion = async (params: any) => {
     throw error;
   }
 };
+
+export const getTopQuestions = async () => {
+  try {
+    await connectToDB();
+    const topQuestions = await Question.find().sort({ upvotes: -1, views: -1 });
+
+    if (!topQuestions) {
+      throw new Error("No top questions found");
+    }
+    console.log("top", topQuestions);
+    return topQuestions;
+  } catch (error) {
+    throw error;
+  }
+};
