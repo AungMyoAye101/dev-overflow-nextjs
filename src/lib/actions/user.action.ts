@@ -60,18 +60,39 @@ export const getUser = async () => {
   }
 };
 
-export const getAllUsers = async (params: { searchQuery?: string }) => {
+export const getAllUsers = async (params: {
+  searchQuery?: string;
+  sortQuery?: string;
+}) => {
   try {
     await connectToDB();
-    const { searchQuery } = params;
+    const { searchQuery, sortQuery } = params;
     const query: FilterQuery<typeof User> = {};
+
     if (searchQuery) {
       query.$or = [
         { name: { $regex: new RegExp(searchQuery, "i") } },
         { username: { $regex: new RegExp(searchQuery, "i") } },
       ];
     }
-    const allUsers = await User.find(query);
+
+    let sortBy = {};
+    switch (sortQuery) {
+      case "new users":
+        sortBy = { joinedAt: -1 };
+        break;
+      case "old users":
+        sortBy = { joinedAt: 1 };
+        break;
+      case "top contributors":
+        sortBy = { reputation: -1 };
+        break;
+
+      default:
+        break;
+    }
+
+    const allUsers = await User.find(query).sort(sortBy);
 
     return allUsers;
   } catch (error) {

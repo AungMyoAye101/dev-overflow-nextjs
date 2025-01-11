@@ -57,7 +57,6 @@ export const getAllQuestions = async (params: {
   try {
     await connectToDB();
     const { searchQuery, sortQuery } = params;
-    console.log(sortQuery);
 
     const query: FilterQuery<typeof Question> = {};
 

@@ -68,3 +68,6 @@ export const sideLinks = [
 ];
 
 export const filteredSearch = ["Newest", "Recommend", "Frequent", "Unanswered"];
+export const sortUsers = ["New Users", "Old Users", "Top Contributors"];
+export const sortTags = ["Popular", "Recent", "Name", "Old"];
+export const sortCollection = ["New Users", "Old Users", "Top Contributors"];
