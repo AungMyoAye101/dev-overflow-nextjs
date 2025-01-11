@@ -1,7 +1,7 @@
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import { Badge } from "@/src/components/ui/badge";
-import { filteredSearch } from "@/src/constants";
+import { filteredSearch, sortTags } from "@/src/constants";
 import { getAllTags } from "@/src/lib/actions/tags.action";
 import { SearchParamsProps } from "@/src/type";
 import Link from "next/link";
@@ -10,7 +10,10 @@ import React from "react";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
-  const tags = await getAllTags({ searchQuery: query.q });
+  const tags = await getAllTags({
+    searchQuery: query.q,
+    sortQuery: query.filter,
+  });
   if (!tags) return <div>Loading...</div>;
 
   return (
@@ -18,7 +21,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       <h1 className="h1-bold">All Tags</h1>
       <div className="flex flex-row lg:flex-col gap-4">
         <LocalSearchBox />
-        <Filter filterArray={filteredSearch} />
+        <Filter filterArray={sortTags} />
       </div>
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-4 place-items-center">
         {tags.map((tag) => (
