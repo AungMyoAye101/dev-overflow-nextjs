@@ -35,7 +35,7 @@ export const getAllTags = async (params: {
     let sortBy = {};
     switch (sortQuery) {
       case "popular":
-        sortBy = { questionsCount: -1 };
+        sortBy = { questions: -1 };
         break;
       case "recent":
         sortBy = { createdOn: -1 };
@@ -48,6 +48,7 @@ export const getAllTags = async (params: {
         break;
 
       default:
+        sortBy = { createdOn: -1 };
         break;
     }
 

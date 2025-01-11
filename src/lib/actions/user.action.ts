@@ -87,8 +87,8 @@ export const getAllUsers = async (params: {
       case "top contributors":
         sortBy = { reputation: -1 };
         break;
-
       default:
+        sortBy = { joinedAt: -1 };
         break;
     }
 

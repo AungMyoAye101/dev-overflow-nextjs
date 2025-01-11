@@ -1,13 +1,18 @@
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import Post from "@/src/components/Post";
-import { filteredSearch } from "@/src/constants";
+import { filteredSearch, sortCollection } from "@/src/constants";
 import { getSavedQuestion } from "@/src/lib/actions/question.action";
+import { SearchParamsProps } from "@/src/type";
 
 import React from "react";
 
-const page = async () => {
-  const res = await getSavedQuestion();
+const page = async ({ searchParams }: SearchParamsProps) => {
+  const query = await searchParams;
+  const res = await getSavedQuestion({
+    searchQuery: query.q,
+    sortQuery: query.filter,
+  });
   if (!res) {
     return console.log("No queston found  ");
   }
@@ -17,7 +22,7 @@ const page = async () => {
       <h1 className="h1-bold">Saved Questions</h1>
       <div className="flex flex-row lg:flex-col gap-4">
         <LocalSearchBox />
-        <Filter filterArray={filteredSearch} />
+        <Filter filterArray={sortCollection} />
       </div>
       <div className="flex flex-col gap-6 ">
         {user.saved.length > 0 ? (
