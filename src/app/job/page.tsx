@@ -12,12 +12,17 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/src/components/ui/pagination";
+import Filter from "@/src/components/Filter";
+import { filteredSearch } from "@/src/constants";
 
 const Job = () => {
   return (
     <section className="page_padding">
       <h1 className="h1-bold">Jobs</h1>
-      <LocalSearchBox />
+      <div className="flex flex-row lg:flex-col gap-4">
+        <LocalSearchBox />
+        <Filter filterArray={filteredSearch} />
+      </div>
       <div className="flex flex-col gap-6 ">
         {Array(10)
           .fill(null)

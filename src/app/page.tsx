@@ -5,10 +5,15 @@ import Link from "next/link";
 import { getAllQuestions } from "../lib/actions/question.action";
 import Empty from "../components/Empty";
 import { QuestionProps, SearchParamsProps } from "../type";
+import Filter from "../components/Filter";
+import { filteredSearch } from "../constants";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const query = await searchParams;
-  const res = await getAllQuestions({ searchQuery: query.q });
+  const res = await getAllQuestions({
+    searchQuery: query.q,
+    sortQuery: query.filter,
+  });
 
   if (!res) return;
   const questions: QuestionProps[] = JSON.parse(JSON.stringify(res));
@@ -26,8 +31,9 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           Ask a Question
         </Link>
       </div>
-      <div>
+      <div className="flex flex-row lg:flex-col gap-4">
         <LocalSearchBox />
+        <Filter filterArray={filteredSearch} />
       </div>
       <div className="flex flex-col gap-4">
         {questions.length > 0 ? (

@@ -16,10 +16,13 @@ export const getTagById = async (id: string) => {
     throw error;
   }
 };
-export const getAllTags = async (params: { searchQuery?: string }) => {
+export const getAllTags = async (params: {
+  searchQuery?: string;
+  sortQuery?: string;
+}) => {
   try {
     await connectToDB();
-    const { searchQuery } = params;
+    const { searchQuery, sortQuery } = params;
     const query: FilterQuery<typeof Tags> = {};
     if (searchQuery) {
       query.$or = [
@@ -28,10 +31,33 @@ export const getAllTags = async (params: { searchQuery?: string }) => {
         },
       ];
     }
-    const tags = await Tags.find(query).populate({
-      path: "questions",
-      select: "_id title description",
-    });
+
+    let sortBy = {};
+    switch (sortQuery) {
+      case "popular":
+        sortBy = { questions: -1 };
+        break;
+      case "recent":
+        sortBy = { createdOn: -1 };
+        break;
+      case "name":
+        sortBy = { name: 1 };
+        break;
+      case "old":
+        sortBy = { createdOn: 1 };
+        break;
+
+      default:
+        sortBy = { createdOn: -1 };
+        break;
+    }
+
+    const tags = await Tags.find(query)
+      .populate({
+        path: "questions",
+        select: "_id title description",
+      })
+      .sort(sortBy);
 
     return tags;
   } catch (error: any) {

@@ -50,21 +50,45 @@ export const askQuestion = async (params: any) => {
   }
 };
 
-export const getAllQuestions = async (params: { searchQuery?: string }) => {
+export const getAllQuestions = async (params: {
+  searchQuery?: string;
+  sortQuery: string;
+}) => {
   try {
     await connectToDB();
-    const { searchQuery } = params;
+    const { searchQuery, sortQuery } = params;
+
     const query: FilterQuery<typeof Question> = {};
+
     if (searchQuery) {
       query.$or = [
         { title: { $regex: new RegExp(searchQuery, "i") } },
         { content: { $regex: new RegExp(searchQuery, "i") } },
       ];
     }
+
+    let sortBy = {};
+    switch (sortQuery) {
+      case "newest":
+        sortBy = { createdAt: -1 };
+        break;
+      case "frequent":
+        sortBy = { views: -1 };
+        break;
+      case "unanswered":
+        query.answers = { $size: 0 };
+        break;
+      case "Recommend":
+        sortBy = { upvotes: -1 };
+        break;
+      default:
+        sortBy = { createdAt: -1 };
+        break;
+    }
     const questions = await Question.find(query)
       .populate({ path: "author", model: User })
       .populate({ path: "tags", model: Tags })
-      .sort({ createdAt: -1 })
+      .sort(sortBy)
       .lean();
 
     if (!questions) return [];
@@ -170,15 +194,60 @@ export const createDownVotes = async (params: VotesParams) => {
   }
 };
 
-export const getSavedQuestion = async () => {
+export const getSavedQuestion = async (params: {
+  searchQuery?: string;
+  sortQuery: string;
+}) => {
   const { userId: clerkId } = await auth();
+
   try {
     await connectToDB();
+    const { searchQuery, sortQuery } = params;
+
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    let sortBy = {};
+    switch (sortQuery) {
+      case "recent":
+        sortBy = { createdAt: -1 };
+        break;
+      case "oldest":
+        sortBy = { createdAt: 1 };
+
+        break;
+      case "most voted":
+        sortBy = { upvotes: -1 };
+
+        break;
+      case "most viewed":
+        sortBy = { views: -1 };
+
+        break;
+      case "most answered":
+        sortBy = { answers: -1 };
+
+        break;
+      default:
+        sortBy = { createdAt: -1 };
+        break;
+    }
+
     const user = await User.findOne({ clerkId })
       .lean()
       .populate({
         path: "saved",
         model: Question,
+        match: query,
+        options: {
+          sort: sortBy,
+        },
         populate: [
           {
             path: "author",
