@@ -1,5 +1,7 @@
+import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import { Badge } from "@/src/components/ui/badge";
+import { filteredSearch } from "@/src/constants";
 import { getAllTags } from "@/src/lib/actions/tags.action";
 import { SearchParamsProps } from "@/src/type";
 import Link from "next/link";
@@ -14,7 +16,10 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   return (
     <section className="page_padding">
       <h1 className="h1-bold">All Tags</h1>
-      <LocalSearchBox />
+      <div className="flex flex-row lg:flex-col gap-4">
+        <LocalSearchBox />
+        <Filter filterArray={filteredSearch} />
+      </div>
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-4 place-items-center">
         {tags.map((tag) => (
           <div

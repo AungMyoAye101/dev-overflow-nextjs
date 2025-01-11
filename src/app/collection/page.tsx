@@ -1,4 +1,7 @@
+import Filter from "@/src/components/Filter";
+import LocalSearchBox from "@/src/components/LocalSearchBox";
 import Post from "@/src/components/Post";
+import { filteredSearch } from "@/src/constants";
 import { getSavedQuestion } from "@/src/lib/actions/question.action";
 
 import React from "react";
@@ -12,6 +15,10 @@ const page = async () => {
   return (
     <section className="page_padding">
       <h1 className="h1-bold">Saved Questions</h1>
+      <div className="flex flex-row lg:flex-col gap-4">
+        <LocalSearchBox />
+        <Filter filterArray={filteredSearch} />
+      </div>
       <div className="flex flex-col gap-6 ">
         {user.saved.length > 0 ? (
           user.saved.map((q: any) => <Post key={q.title} question={q} />)
