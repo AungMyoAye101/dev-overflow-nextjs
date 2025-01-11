@@ -7,6 +7,7 @@ import Empty from "../components/Empty";
 import { QuestionProps, SearchParamsProps } from "../type";
 import Filter from "../components/Filter";
 import { filteredSearch } from "../constants";
+import PaginationBox from "../components/PaginationBox";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const query = await searchParams;
@@ -49,6 +50,11 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           />
         )}
       </div>
+
+      <PaginationBox
+        pageNumber={query?.page ? +query.page : 1}
+        isNext={false}
+      />
     </div>
   );
 }
