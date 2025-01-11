@@ -10,7 +10,10 @@ import { filteredSearch } from "../constants";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const query = await searchParams;
-  const res = await getAllQuestions({ searchQuery: query.q });
+  const res = await getAllQuestions({
+    searchQuery: query.q,
+    sortQuery: query.filter,
+  });
 
   if (!res) return;
   const questions: QuestionProps[] = JSON.parse(JSON.stringify(res));

@@ -6,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { filteredSearch } from "../constants";
 import { FC, useState } from "react";
 import { FilterProps } from "../type";
 import { Button } from "./ui/button";

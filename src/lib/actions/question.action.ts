@@ -50,21 +50,46 @@ export const askQuestion = async (params: any) => {
   }
 };
 
-export const getAllQuestions = async (params: { searchQuery?: string }) => {
+export const getAllQuestions = async (params: {
+  searchQuery?: string;
+  sortQuery: string;
+}) => {
   try {
     await connectToDB();
-    const { searchQuery } = params;
+    const { searchQuery, sortQuery } = params;
+    console.log(sortQuery);
+
     const query: FilterQuery<typeof Question> = {};
+
     if (searchQuery) {
       query.$or = [
         { title: { $regex: new RegExp(searchQuery, "i") } },
         { content: { $regex: new RegExp(searchQuery, "i") } },
       ];
     }
+
+    let sortBy = {};
+    switch (sortQuery) {
+      case "newest":
+        sortBy = { createdAt: -1 };
+        break;
+      case "frequent":
+        sortBy = { views: -1 };
+        break;
+      case "unanswered":
+        query.answers = { $size: 0 };
+        break;
+      case "Recommend":
+        sortBy = { upvotes: -1 };
+        break;
+
+      default:
+        break;
+    }
     const questions = await Question.find(query)
       .populate({ path: "author", model: User })
       .populate({ path: "tags", model: Tags })
-      .sort({ createdAt: -1 })
+      .sort(sortBy)
       .lean();
 
     if (!questions) return [];
