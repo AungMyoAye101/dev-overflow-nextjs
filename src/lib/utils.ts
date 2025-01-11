@@ -15,7 +15,7 @@ export const timestamp = (time: Date) => {
 interface FormQueryParams {
   params: string;
   key: string;
-  value: string;
+  value: string | null;
 }
 
 export const formQuery = ({ params, key, value }: FormQueryParams) => {
