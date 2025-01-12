@@ -53,7 +53,7 @@ export const askQuestion = async (params: any) => {
 export const getAllQuestions = async (params: SearchFilterQueryParams) => {
   try {
     await connectToDB();
-    const { searchQuery, sortQuery, page = 1, pageSize = 4 } = params;
+    const { searchQuery, sortQuery, page = 1, pageSize = 10 } = params;
 
     const query: FilterQuery<typeof Question> = {};
     const skipAmount = (page - 1) * pageSize;
@@ -201,7 +201,7 @@ export const getSavedQuestion = async (params: SearchFilterQueryParams) => {
 
   try {
     await connectToDB();
-    const { searchQuery, sortQuery, page = 1, pageSize = 2 } = params;
+    const { searchQuery, sortQuery, page = 1, pageSize = 10 } = params;
 
     const query: FilterQuery<typeof Question> = {};
     //For local search
