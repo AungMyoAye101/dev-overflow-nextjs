@@ -4,7 +4,7 @@ import Question from "@/src/model/question.model";
 import connectToDB from "../../database/db";
 import Tags from "@/src/model/Tag.model";
 import { revalidatePath } from "next/cache";
-import { VotesParams } from "@/src/type";
+import { SearchFilterQueryParams, VotesParams } from "@/src/type";
 import User from "@/src/model/User.Model";
 import { auth } from "@clerk/nextjs/server";
 import { getUser } from "./user.action";
@@ -50,12 +50,7 @@ export const askQuestion = async (params: any) => {
   }
 };
 
-export const getAllQuestions = async (params: {
-  searchQuery?: string;
-  sortQuery: string;
-  page?: number;
-  pageSize?: number;
-}) => {
+export const getAllQuestions = async (params: SearchFilterQueryParams) => {
   try {
     await connectToDB();
     const { searchQuery, sortQuery, page = 1, pageSize = 4 } = params;
@@ -201,18 +196,15 @@ export const createDownVotes = async (params: VotesParams) => {
   }
 };
 
-export const getSavedQuestion = async (params: {
-  searchQuery?: string;
-  sortQuery: string;
-}) => {
+export const getSavedQuestion = async (params: SearchFilterQueryParams) => {
   const { userId: clerkId } = await auth();
 
   try {
     await connectToDB();
-    const { searchQuery, sortQuery } = params;
+    const { searchQuery, sortQuery, page = 1, pageSize = 2 } = params;
 
     const query: FilterQuery<typeof Question> = {};
-
+    //For local search
     if (searchQuery) {
       query.$or = [
         { title: { $regex: new RegExp(searchQuery, "i") } },
@@ -220,6 +212,7 @@ export const getSavedQuestion = async (params: {
       ];
     }
 
+    // For Filter query
     let sortBy = {};
     switch (sortQuery) {
       case "recent":
@@ -245,8 +238,11 @@ export const getSavedQuestion = async (params: {
         sortBy = { createdAt: -1 };
         break;
     }
+    // for pagination
 
-    const user = await User.findOne({ clerkId })
+    const skipAmount = (page - 1) * pageSize;
+
+    const user: any = await User.findOne({ clerkId })
       .lean()
       .populate({
         path: "saved",
@@ -254,6 +250,8 @@ export const getSavedQuestion = async (params: {
         match: query,
         options: {
           sort: sortBy,
+          skip: skipAmount,
+          limit: pageSize,
         },
         populate: [
           {
@@ -268,8 +266,12 @@ export const getSavedQuestion = async (params: {
           },
         ],
       });
+    if (!user) {
+      throw new Error("User Not found");
+    }
 
-    return user;
+    const isNext = user.saved.length > skipAmount + page;
+    return { questions: user.saved, isNext };
   } catch (error: any) {
     console.log(error.message);
     throw new Error("Failed to get saved questions");

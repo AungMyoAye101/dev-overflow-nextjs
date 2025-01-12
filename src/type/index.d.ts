@@ -149,3 +149,10 @@ export interface SearchParamsProps {
 export interface FilterProps {
   filterArray: string[];
 }
+
+export interface SearchFilterQueryParams {
+  searchQuery?: string;
+  sortQuery?: string;
+  page?: number;
+  pageSize?: number;
+}

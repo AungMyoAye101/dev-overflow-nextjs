@@ -1,5 +1,6 @@
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
+import PaginationBox from "@/src/components/PaginationBox";
 import Post from "@/src/components/Post";
 import { filteredSearch, sortCollection } from "@/src/constants";
 import { getSavedQuestion } from "@/src/lib/actions/question.action";
@@ -12,11 +13,12 @@ const page = async ({ searchParams }: SearchParamsProps) => {
   const res = await getSavedQuestion({
     searchQuery: query.q,
     sortQuery: query.filter,
+    page: query.page ? +query.page : 1,
   });
   if (!res) {
     return console.log("No queston found  ");
   }
-  const user = JSON.parse(JSON.stringify(res));
+  const results = JSON.parse(JSON.stringify(res));
   return (
     <section className="page_padding">
       <h1 className="h1-bold">Saved Questions</h1>
@@ -25,12 +27,16 @@ const page = async ({ searchParams }: SearchParamsProps) => {
         <Filter filterArray={sortCollection} />
       </div>
       <div className="flex flex-col gap-6 ">
-        {user.saved.length > 0 ? (
-          user.saved.map((q: any) => <Post key={q.title} question={q} />)
+        {results.questions.length > 0 ? (
+          results.questions.map((q: any) => <Post key={q.title} question={q} />)
         ) : (
           <div>You have no saved question </div>
         )}
       </div>
+      <PaginationBox
+        pageNumber={query?.page ? +query.page : 1}
+        isNext={results.isNext}
+      />
     </section>
   );
 };

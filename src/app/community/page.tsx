@@ -1,6 +1,7 @@
 import Card from "@/src/components/Card";
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
+import PaginationBox from "@/src/components/PaginationBox";
 import { filteredSearch, sortUsers } from "@/src/constants";
 import { getAllUsers } from "@/src/lib/actions/user.action";
 import { SearchParamsProps } from "@/src/type";
@@ -12,6 +13,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   const allUsers = await getAllUsers({
     searchQuery: query.q,
     sortQuery: query.filter,
+    page: query.page ? +query.page : 1,
   });
   if (!allUsers) return console.log("failed tp fetch all users");
 
@@ -25,10 +27,14 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 
       {/* Grid container */}
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-4 place-items-center">
-        {allUsers.map((user) => (
+        {allUsers.users.map((user) => (
           <Card user={user} key={user._id} />
         ))}
       </div>
+      <PaginationBox
+        pageNumber={query?.page ? +query.page : 1}
+        isNext={allUsers.isNext}
+      />
     </section>
   );
 };
