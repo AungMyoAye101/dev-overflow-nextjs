@@ -5,7 +5,7 @@ import Tags from "@/src/model/Tag.model";
 import User from "@/src/model/User.Model";
 import { GlobalSearchParams } from "@/src/type";
 
-const globalSearch = async (params: GlobalSearchParams) => {
+export const globalSearch = async (params: GlobalSearchParams) => {
   try {
     const { global, type } = params;
 
@@ -35,10 +35,32 @@ const globalSearch = async (params: GlobalSearchParams) => {
       },
     ];
 
-    let results = {};
+    let results: any = [];
 
     if (!type?.toLocaleLowerCase() && !searchType.includes(type!)) {
       //search everything
+
+      for (const { model, searchField, type } of modelsAndTypes) {
+        const queryResults = await model
+          .find({ [searchField]: regexQuery })
+          .limit(8);
+
+        results.push(
+          ...queryResults.map((item) => ({
+            title:
+              type === "answers"
+                ? `Answers containing query ${global}`
+                : item[searchField],
+            type,
+            id:
+              type === "users"
+                ? item.clerkId
+                : item === "answers"
+                ? item.questions
+                : item._id,
+          }))
+        );
+      }
     } else {
       //search in specified field
 
@@ -49,7 +71,7 @@ const globalSearch = async (params: GlobalSearchParams) => {
 
       const serachResults = await modelInfo.model
         .find({ [modelInfo.searchField]: regexQuery })
-        .limit(5);
+        .limit(8);
       results = serachResults.map((item) => ({
         title:
           type === "answers"

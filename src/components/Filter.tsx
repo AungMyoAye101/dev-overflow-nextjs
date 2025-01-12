@@ -9,11 +9,10 @@ import {
 import { FC, useState } from "react";
 import { FilterProps } from "../type";
 import { Button } from "./ui/button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { formQuery } from "../lib/utils";
 
 const Filter: FC<FilterProps> = ({ filterArray }) => {
-  const path = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("filter");

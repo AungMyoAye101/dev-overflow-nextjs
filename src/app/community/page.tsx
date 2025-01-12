@@ -2,7 +2,7 @@ import Card from "@/src/components/Card";
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import PaginationBox from "@/src/components/PaginationBox";
-import { filteredSearch, sortUsers } from "@/src/constants";
+import { sortUsers } from "@/src/constants";
 import { getAllUsers } from "@/src/lib/actions/user.action";
 import { SearchParamsProps } from "@/src/type";
 

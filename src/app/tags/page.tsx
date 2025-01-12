@@ -2,7 +2,7 @@ import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import PaginationBox from "@/src/components/PaginationBox";
 import { Badge } from "@/src/components/ui/badge";
-import { filteredSearch, sortTags } from "@/src/constants";
+import { sortTags } from "@/src/constants";
 import { getAllTags } from "@/src/lib/actions/tags.action";
 import { SearchParamsProps } from "@/src/type";
 import Link from "next/link";

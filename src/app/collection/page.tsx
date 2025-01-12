@@ -2,7 +2,7 @@ import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import PaginationBox from "@/src/components/PaginationBox";
 import Post from "@/src/components/Post";
-import { filteredSearch, sortCollection } from "@/src/constants";
+import { sortCollection } from "@/src/constants";
 import { getSavedQuestion } from "@/src/lib/actions/question.action";
 import { SearchParamsProps } from "@/src/type";
 

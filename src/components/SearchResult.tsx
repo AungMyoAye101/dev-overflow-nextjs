@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { searchType } from "../constants";
 import Link from "next/link";
 import { FaCircleNotch, FaTag } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 import GlobalFilter from "./GlobalFilter";
+import { globalSearch } from "../lib/actions/general.actions";
 
 const SearchResult = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [results, setResult] = useState([1, 2, 3, 4]);
+  const [results, setResult] = useState([]);
   const query = useSearchParams();
   const global = query.get("global");
   const type = query.get("type");
@@ -20,14 +20,20 @@ const SearchResult = () => {
       setIsLoading(true);
       try {
         //fetch everything ...
+        const res = await globalSearch({ global, type });
+        setResult(JSON.parse(res));
       } catch (error) {
         throw error;
       } finally {
         setIsLoading(false);
       }
     };
+    if (global) {
+      fetchResult();
+    }
   }, [global, type]);
 
+  console.log(results);
   return (
     <section className="absolute top-14 left-0 w-full  py-6 secondary_bg rounded-lg">
       <GlobalFilter />

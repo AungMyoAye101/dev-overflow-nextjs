@@ -1,13 +1,9 @@
 "use client";
 import { IoSearchOutline } from "react-icons/io5";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-
-import { filteredSearch } from "@/src/constants";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { formQuery, removeFormQuery } from "../lib/utils";
-import Filter from "./Filter";
 
 const LocalSearchBox: React.FC = () => {
   const router = useRouter();
@@ -33,6 +29,8 @@ const LocalSearchBox: React.FC = () => {
         router.push(newUrl, { scroll: false });
       }
     }, 300);
+
+    return () => clearTimeout(debounceQueryFn);
   }, [search, router, path, query, searchParams]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

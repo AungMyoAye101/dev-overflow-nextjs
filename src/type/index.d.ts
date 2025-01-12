@@ -158,6 +158,6 @@ export interface SearchFilterQueryParams {
 }
 
 export interface GlobalSearchParams {
-  global: string;
+  global?: string | null;
   type?: string | null;
 }
