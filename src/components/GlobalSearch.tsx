@@ -34,7 +34,6 @@ const GlobalSearch = () => {
         }
       }
     }, 300);
-    return clearTimeout(debounceQueryFn);
   }, [search, router, path, query, searchParams]);
 
   return (

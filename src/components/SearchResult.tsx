@@ -5,6 +5,7 @@ import { searchType } from "../constants";
 import Link from "next/link";
 import { FaCircleNotch, FaTag } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
+import GlobalFilter from "./GlobalFilter";
 
 const SearchResult = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,17 +30,7 @@ const SearchResult = () => {
 
   return (
     <section className="absolute top-14 left-0 w-full  py-6 secondary_bg rounded-lg">
-      <div className="flex gap-4 items-center font-poppins px-4">
-        <p>Type</p>
-        {searchType.map((t) => (
-          <button
-            key={t}
-            className="px-3 py-1 rounded-full button_bg shadow text-sm"
-          >
-            {t}
-          </button>
-        ))}
-      </div>
+      <GlobalFilter />
       <div className="flex flex-col gap-4 mt-6">
         <h2 className="text-lg font-poppins  px-4">Top Match</h2>
         <div className="flex flex-col gap-4">
@@ -53,7 +44,7 @@ const SearchResult = () => {
               <Link
                 key={item}
                 href={"/"}
-                className="flex gap-4 items-center hover:button_bg px-4 py-1.5 rounded-md"
+                className="flex gap-4 items-start hover:button_bg px-4 py-1.5 rounded-md"
               >
                 <FaTag className="text-2xl" />
                 <div className="flex flex-col text-sm font-noto_serif">

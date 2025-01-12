@@ -33,7 +33,6 @@ const LocalSearchBox: React.FC = () => {
         router.push(newUrl, { scroll: false });
       }
     }, 300);
-    return clearTimeout(debounceQueryFn);
   }, [search, router, path, query, searchParams]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
