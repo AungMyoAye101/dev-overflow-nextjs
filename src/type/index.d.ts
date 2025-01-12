@@ -156,3 +156,8 @@ export interface SearchFilterQueryParams {
   page?: number;
   pageSize?: number;
 }
+
+export interface GlobalSearchParams {
+  global: string;
+  type?: string | null;
+}
