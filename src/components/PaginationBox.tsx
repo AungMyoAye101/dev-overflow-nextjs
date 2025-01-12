@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { Button } from "./ui/button";
 import { formQuery } from "../lib/utils";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   pageNumber: number;
@@ -35,7 +35,7 @@ const PaginationBox: FC<Props> = ({ pageNumber, isNext }) => {
       </Button>
       <p className="px-4 py-2 btn-bg rounded-lg">{pageNumber}</p>
       <Button
-        disabled={isNext}
+        disabled={!isNext}
         className="px-4 py-2 "
         onClick={() => handleClick("Next")}
       >

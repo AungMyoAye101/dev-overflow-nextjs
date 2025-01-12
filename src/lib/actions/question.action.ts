@@ -53,12 +53,15 @@ export const askQuestion = async (params: any) => {
 export const getAllQuestions = async (params: {
   searchQuery?: string;
   sortQuery: string;
+  page?: number;
+  pageSize?: number;
 }) => {
   try {
     await connectToDB();
-    const { searchQuery, sortQuery } = params;
+    const { searchQuery, sortQuery, page = 1, pageSize = 4 } = params;
 
     const query: FilterQuery<typeof Question> = {};
+    const skipAmount = (page - 1) * pageSize;
 
     if (searchQuery) {
       query.$or = [
@@ -86,14 +89,18 @@ export const getAllQuestions = async (params: {
         break;
     }
     const questions = await Question.find(query)
+
       .populate({ path: "author", model: User })
       .populate({ path: "tags", model: Tags })
+      .skip(skipAmount)
+      .limit(pageSize)
       .sort(sortBy)
       .lean();
-
     if (!questions) return [];
+    const totalQuestions = await Question.countDocuments(query);
+    const isNext = totalQuestions > skipAmount + questions.length;
 
-    return questions;
+    return { questions, isNext };
   } catch (error) {
     throw error;
   }
