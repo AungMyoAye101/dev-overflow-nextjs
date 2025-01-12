@@ -4,7 +4,13 @@ import connectToDB from "@/src/database/db";
 import Answer from "@/src/model/answer.model";
 import Question from "@/src/model/question.model";
 import User from "@/src/model/User.Model";
-import { ClerkIdProp, CreateUser, SavedParams, UpdateUser } from "@/src/type";
+import {
+  ClerkIdProp,
+  CreateUser,
+  SavedParams,
+  SearchFilterQueryParams,
+  UpdateUser,
+} from "@/src/type";
 import { auth } from "@clerk/nextjs/server";
 import { FilterQuery } from "mongoose";
 import { revalidatePath } from "next/cache";
@@ -60,22 +66,19 @@ export const getUser = async () => {
   }
 };
 
-export const getAllUsers = async (params: {
-  searchQuery?: string;
-  sortQuery?: string;
-}) => {
+export const getAllUsers = async (params: SearchFilterQueryParams) => {
   try {
     await connectToDB();
-    const { searchQuery, sortQuery } = params;
+    const { searchQuery, sortQuery, page = 1, pageSize = 10 } = params;
     const query: FilterQuery<typeof User> = {};
-
+    //search
     if (searchQuery) {
       query.$or = [
         { name: { $regex: new RegExp(searchQuery, "i") } },
         { username: { $regex: new RegExp(searchQuery, "i") } },
       ];
     }
-
+    //query by filter
     let sortBy = {};
     switch (sortQuery) {
       case "new users":
@@ -92,9 +95,21 @@ export const getAllUsers = async (params: {
         break;
     }
 
-    const allUsers = await User.find(query).sort(sortBy);
+    //for pagination
+    const skipAmount = (page - 1) * pageSize;
 
-    return allUsers;
+    const users = await User.find(query)
+      .skip(skipAmount)
+      .limit(pageSize)
+      .sort(sortBy);
+    if (!users) {
+      throw new Error("Users not found");
+    }
+
+    const totalUsers = await User.countDocuments(query);
+    const isNext = totalUsers > skipAmount + users.length;
+
+    return { users, isNext };
   } catch (error) {
     throw error;
   }

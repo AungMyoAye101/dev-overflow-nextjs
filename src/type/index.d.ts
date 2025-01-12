@@ -143,9 +143,16 @@ export interface TopTagsType {
 }
 
 export interface SearchParamsProps {
-  searchParams: Promise<{ q: string; filter: string }>;
+  searchParams: Promise<{ q: string; filter: string; page?: number }>;
 }
 
 export interface FilterProps {
   filterArray: string[];
+}
+
+export interface SearchFilterQueryParams {
+  searchQuery?: string;
+  sortQuery?: string;
+  page?: number;
+  pageSize?: number;
 }

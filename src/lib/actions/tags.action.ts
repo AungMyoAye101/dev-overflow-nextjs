@@ -3,7 +3,7 @@ import connectToDB from "@/src/database/db";
 import Question from "@/src/model/question.model";
 import Tags from "@/src/model/Tag.model";
 import User from "@/src/model/User.Model";
-import { TagsPrams } from "@/src/type";
+import { SearchFilterQueryParams, TagsPrams } from "@/src/type";
 import { FilterQuery } from "mongoose";
 
 export const getTagById = async (id: string) => {
@@ -16,14 +16,13 @@ export const getTagById = async (id: string) => {
     throw error;
   }
 };
-export const getAllTags = async (params: {
-  searchQuery?: string;
-  sortQuery?: string;
-}) => {
+export const getAllTags = async (params: SearchFilterQueryParams) => {
   try {
     await connectToDB();
-    const { searchQuery, sortQuery } = params;
+    const { searchQuery, sortQuery, page = 1, pageSize = 9 } = params;
     const query: FilterQuery<typeof Tags> = {};
+
+    //for local search
     if (searchQuery) {
       query.$or = [
         {
@@ -31,6 +30,8 @@ export const getAllTags = async (params: {
         },
       ];
     }
+
+    //For filter
 
     let sortBy = {};
     switch (sortQuery) {
@@ -52,14 +53,22 @@ export const getAllTags = async (params: {
         break;
     }
 
+    //For pagination
+
+    const skipAmount = (page - 1) * pageSize;
+
     const tags = await Tags.find(query)
       .populate({
         path: "questions",
         select: "_id title description",
       })
+      .skip(skipAmount)
+      .limit(pageSize)
       .sort(sortBy);
 
-    return tags;
+    const totalTags = await Tags.countDocuments(query);
+    const isNext = totalTags > skipAmount + tags.length;
+    return { tags, isNext };
   } catch (error: any) {
     console.log("Failed to fetch tags", error.message);
     throw error;
