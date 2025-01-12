@@ -18,6 +18,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import SideBar from "./SideBar";
 import Image from "next/image";
 import { Input } from "./ui/input";
+import SearchResult from "./SearchResult";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
@@ -36,13 +37,15 @@ const NavBar: React.FC = () => {
           <span className="text-orange ml-0.5">Overflow</span>
         </div>
       </Link>
-      <div className="max-w-2xl flex-1 flex items-center  border-2 px-2 py-1 rounded-lg ">
+      <div className="relative max-w-2xl flex-1 flex items-center px-2 py-1 rounded-lg bg_dark_white shadow ">
         <IoSearchOutline className="text-xl text-gray-500 " />
         <Input
           type="text"
           placeholder="Search anything globally"
           className="border-none foucs:outline-none focus:ring-0 focus-visible:ring-0"
         />
+
+        <SearchResult />
       </div>
       <div className="flex items-center gap-4">
         <Menubar className="relative bg-transparent border-none shadow-none">
