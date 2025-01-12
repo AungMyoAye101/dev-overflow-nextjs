@@ -34,6 +34,12 @@
   .shadow_rounded {
     @apply shadow-md dark:shadow-none rounded-md;
   }
+  .button_bg {
+    @apply bg-gray-300 dark:bg-gray-700;
+  }
+  .secondary_bg {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;

@@ -1,15 +1,14 @@
 "use client";
+
+import React, { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-
-import { filteredSearch } from "@/src/constants";
+import SearchResult from "./SearchResult";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { formQuery, removeFormQuery } from "../lib/utils";
-import Filter from "./Filter";
 
-const LocalSearchBox: React.FC = () => {
+const GlobalSearch = () => {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const path = usePathname();
   const searchParams = useSearchParams();
@@ -21,36 +20,43 @@ const LocalSearchBox: React.FC = () => {
       if (search) {
         const newUrl = formQuery({
           params: searchParams.toString(),
-          key: "q",
+          key: "global",
           value: search,
         });
         router.push(newUrl, { scroll: false });
       } else {
-        const newUrl = removeFormQuery({
-          params: searchParams.toString(),
-          keyToRemove: ["q"],
-        });
-        router.push(newUrl, { scroll: false });
+        if (query) {
+          const newUrl = removeFormQuery({
+            params: searchParams.toString(),
+            keyToRemove: ["global", "type"],
+          });
+          router.push(newUrl, { scroll: false });
+        }
       }
     }, 300);
     return clearTimeout(debounceQueryFn);
   }, [search, router, path, query, searchParams]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
-
   return (
-    <div className="bg_dark_white flex-1 flex items-center shadow  px-2 py-1 rounded-lg gap-2 ">
+    <div className="relative max-w-2xl flex-1 flex items-center px-2 py-1 rounded-lg bg_dark_white shadow secondary_bg ">
       <IoSearchOutline className="text-xl text-gray-500 " />
       <Input
-        value={search}
+        type="text"
         placeholder="Search anything globally"
-        className="border-none foucs:outline-none focus:ring-0 focus-visible:ring-0 bg-transparent"
-        onChange={handleInputChange}
+        className="border-none foucs:outline-none focus:ring-0 focus-visible:ring-0"
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          if (!open) setOpen(true);
+
+          if (e.target.value === "" && open) {
+            setOpen(false);
+          }
+        }}
       />
+      {open && <SearchResult />}
     </div>
   );
 };
 
-export default LocalSearchBox;
+export default GlobalSearch;

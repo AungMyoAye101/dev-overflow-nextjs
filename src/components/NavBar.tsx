@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { useTheme } from "./Theme";
@@ -12,13 +12,11 @@ import {
   MenubarTrigger,
 } from "@/src/components/ui/menubar";
 import { themeOptions } from "@/src/constants";
-
 import { FaMoon, FaSun } from "react-icons/fa";
-import { IoSearchOutline } from "react-icons/io5";
 import SideBar from "./SideBar";
 import Image from "next/image";
-import { Input } from "./ui/input";
-import SearchResult from "./SearchResult";
+
+import GlobalSearch from "./GlobalSearch";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
@@ -37,16 +35,7 @@ const NavBar: React.FC = () => {
           <span className="text-orange ml-0.5">Overflow</span>
         </div>
       </Link>
-      <div className="relative max-w-2xl flex-1 flex items-center px-2 py-1 rounded-lg bg_dark_white shadow ">
-        <IoSearchOutline className="text-xl text-gray-500 " />
-        <Input
-          type="text"
-          placeholder="Search anything globally"
-          className="border-none foucs:outline-none focus:ring-0 focus-visible:ring-0"
-        />
-
-        <SearchResult />
-      </div>
+      <GlobalSearch />
       <div className="flex items-center gap-4">
         <Menubar className="relative bg-transparent border-none shadow-none">
           <MenubarMenu>
