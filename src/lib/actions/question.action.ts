@@ -204,12 +204,12 @@ export const createDownVotes = async (params: VotesParams) => {
     //TODO : increasement of user repuration
 
     await User.findByIdAndUpdate(userId, {
-      $inc: { reputation: hasUpvoted ? -1 : 1 },
+      $inc: { reputation: hasDownvoted ? -1 : 1 },
     });
 
     //reputation for author
     await User.findByIdAndUpdate(question.author, {
-      $inc: { reputation: hasUpvoted ? -5 : 5 },
+      $inc: { reputation: hasDownvoted ? -5 : 5 },
     });
 
     revalidatePath(path);

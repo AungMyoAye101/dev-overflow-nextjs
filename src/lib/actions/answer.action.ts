@@ -33,6 +33,19 @@ export const createAnswer = async (params: AnswerProps) => {
       { new: true }
     );
 
+    await Interaction.create({
+      user: user._id,
+      action: "create_answer",
+      question: questionId,
+      answer: newAnswer._id,
+    });
+
+    //Increase reputaion for author
+
+    await User.findByIdAndUpdate(user._id, {
+      $inc: { reputation: 5 },
+    });
+
     revalidatePath(path);
   } catch (error) {
     console.log("failed to create answer", error);
@@ -87,8 +100,17 @@ export const answerUpVotes = async (params: VotesParams) => {
       throw new Error("Question not found");
     }
 
-    //TODO : increasement of user repuration
-    console.log("successfully upvoted");
+    //Increase voter's reputation
+
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputaion: hasUpvoted ? -1 : 1 },
+    });
+
+    //Increase  reputation for post owner
+    await User.findByIdAndUpdate(answer.author, {
+      $inc: { reputaion: hasUpvoted ? -5 : 5 },
+    });
+
     revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
@@ -119,8 +141,16 @@ export const answerDownVotes = async (params: VotesParams) => {
       throw new Error("Question not found");
     }
 
-    //TODO : increasement of user repuration
-    console.log("successfully upvoted");
+    //Increase voter's reputation
+
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputaion: hasDownvoted ? -1 : 1 },
+    });
+
+    //Increase  reputation for post owner
+    await User.findByIdAndUpdate(answer.author, {
+      $inc: { reputaion: hasDownvoted ? -5 : 5 },
+    });
     revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
