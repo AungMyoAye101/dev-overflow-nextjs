@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { Input } from "./ui/input";
 import SearchResult from "./SearchResult";
@@ -8,12 +8,30 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { formQuery, removeFormQuery } from "../lib/utils";
 
 const GlobalSearch = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const path = usePathname();
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
   const [search, setSearch] = useState(query || "");
+  const resultContainer = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (
+        resultContainer.current &&
+        //@ts-ignore
+        !resultContainer.current.contains(event?.target)
+      ) {
+        setSearch("");
+        setIsOpen(false);
+      }
+    };
+
+    setIsOpen(false);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [path]);
 
   useEffect(() => {
     const debounceQueryFn = setTimeout(() => {
@@ -38,7 +56,10 @@ const GlobalSearch = () => {
   }, [search, router, path, query, searchParams]);
 
   return (
-    <div className="relative max-w-2xl flex-1 flex items-center px-2 py-1 rounded-lg bg_dark_white shadow secondary_bg ">
+    <div
+      className="relative max-w-2xl flex-1 flex items-center px-2 py-1 rounded-lg bg_dark_white shadow secondary_bg "
+      ref={resultContainer}
+    >
       <IoSearchOutline className="text-xl text-gray-500 " />
       <Input
         type="text"
@@ -47,14 +68,14 @@ const GlobalSearch = () => {
         value={search}
         onChange={(e) => {
           setSearch(e.target.value);
-          if (!open) setOpen(true);
+          if (!isOpen) setIsOpen(true);
 
-          if (e.target.value === "" && open) {
-            setOpen(false);
+          if (e.target.value === "" && isOpen) {
+            setIsOpen(false);
           }
         }}
       />
-      {open && <SearchResult />}
+      {isOpen && <SearchResult />}
     </div>
   );
 };
