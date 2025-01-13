@@ -77,4 +77,4 @@ export const sortCollection = [
   "Most Viewed",
   "Most Answered",
 ];
-export const searchType = ["questions", "answeres", "tags", "users"];
+export const searchType = ["questions", "answers", "tags", "users"];

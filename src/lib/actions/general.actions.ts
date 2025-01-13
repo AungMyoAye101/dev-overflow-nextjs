@@ -42,14 +42,14 @@ export const globalSearch = async (params: any) => {
     ];
 
     let results: any = [];
-
-    if (!type?.toLocaleLowerCase() && !searchType.includes(type!)) {
+    const typeLower = type?.toLocaleLowerCase();
+    if (!typeLower && !searchType.includes(type!)) {
       //search everything
 
       for (const { model, searchField, type } of modelsAndTypes) {
         const queryResults = await model
           .find({ [searchField]: regexQuery })
-          .limit(8);
+          .limit(2);
 
         results.push(
           ...queryResults.map((item) => ({
@@ -70,14 +70,14 @@ export const globalSearch = async (params: any) => {
     } else {
       //search in specified field
 
-      const modelInfo = modelsAndTypes.find((item) => item.type === type);
+      const modelInfo = modelsAndTypes.find((item) => item.type === typeLower);
       if (!modelInfo) {
         throw new Error("Model not found!");
       }
 
       const serachResults = await modelInfo.model
         .find({ [modelInfo.searchField]: regexQuery })
-        .limit(8);
+        .limit(6);
       results = serachResults.map((item) => ({
         title:
           type === "answers"

@@ -9,7 +9,7 @@ import { globalSearch } from "../lib/actions/general.actions";
 
 const SearchResult = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [results, setResult] = useState([]);
+  const [results, setResult] = useState<any[]>([]);
   const query = useSearchParams();
   const global = query.get("global");
   const type = query.get("type");
@@ -46,20 +46,16 @@ const SearchResult = () => {
               <p className="para">Searching Please wait...</p>
             </div>
           ) : results.length > 0 ? (
-            results.map((item) => (
+            results.map((item, i) => (
               <Link
-                key={item}
+                key={i}
                 href={"/"}
                 className="flex gap-4 items-start hover:button_bg px-4 py-1.5 rounded-md"
               >
                 <FaTag className="text-2xl" />
                 <div className="flex flex-col text-sm font-noto_serif">
-                  <p className="line-clamp-1  ">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Aliquam perspiciatis non esse voluptas? Odio, facere. Ab
-                    cum, repudiandae
-                  </p>
-                  <span className="opacity-80">User</span>
+                  <p className="line-clamp-1  ">{item.title}</p>
+                  <span className="opacity-80">{item.type}</span>
                 </div>
               </Link>
             ))
