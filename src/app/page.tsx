@@ -17,8 +17,8 @@ interface ResultsType {
 export default async function Home({ searchParams }: SearchParamsProps) {
   const query = await searchParams;
   const res = await getAllQuestions({
-    searchQuery: query.q,
-    sortQuery: query.filter,
+    searchQuery: query.q || "",
+    sortQuery: query.filter || "",
     page: query.page ? +query.page : 1,
   });
 

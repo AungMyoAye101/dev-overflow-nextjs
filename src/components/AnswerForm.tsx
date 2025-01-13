@@ -22,7 +22,7 @@ interface Props {
   questionId: string;
 }
 
-const Answer = ({ questionId }: Props) => {
+const AnswerForm = ({ questionId }: Props) => {
   const [isSubmiting, setSubmiting] = useState(false);
   const path = usePathname();
 
@@ -81,4 +81,4 @@ const Answer = ({ questionId }: Props) => {
   );
 };
 
-export default Answer;
+export default AnswerForm;

@@ -12,8 +12,8 @@ import React from "react";
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
   const results = await getAllTags({
-    searchQuery: query.q,
-    sortQuery: query.filter,
+    searchQuery: query.q || "",
+    sortQuery: query.filter || "",
     page: query.page ? +query.page : 1,
   });
   if (!results) return <div>Loading...</div>;

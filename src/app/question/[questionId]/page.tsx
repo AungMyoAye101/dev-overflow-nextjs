@@ -1,5 +1,5 @@
 import AllAnswer from "@/src/components/AllAnswer";
-import Answer from "@/src/components/Answer";
+import Answer from "@/src/components/AnswerForm";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/question.action";

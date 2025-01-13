@@ -6,13 +6,11 @@ import { sortUsers } from "@/src/constants";
 import { getAllUsers } from "@/src/lib/actions/user.action";
 import { SearchParamsProps } from "@/src/type";
 
-import React from "react";
-
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
   const allUsers = await getAllUsers({
-    searchQuery: query.q,
-    sortQuery: query.filter,
+    searchQuery: query.q || "",
+    sortQuery: query.filter || "",
     page: query.page ? +query.page : 1,
   });
   if (!allUsers) return console.log("failed tp fetch all users");

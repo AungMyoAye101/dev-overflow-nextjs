@@ -11,8 +11,8 @@ import React from "react";
 const page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
   const res = await getSavedQuestion({
-    searchQuery: query.q,
-    sortQuery: query.filter,
+    searchQuery: query.q || "",
+    sortQuery: query.filter || "",
     page: query.page ? +query.page : 1,
   });
   if (!res) {
