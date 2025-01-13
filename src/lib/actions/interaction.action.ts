@@ -15,7 +15,11 @@ export const viewQuestion = async (params: any) => {
       if (existingUser) {
         return console.log("user already view");
       }
-      await Interaction.create({ user: userId, question: itemId });
+      await Interaction.create({
+        user: userId,
+        action: "view",
+        question: itemId,
+      });
     }
 
     revalidatePath(path);

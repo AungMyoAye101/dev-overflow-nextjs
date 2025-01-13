@@ -31,10 +31,10 @@ export const askQuestion = async (params: any) => {
       const tag = await Tags.findOneAndUpdate(
         { name: tagName },
         {
-          $setOnInsert: { name: tagName.toCapitalize() },
+          $setOnInsert: { name: tagName },
           $push: { questions: question._id },
         },
-        { upsert: true, new: true }
+        { upsert: true, new: true, setDefaultsOnInsert: true }
       );
       tagsId.push(tag._id);
     }
@@ -42,7 +42,18 @@ export const askQuestion = async (params: any) => {
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagsId } },
     });
-
+    await Interaction.create({
+      user: user._id,
+      action: "ask_question",
+      question: question._id,
+      tags: tagsId,
+    });
+    await User.findByIdAndUpdate(user._id, {
+      $inc: {
+        reputation: 5,
+      },
+    });
+    console.log(user);
     revalidatePath(path);
   } catch (error: any) {
     console.error("Error asking question:", error.message);
@@ -129,7 +140,6 @@ export const createUpVotes = async (params: VotesParams) => {
   const { itemId, userId, hasUpvoted, hasDownvoted, path } = params;
   try {
     await connectToDB();
-    console.log(userId);
     let updateQuery = {};
 
     if (hasUpvoted) {
@@ -150,10 +160,16 @@ export const createUpVotes = async (params: VotesParams) => {
       throw new Error("Question not found");
     }
 
-    console.log("voting", question);
-
     //TODO : increasement of user repuration
-    console.log("successfully upvoted");
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasUpvoted ? -1 : 1 },
+    });
+
+    //reputation for author
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: hasUpvoted ? -5 : 5 },
+    });
+
     revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
@@ -185,10 +201,17 @@ export const createDownVotes = async (params: VotesParams) => {
       throw new Error("Question not found");
     }
 
-    console.log("voting", question);
-
     //TODO : increasement of user repuration
-    console.log("successfully downvoted");
+
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasUpvoted ? -1 : 1 },
+    });
+
+    //reputation for author
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: hasUpvoted ? -5 : 5 },
+    });
+
     revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
