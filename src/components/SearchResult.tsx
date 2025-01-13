@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaCircleNotch, FaTag } from "react-icons/fa";
+import { FaCircleNotch } from "react-icons/fa";
+import { PiTagThin } from "react-icons/pi";
 import { useSearchParams } from "next/navigation";
 import GlobalFilter from "./GlobalFilter";
 import { globalSearch } from "../lib/actions/general.actions";
@@ -33,7 +34,23 @@ const SearchResult = () => {
     }
   }, [global, type]);
 
-  console.log(results);
+  const handleNavigate = (type: string, id: string) => {
+    switch (type) {
+      case "questions":
+        return `/question/${id}`;
+
+      case "answers":
+        return `/question/${id}`;
+
+      case "tags":
+        return `/tags/${id}`;
+      case "users":
+        return `/profile/${id}`;
+
+      default:
+        return "/";
+    }
+  };
   return (
     <section className="absolute top-14 left-0 w-full  py-6 secondary_bg rounded-lg">
       <GlobalFilter />
@@ -49,10 +66,10 @@ const SearchResult = () => {
             results.map((item, i) => (
               <Link
                 key={i}
-                href={"/"}
+                href={handleNavigate(item.type, item.id)}
                 className="flex gap-4 items-start hover:button_bg px-4 py-1.5 rounded-md"
               >
-                <FaTag className="text-2xl" />
+                <PiTagThin className="text-2xl mt-1" />
                 <div className="flex flex-col text-sm font-noto_serif">
                   <p className="line-clamp-1  ">{item.title}</p>
                   <span className="opacity-80">{item.type}</span>

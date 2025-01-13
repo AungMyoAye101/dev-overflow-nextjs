@@ -61,8 +61,8 @@ export const globalSearch = async (params: any) => {
             id:
               type === "users"
                 ? item.clerkId
-                : item === "answers"
-                ? item.questions
+                : type === "answers"
+                ? item.question
                 : item._id,
           }))
         );
@@ -87,12 +87,12 @@ export const globalSearch = async (params: any) => {
         id:
           type === "users"
             ? item.clerkId
-            : item === "answers"
-            ? item.questions
+            : type === "answers"
+            ? item.question
             : item._id,
       }));
     }
-
+    console.log(results);
     return JSON.stringify(results);
   } catch (error) {
     console.log("Failed to fetch in global search..", error);
