@@ -101,15 +101,16 @@ export const answerUpVotes = async (params: VotesParams) => {
     }
 
     //Increase voter's reputation
-
-    await User.findByIdAndUpdate(userId, {
-      $inc: { reputaion: hasUpvoted ? -1 : 1 },
-    });
-
-    //Increase  reputation for post owner
-    await User.findByIdAndUpdate(answer.author, {
-      $inc: { reputaion: hasUpvoted ? -5 : 5 },
-    });
+    const postOwner = userId === answer.author.toString();
+    if (!postOwner) {
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputaion: hasUpvoted ? -1 : 1 },
+      });
+      //Increase  reputation for post owner
+      await User.findByIdAndUpdate(answer.author, {
+        $inc: { reputaion: hasUpvoted ? -5 : 5 },
+      });
+    }
 
     revalidatePath(path);
   } catch (error: any) {
@@ -142,15 +143,17 @@ export const answerDownVotes = async (params: VotesParams) => {
     }
 
     //Increase voter's reputation
+    const postOwner = userId === answer.author.toString();
+    if (!postOwner) {
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputaion: hasDownvoted ? -1 : 1 },
+      });
 
-    await User.findByIdAndUpdate(userId, {
-      $inc: { reputaion: hasDownvoted ? -1 : 1 },
-    });
-
-    //Increase  reputation for post owner
-    await User.findByIdAndUpdate(answer.author, {
-      $inc: { reputaion: hasDownvoted ? -5 : 5 },
-    });
+      //Increase  reputation for post owner
+      await User.findByIdAndUpdate(answer.author, {
+        $inc: { reputaion: hasDownvoted ? -5 : 5 },
+      });
+    }
     revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
@@ -195,7 +198,6 @@ export const deleteAnswer = async (params: any) => {
     );
     await Interaction.deleteMany({ answer: answerId });
 
-    console.log("delete question successfully");
     revalidatePath(path);
   } catch (error) {
     console.log(error);

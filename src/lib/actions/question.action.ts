@@ -161,14 +161,20 @@ export const createUpVotes = async (params: VotesParams) => {
     }
 
     //TODO : increasement of user repuration
-    await User.findByIdAndUpdate(userId, {
-      $inc: { reputation: hasUpvoted ? -1 : 1 },
-    });
 
     //reputation for author
-    await User.findByIdAndUpdate(question.author, {
-      $inc: { reputation: hasUpvoted ? -5 : 5 },
-    });
+
+    const postOwner = userId === question.author.toString();
+
+    if (!postOwner) {
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasUpvoted ? -1 : 1 },
+      });
+
+      await User.findByIdAndUpdate(question.author, {
+        $inc: { reputation: hasUpvoted ? -5 : 5 },
+      });
+    }
 
     revalidatePath(path);
   } catch (error: any) {
@@ -202,15 +208,17 @@ export const createDownVotes = async (params: VotesParams) => {
     }
 
     //TODO : increasement of user repuration
+    const postOwner = userId === question.author.toString();
+    if (!postOwner) {
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasDownvoted ? -1 : 1 },
+      });
 
-    await User.findByIdAndUpdate(userId, {
-      $inc: { reputation: hasDownvoted ? -1 : 1 },
-    });
-
-    //reputation for author
-    await User.findByIdAndUpdate(question.author, {
-      $inc: { reputation: hasDownvoted ? -5 : 5 },
-    });
+      //reputation for author
+      await User.findByIdAndUpdate(question.author, {
+        $inc: { reputation: hasDownvoted ? -5 : 5 },
+      });
+    }
 
     revalidatePath(path);
   } catch (error: any) {
