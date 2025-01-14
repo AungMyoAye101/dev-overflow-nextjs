@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { formatDistanceToNow } from "date-fns";
 import qs from "query-string";
+import { BADGE_CRITERIA } from "../constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -49,4 +50,25 @@ export const removeFormQuery = ({
     },
     { skipNull: true }
   );
+};
+
+export const assignedBadge = (params: any) => {
+  const badgeCount = {
+    GOLD: 0,
+    SILVER: 0,
+    BRONZE: 0,
+  };
+  const { criteria } = params;
+  criteria.map((item: any) => {
+    const { type, count } = item;
+    //@ts-ignore
+    const badgeLevels: any = BADGE_CRITERIA[type];
+    Object.keys(badgeLevels).forEach((level) => {
+      if (count >= badgeLevels[level]) {
+        //@ts-ignore
+        badgeCount[level] += 1;
+      }
+    });
+  });
+  return badgeCount;
 };

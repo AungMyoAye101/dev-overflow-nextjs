@@ -14,6 +14,7 @@ import {
 import { auth } from "@clerk/nextjs/server";
 import { FilterQuery } from "mongoose";
 import { revalidatePath } from "next/cache";
+import { assignedBadge } from "../utils";
 
 export const createUser = async (params: CreateUser) => {
   try {
@@ -137,7 +138,51 @@ export const getUserInfo = async (id: string) => {
     const totalQuestions = await Question.countDocuments({ author: user._id });
     const totalAnswers = await Answer.countDocuments({ author: user._id });
 
-    return { user, totalQuestions, totalAnswers };
+    //cout question upvotes
+    const [questionUpvotes] = await Question.aggregate([
+      { $match: { author: user._id } },
+      { $project: { _id: 0, upvotes: { $size: "$upvotes" } } },
+      {
+        $group: {
+          _id: null,
+          totalUpvotes: { $sum: "$upvotes" },
+        },
+      },
+    ]);
+    //cout answer upvotes
+    const [answerUpvotes] = await Answer.aggregate([
+      { $match: { author: user._id } },
+      { $project: { _id: 0, upvotes: { $size: "$upvotes" } } },
+      {
+        $group: {
+          _id: null,
+          totalUpvotes: { $sum: "$upvotes" },
+        },
+      },
+    ]);
+    //cout question view
+    const [totalViews] = await Question.aggregate([
+      { $match: { author: user._id } },
+
+      {
+        $group: {
+          _id: null,
+          totalViews: { $sum: "$views" },
+        },
+      },
+    ]);
+
+    //criteria
+    const criteria = [
+      { type: "Questions_count", count: totalQuestions },
+      { type: "Answers_count", count: totalAnswers },
+      { type: "Questions_Upvotes", count: questionUpvotes?.totalUpvotes || 0 },
+      { type: "Answers_Upvotes", count: answerUpvotes?.totalUpvotes || 0 },
+      { type: "Total_Views", count: totalViews?.totalViews || 0 },
+    ];
+
+    const badgeCount = assignedBadge({ criteria });
+    return { user, totalQuestions, totalAnswers, badgeCount };
   } catch (error) {
     throw error;
   }
