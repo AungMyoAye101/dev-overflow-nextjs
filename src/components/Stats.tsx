@@ -20,7 +20,7 @@ const StatsBadge: FC<StatsBadgeProps> = ({ imgUrl, value, name }) => {
   );
 };
 
-const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer }) => {
+const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer, badges }) => {
   return (
     <section className="space-y-4">
       <h1 className="h2-bold">Stats</h1>
@@ -38,19 +38,19 @@ const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer }) => {
 
         <StatsBadge
           imgUrl="/assets/icons/gold.svg"
-          value={0}
+          value={badges.GOLD}
           name="Gold Badge"
         />
 
         <StatsBadge
           imgUrl="/assets/icons/silver.svg"
-          value={0}
+          value={badges.SLIVER}
           name="Silver Badge"
         />
 
         <StatsBadge
           imgUrl="/assets/icons/bronze.svg"
-          value={0}
+          value={badges.BRONZE}
           name="Bronze Badge"
         />
       </div>

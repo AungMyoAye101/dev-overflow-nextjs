@@ -134,6 +134,7 @@ export interface TagsDetailProps {
 export interface StatsProps {
   totalQuestion: number;
   totalAnswer: number;
+  badges: any;
 }
 
 export interface TopTagsType {
