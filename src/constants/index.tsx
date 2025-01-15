@@ -50,11 +50,7 @@ export const sideLinks = [
     icon: <FaTag />,
     href: "/tags",
   },
-  {
-    label: "Find Jobs",
-    icon: <FaSuitcase />,
-    href: "/job",
-  },
+
   {
     label: "Ask a Questions",
     icon: <FaQuestion />,
