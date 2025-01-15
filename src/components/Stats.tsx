@@ -21,7 +21,6 @@ const StatsBadge: FC<StatsBadgeProps> = ({ imgUrl, value, name }) => {
 };
 
 const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer, badges }) => {
-  console.log("stats", badges);
   return (
     <section className="space-y-4">
       <h1 className="h2-bold">Stats</h1>

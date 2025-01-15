@@ -9,8 +9,8 @@ const UserAnswers = async ({ userId }: UserQuestionProps) => {
     throw new Error("results not found !");
   }
 
-  const { totalAnswers, answers } = JSON.parse(JSON.stringify(results));
-  console.log(totalAnswers);
+  const { answers } = JSON.parse(JSON.stringify(results));
+
   return (
     <div className="flex flex-col gap-4">
       {answers.length > 0 ? (

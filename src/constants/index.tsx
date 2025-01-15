@@ -78,31 +78,3 @@ export const sortCollection = [
   "Most Answered",
 ];
 export const searchType = ["questions", "answers", "tags", "users"];
-
-export const BADGE_CRITERIA = {
-  QUESTION_COUNT: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
-  },
-  ANSWER_COUNT: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
-  },
-  QUESTION_UPVOTES: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
-  },
-  ANSWER_UPVOTES: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
-  },
-  TOTAL_VIEWS: {
-    BRONZE: 100,
-    SILVER: 1000,
-    GOLD: 10000,
-  },
-};
