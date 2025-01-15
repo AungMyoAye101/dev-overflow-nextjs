@@ -1,3 +1,5 @@
+import { Bagde_Counts } from "../lib/utils";
+
 export interface ThemeContextProps {
   mode: string;
   setMode: (mode: string) => void;
@@ -134,6 +136,7 @@ export interface TagsDetailProps {
 export interface StatsProps {
   totalQuestion: number;
   totalAnswer: number;
+  badges: Bagde_Counts;
 }
 
 export interface TopTagsType {

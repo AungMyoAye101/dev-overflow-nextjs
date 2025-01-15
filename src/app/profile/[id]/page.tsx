@@ -29,6 +29,7 @@ const page = async ({ params }: PageProps) => {
       <Stats
         totalQuestion={result.totalQuestions}
         totalAnswer={result.totalAnswers}
+        badges={result.badgeCount}
       />
       <Tabs defaultValue="question">
         <TabsList className="overflow-hidden  bg_dark_white shadow-md dark:shadow-none ">
