@@ -20,7 +20,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
   }
   const results = JSON.parse(JSON.stringify(res));
   return (
-    <section className="page_padding">
+    <section className="page_padding ">
       <h1 className="h1-bold">Saved Questions</h1>
       <div className="flex flex-row lg:flex-col gap-4">
         <LocalSearchBox />

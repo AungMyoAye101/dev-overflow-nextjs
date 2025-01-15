@@ -19,11 +19,13 @@ const Post = ({ question }: PostProps) => {
   const { userId } = useAuth();
 
   return (
-    <div className="flex flex-col gap-6 px-6 py-10 rounded-md shadow dark:shadow-none bg_dark_white">
+    <div className="w-full flex flex-col gap-6 px-6 py-10 rounded-md shadow-md dark:shadow-none bg_dark_white">
       <div className="flex justify-between gap-4 items-start">
         <Link href={`/question/${question._id}`} className="hover:text-orange">
           <h2 className="h3-bold ">{question.title}</h2>
-          <p className="para line-clamp-2 mt-2">{question.content}</p>
+          <p className="para text-wrap  line-clamp-2  mt-2">
+            {question.content}
+          </p>
         </Link>
         {userId === question.author.clerkId && (
           <EditDeleteAction type="question" id={question._id!} />
