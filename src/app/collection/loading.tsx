@@ -1,13 +1,11 @@
 import React from "react";
-import { Skeleton } from "../components/ui/skeleton";
+import { Skeleton } from "@/src/components/ui/skeleton";
 
-const Loading = () => {
+const loading = () => {
   return (
     <div className="page_padding ">
-      <div className="flex justify-between gap-6">
-        <Skeleton className="h-10 w-full" />
-        <Skeleton className="h-10 w-40" />
-      </div>
+      <Skeleton className="h-10 w-60" />
+
       <div className="flex flex-col sm:flex-row lg:flex-col justify-between gap-6">
         <Skeleton className="h-10 w-full" />
         <Skeleton className="h-10 w-full sm:w-40 lg:hidden" />
@@ -27,4 +25,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default loading;
