@@ -26,8 +26,8 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   const results: ResultsType = JSON.parse(JSON.stringify(res));
 
   return (
-    <div className="flex-1 flex flex-col gap-10   custom-scrollbar pt-[8rem] pb-10  px-4 md:px-10 bg-light-gray dark:bg-black border-2 ">
-      <div className="flex flex-col-reverse md:flex-row justify-between items-start md:items-center w-full ">
+    <div className="page_padding">
+      <div className="flex flex-col-reverse md:flex-row justify-between items-start md:items-center  ">
         <h1 className="text-2xl md:text-4xl font-poppins font-semibold">
           All Questions
         </h1>
@@ -42,19 +42,9 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <LocalSearchBox />
         <Filter filterArray={filteredSearch} />
       </div>
-      <div className="flex flex-col gap-4">
-        {results.questions.length > 0 ? (
-          results.questions.map((q) => <Post key={q._id} question={q} />)
-        ) : (
-          <Empty
-            title="There is no question to show"
-            desecription="  Be the first to break the silence! 🚀 Ask a Question and kickstart the
-        discussion. our query could be the next big thing others learn from. Get
-        involved!"
-            link="/question"
-            btn="ask a question"
-          />
-        )}
+      <div className="flex flex-col gap-4 ">
+        {results.questions.length > 0 &&
+          results.questions.map((q) => <Post key={q._id} question={q} />)}
       </div>
 
       <PaginationBox
