@@ -22,6 +22,7 @@ import { Badge } from "./ui/badge";
 import { askQuestion } from "@/src/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
+import { useToast } from "../hooks/use-toast";
 
 interface QuestionEdit {
   formType: string;
@@ -33,7 +34,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
 
   const path = usePathname();
   const router = useRouter();
-
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,7 +44,6 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
     },
   });
 
-  console.log(question);
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title, content, tags } = values;
@@ -54,6 +54,12 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
         content,
         tags,
         path,
+      });
+      toast({
+        title: `You ${
+          formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
+        } a question successfull`,
+        variant: "default",
       });
     } catch (error) {
       console.log(error);

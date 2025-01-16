@@ -4,6 +4,7 @@ import React, { FC } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { deleteQuestion } from "../lib/actions/question.action";
 import { deleteAnswer } from "../lib/actions/answer.action";
+import { useToast } from "../hooks/use-toast";
 
 interface EditDeleteActionProps {
   type: string;
@@ -13,6 +14,7 @@ interface EditDeleteActionProps {
 const EditDeleteAction: FC<EditDeleteActionProps> = ({ type, id }) => {
   const router = useRouter();
   const path = usePathname();
+  const { toast } = useToast();
   const handleEdit = () => {
     router.push(`/question/edit/${id}`);
   };
@@ -34,6 +36,10 @@ const EditDeleteAction: FC<EditDeleteActionProps> = ({ type, id }) => {
           path,
         });
       }
+      toast({
+        title: `You deleted ${type} `,
+        variant: "default",
+      });
     } catch (error) {
       throw error;
     }

@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "./ui/textarea";
 import { createAnswer } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { useToast } from "../hooks/use-toast";
 interface Props {
   questionId: string;
 }
@@ -25,7 +26,7 @@ interface Props {
 const AnswerForm = ({ questionId }: Props) => {
   const [isSubmiting, setSubmiting] = useState(false);
   const path = usePathname();
-
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof answerSchema>>({
     resolver: zodResolver(answerSchema),
     defaultValues: {
@@ -39,6 +40,10 @@ const AnswerForm = ({ questionId }: Props) => {
     const { content } = values;
     try {
       await createAnswer({ content, questionId, path });
+      toast({
+        title: "You post an answer successfull",
+        variant: "default",
+      });
       form.reset();
     } catch (error) {
       throw error;

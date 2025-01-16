@@ -6,6 +6,7 @@ import NavBar from "@/src/components/NavBar";
 import ThemeProvider from "@/src/components/Theme";
 import LeftSideBar from "@/src/components/LeftSideBar";
 import RightSideBar from "@/src/components/RightSideBar";
+import { Toaster } from "../components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
@@ -41,6 +42,7 @@ export default function RootLayout({
               {children}
               <RightSideBar />
             </div>
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
