@@ -23,6 +23,8 @@ import { askQuestion } from "@/src/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
+import Tiptap from "./Editor";
+import { FaBold } from "react-icons/fa";
 
 interface QuestionEdit {
   formType: string;
@@ -35,6 +37,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   const path = usePathname();
   const router = useRouter();
   const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -132,52 +135,14 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <Textarea
+                {/* <Textarea
                   placeholder="Content"
                   {...field}
                   className="min-h-40"
-                />
-                {/* <Editor
-                  ref={editorRef}
-                  apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
-                  onInit={(_evt, editor) => {
-                    //@ts ignore
-                    editorRef.current = editor;
-                  }}
-                  initialValue=""
-                  init={{
-                    height: 350,
-                    menubar: false,
-                    skin: mode === "dark" ? "oxide-dark" : "oxide",
-                    content_css: mode === "dark" ? "dark" : "default",
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "preview",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "codesample",
-                      "table",
-                      "help",
-                      "wordcount",
-                    ],
-                    toolbar:
-                      "undo redo | blocks | " +
-                      "codesample  | bold italic forecolor  | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | help",
-                    content_style:
-                      "body { font-family:poppins; font-size:14px; }",
-                  }}
-                  onBlur={field.onBlur}
-                  onEditorChange={(content) => {
-                    field.onChange(content);
-                  }}
                 /> */}
+                <>
+                  <Tiptap />
+                </>
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.
