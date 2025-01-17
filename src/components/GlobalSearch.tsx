@@ -20,7 +20,7 @@ const GlobalSearch = () => {
     const handleClickOutside = () => {
       if (
         resultContainer.current &&
-        //@ts-expect-error
+        //@ts-expect-error becasuse the contains mathod is exited.
         !resultContainer.current.contains(event?.target)
       ) {
         setSearch("");
