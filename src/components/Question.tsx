@@ -23,8 +23,6 @@ import { askQuestion } from "@/src/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
-import Tiptap from "./Editor";
-import { FaBold } from "react-icons/fa";
 
 interface QuestionEdit {
   formType: string;
@@ -135,14 +133,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                {/* <Textarea
-                  placeholder="Content"
-                  {...field}
-                  className="min-h-40"
-                /> */}
-                <>
-                  <Tiptap />
-                </>
+                <Textarea />
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.

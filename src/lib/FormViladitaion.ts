@@ -11,6 +11,9 @@ export const formSchema = z.object({
     .array(z.string().min(1).max(10), {
       message: "Tags must be at least 1 character",
     })
+    .min(1, {
+      message: "Need minimun 1 tag",
+    })
     .max(3, {
       message: "Tags can be up to 3",
     }),
