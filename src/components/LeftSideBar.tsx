@@ -8,9 +8,22 @@ import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
 const LeftSideBar = () => {
   const { userId: clerkId } = useAuth();
-  const profileUrl = clerkId ? `/profile/${clerkId}` : "/signin";
+  const profileUrl = clerkId ? `/profile/${clerkId}` : "/sign-in";
 
   const pathname = usePathname();
+
+  const handleNavigate = (link: string) => {
+    let url = "/";
+
+    if (link === "/profile") {
+      url = clerkId ? `/profile/${clerkId}` : "/sign-in";
+    } else if (link === "/collection") {
+      url = clerkId ? `/collection/${link}` : "/sign-in";
+    } else {
+      url = link;
+    }
+    return url;
+  };
 
   return (
     <section className="  overflow-hidden hidden sm:block sticky top-0 pt-[7rem] px-4 pb-10 h-screen   left-0 bg-white dark:bg-gray-900  sm:w-fit md:min-w-60  ">
@@ -18,7 +31,7 @@ const LeftSideBar = () => {
         <div className="flex flex-col gap-4 ">
           {sideLinks.map((link, index) => (
             <Link
-              href={link.href === "/profile" ? profileUrl : link.href}
+              href={handleNavigate(link.href)}
               key={index}
               className={`side-links  ${
                 (pathname.includes(link.href) && link.href.length > 1) ||
