@@ -5,7 +5,6 @@ import PaginationBox from "@/src/components/PaginationBox";
 import { sortUsers } from "@/src/constants";
 import { getAllUsers } from "@/src/lib/actions/user.action";
 import { SearchParamsProps } from "@/src/type";
-import Loading from "./loading";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;

@@ -133,7 +133,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <Textarea />
+                <Textarea {...field} />
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.

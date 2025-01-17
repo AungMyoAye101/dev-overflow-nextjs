@@ -8,8 +8,6 @@ import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
 const LeftSideBar = () => {
   const { userId: clerkId } = useAuth();
-  const profileUrl = clerkId ? `/profile/${clerkId}` : "/sign-in";
-
   const pathname = usePathname();
 
   const handleNavigate = (link: string) => {

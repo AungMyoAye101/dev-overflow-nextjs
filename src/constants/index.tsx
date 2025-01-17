@@ -5,7 +5,6 @@ import {
   FaMoon,
   FaQuestion,
   FaStar,
-  FaSuitcase,
   FaSun,
   FaTag,
   FaUser,

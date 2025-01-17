@@ -43,8 +43,16 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <Filter filterArray={filteredSearch} />
       </div>
       <div className="flex flex-col gap-4 ">
-        {results.questions.length > 0 &&
-          results.questions.map((q) => <Post key={q._id} question={q} />)}
+        {results.questions.length > 0 ? (
+          results.questions.map((q) => <Post key={q._id} question={q} />)
+        ) : (
+          <Empty
+            title="There no question"
+            desecription="Be the first create a question"
+            btn="Create a question"
+            link="/question"
+          />
+        )}
       </div>
 
       <PaginationBox
