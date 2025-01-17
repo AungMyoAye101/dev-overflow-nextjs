@@ -1,7 +1,7 @@
 "use server";
 
 import connectToDB from "@/src/database/db";
-import { AnswerProps, VotesParams } from "@/src/type";
+import { AnswerProps, DeleteAnswerPaams, VotesParams } from "@/src/type";
 import { getUser } from "./user.action";
 import { revalidatePath } from "next/cache";
 import Answer from "@/src/model/answer.model";
@@ -178,7 +178,7 @@ export const getUserAnswers = async (userId: string) => {
   }
 };
 
-export const deleteAnswer = async (params: any) => {
+export const deleteAnswer = async (params: DeleteAnswerPaams) => {
   const { answerId, path } = params;
 
   try {

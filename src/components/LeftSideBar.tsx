@@ -1,14 +1,14 @@
 "use client";
 
 import { sideLinks } from "@/src/constants";
-import { useAuth } from "@clerk/nextjs";
+import { SignOutButton, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
-
+import { GoSignOut } from "react-icons/go";
 const LeftSideBar = () => {
   const { userId: clerkId } = useAuth();
-  const profileUrl = clerkId ? `/profile/${clerkId}` : "";
+  const profileUrl = clerkId ? `/profile/${clerkId}` : "/signin";
 
   const pathname = usePathname();
 
@@ -33,24 +33,36 @@ const LeftSideBar = () => {
           ))}
         </div>
         <div className="flex flex-col  gap-2 ">
-          <Link
-            href={"/sign-in"}
-            className={`side-links  ${
-              pathname === "login" ? "active-link" : ""
-            }`}
-          >
-            <FaSignInAlt />
-            <span className="hidden md:block">Log in</span>
-          </Link>
-          <Link
-            href={"/sign-up"}
-            className={`side-links  ${
-              pathname === "signup" ? "active-link" : ""
-            }`}
-          >
-            <FaUserPlus className="text-lg" />
-            <span className="hidden md:block">Sign up</span>
-          </Link>
+          {clerkId ? (
+            <SignOutButton>
+              <button className="side-links text-rose-500">
+                <GoSignOut />
+                Log out
+              </button>
+            </SignOutButton>
+          ) : (
+            <>
+              {" "}
+              <Link
+                href={"/sign-in"}
+                className={`side-links  ${
+                  pathname === "login" ? "active-link" : ""
+                }`}
+              >
+                <FaSignInAlt />
+                <span className="hidden md:block">Log in</span>
+              </Link>
+              <Link
+                href={"/sign-up"}
+                className={`side-links  ${
+                  pathname === "signup" ? "active-link" : ""
+                }`}
+              >
+                <FaUserPlus className="text-lg" />
+                <span className="hidden md:block">Sign up</span>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </section>

@@ -4,7 +4,12 @@ import Question from "@/src/model/question.model";
 import connectToDB from "../../database/db";
 import Tags from "@/src/model/Tag.model";
 import { revalidatePath } from "next/cache";
-import { SearchFilterQueryParams, VotesParams } from "@/src/type";
+import {
+  CreateQuestionParams,
+  DeleteQuestionParams,
+  SearchFilterQueryParams,
+  VotesParams,
+} from "@/src/type";
 import User from "@/src/model/User.Model";
 import { auth } from "@clerk/nextjs/server";
 import { getUser } from "./user.action";
@@ -12,7 +17,7 @@ import Answer from "@/src/model/answer.model";
 import Interaction from "@/src/model/Interaction.model";
 import { FilterQuery } from "mongoose";
 
-export const askQuestion = async (params: any) => {
+export const askQuestion = async (params: CreateQuestionParams) => {
   const { title, content, tags, path } = params;
   try {
     await connectToDB();
@@ -53,7 +58,7 @@ export const askQuestion = async (params: any) => {
         reputation: 5,
       },
     });
-    console.log(user);
+
     revalidatePath(path);
   } catch (error: any) {
     console.error("Error asking question:", error.message);
@@ -159,8 +164,6 @@ export const createUpVotes = async (params: VotesParams) => {
     if (!question) {
       throw new Error("Question not found");
     }
-
-    //TODO : increasement of user repuration
 
     //reputation for author
 
@@ -331,7 +334,7 @@ export const getUserQuestions = async (userId: string) => {
   }
 };
 
-export const deleteQuestion = async (params: any) => {
+export const deleteQuestion = async (params: DeleteQuestionParams) => {
   const { questionId, path } = params;
 
   try {
@@ -344,7 +347,6 @@ export const deleteQuestion = async (params: any) => {
       { $pull: { question: questionId } }
     );
 
-    console.log("delete question successfully");
     revalidatePath(path);
   } catch (error) {
     console.log(error);

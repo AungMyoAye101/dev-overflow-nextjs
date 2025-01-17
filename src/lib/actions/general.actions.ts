@@ -9,7 +9,7 @@ import Tags from "@/src/model/Tag.model";
 import User from "@/src/model/User.Model";
 import { GlobalSearchParams } from "@/src/type";
 
-export const globalSearch = async (params: any) => {
+export const globalSearch = async (params: GlobalSearchParams) => {
   try {
     await connectToDB();
     const { global, type } = params;
@@ -92,7 +92,6 @@ export const globalSearch = async (params: any) => {
             : item._id,
       }));
     }
-    console.log(results);
     return JSON.stringify(results);
   } catch (error) {
     console.log("Failed to fetch in global search..", error);

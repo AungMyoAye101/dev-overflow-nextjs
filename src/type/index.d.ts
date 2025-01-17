@@ -76,6 +76,18 @@ export interface QuestionProps {
   createdAt: Date;
 }
 
+export interface CreateQuestionParams {
+  title: string;
+  content: string;
+  tags: string[];
+  path: string;
+}
+
+export interface DeleteQuestionParams {
+  questionId: string;
+  path: string;
+}
+
 export interface AnswerTypes {
   _id: string;
   content: string;
@@ -88,6 +100,10 @@ export interface AnswerTypes {
 export interface AnswerProps {
   content: string;
   questionId: string;
+  path: string;
+}
+export interface DeleteAnswerPaams {
+  answerId: string;
   path: string;
 }
 
@@ -110,6 +126,11 @@ export interface VotesParams {
   path: string;
 }
 
+export interface ViewQuestionsParams {
+  itemId: string;
+  userId: string;
+  path: string;
+}
 export interface SavedParams {
   userId: string;
   questionId: string;

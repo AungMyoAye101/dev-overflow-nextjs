@@ -2,9 +2,10 @@
 import connectToDB from "@/src/database/db";
 import Interaction from "@/src/model/Interaction.model";
 import Question from "@/src/model/question.model";
+import { ViewQuestionsParams } from "@/src/type";
 import { revalidatePath } from "next/cache";
 
-export const viewQuestion = async (params: any) => {
+export const viewQuestion = async (params: ViewQuestionsParams) => {
   const { itemId, userId, path } = params;
   try {
     await connectToDB();
