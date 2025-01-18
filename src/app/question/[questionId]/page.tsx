@@ -9,6 +9,7 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
+import parse from "html-react-parser";
 
 const page = async ({
   params,
@@ -74,7 +75,7 @@ const page = async ({
               <p>{question.views} Views</p>
             </div>
           </div>
-          <p className="para">{question.content}</p>
+          <p className="para">{parse(question.content)}</p>
           <div className="flex items-center gap-4 ">
             {question.tags.map((tag: { _id: string; name: string }) => (
               <Badge key={tag._id} className="px-4 py-1.5">
