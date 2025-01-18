@@ -8,7 +8,6 @@ import { timestamp } from "@/src/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
 const page = async ({

@@ -11,7 +11,6 @@ import {
   SearchFilterQueryParams,
   UpdateUser,
 } from "@/src/type";
-import { auth } from "@clerk/nextjs/server";
 import { FilterQuery } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { assignedBadge } from "../utils";

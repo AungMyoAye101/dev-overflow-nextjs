@@ -7,6 +7,7 @@ import ThemeProvider from "@/src/components/Theme";
 import LeftSideBar from "@/src/components/LeftSideBar";
 import RightSideBar from "@/src/components/RightSideBar";
 import { Toaster } from "../components/ui/toaster";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
@@ -35,15 +36,17 @@ export default function RootLayout({
         <body
           className={`${poppins.variable} ${noto_serif.variable} bg-light-gray dark:bg-black text-dark-gray dark:text-light-gray`}
         >
-          <ThemeProvider>
-            <NavBar />
-            <div className="flex overscroll-y-auto  ">
-              <LeftSideBar />
-              {children}
-              <RightSideBar />
-            </div>
-            <Toaster />
-          </ThemeProvider>
+          <Suspense>
+            <ThemeProvider>
+              <NavBar />
+              <div className="flex overscroll-y-auto  ">
+                <LeftSideBar />
+                {children}
+                <RightSideBar />
+              </div>
+              <Toaster />
+            </ThemeProvider>
+          </Suspense>
         </body>
       </html>
     </ClerkProvider>
