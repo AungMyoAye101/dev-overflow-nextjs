@@ -24,6 +24,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
+import Editor from "./Editor";
 
 interface QuestionEdit {
   formType: string;
@@ -136,7 +137,8 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <Textarea {...field} />
+                {/* <Textarea {...field} /> */}
+                <Editor />
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.
