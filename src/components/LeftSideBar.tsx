@@ -16,7 +16,7 @@ const LeftSideBar = () => {
     if (link === "/profile") {
       url = clerkId ? `/profile/${clerkId}` : "/sign-in";
     } else if (link === "/collection") {
-      url = clerkId ? `/collection/${link}` : "/sign-in";
+      url = clerkId ? link : "/sign-in";
     } else {
       url = link;
     }

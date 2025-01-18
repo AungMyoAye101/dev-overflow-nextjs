@@ -1,3 +1,4 @@
+import Empty from "@/src/components/Empty";
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import PaginationBox from "@/src/components/PaginationBox";
@@ -30,12 +31,17 @@ const page = async ({ searchParams }: SearchParamsProps) => {
         {results.questions.length > 0 ? (
           results.questions.map((q: any) => <Post key={q.title} question={q} />)
         ) : (
-          <div>You have no saved question </div>
+          <Empty
+            title="You have no saved question."
+            desecription="You can save a question from question detail page."
+            btn="Save a question"
+            link="/"
+          />
         )}
       </div>
       <PaginationBox
         pageNumber={query?.page ? +query.page : 1}
-        isNext={results.isNext}
+        isNext={!results.isNext}
       />
     </section>
   );
