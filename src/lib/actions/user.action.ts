@@ -55,11 +55,10 @@ export const deleteUser = async (params: ClerkIdProp) => {
   }
 };
 
-export const getUser = async () => {
+export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDB();
-    const { userId } = await auth();
-    const user = await User.findOne({ clerkId: userId });
+    const user = await User.findOne({ clerkId });
     return user;
   } catch (err: any) {
     console.log("Faild to fetch user", err.message);

@@ -12,7 +12,8 @@ import Votes from "./Votes";
 import Image from "next/image";
 import { timestamp } from "../lib/utils";
 import { getAllAnswers } from "../lib/actions/answer.action";
-import { getUser } from "../lib/actions/user.action";
+import { getUserByClerkId } from "../lib/actions/user.action";
+import { auth } from "@clerk/nextjs/server";
 
 interface Props {
   questionId: string;
@@ -22,7 +23,8 @@ const AllAnswer = async ({ questionId }: Props) => {
   const question = await getAllAnswers(questionId);
   if (!question) return;
   const answers = JSON.parse(JSON.stringify(question));
-  const user = await getUser();
+  const { userId } = await auth();
+  const user = await getUserByClerkId(userId!);
   if (!user) return;
   const currUserId = user._id.toString();
 

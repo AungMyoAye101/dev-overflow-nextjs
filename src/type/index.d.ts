@@ -81,6 +81,7 @@ export interface CreateQuestionParams {
   content: string;
   tags: string[];
   path: string;
+  userId: string;
 }
 
 export interface DeleteQuestionParams {
@@ -100,6 +101,7 @@ export interface AnswerTypes {
 export interface AnswerProps {
   content: string;
   questionId: string;
+  userId: string;
   path: string;
 }
 export interface DeleteAnswerPaams {

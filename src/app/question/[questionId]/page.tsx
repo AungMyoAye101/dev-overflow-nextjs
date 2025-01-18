@@ -3,10 +3,12 @@ import Answer from "@/src/components/AnswerForm";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/question.action";
-import { getUser } from "@/src/lib/actions/user.action";
+import { getUserByClerkId } from "@/src/lib/actions/user.action";
 import { timestamp } from "@/src/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 
 const page = async ({
@@ -18,7 +20,8 @@ const page = async ({
   const res = await getQuestionById(questionId);
   const question = JSON.parse(JSON.stringify(res));
   const formattedDate = timestamp(question.createdAt);
-  const user = await getUser();
+  const { userId: clerkId } = await auth();
+  const user = await getUserByClerkId(clerkId!);
   if (!user) return;
   const currUserId = user._id.toString();
 

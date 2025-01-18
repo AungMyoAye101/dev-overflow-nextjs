@@ -19,6 +19,7 @@ import { Textarea } from "./ui/textarea";
 import { createAnswer } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
 import { useToast } from "../hooks/use-toast";
+import { useAuth } from "@clerk/nextjs";
 interface Props {
   questionId: string;
 }
@@ -26,6 +27,7 @@ interface Props {
 const AnswerForm = ({ questionId }: Props) => {
   const [isSubmiting, setSubmiting] = useState(false);
   const path = usePathname();
+  const { userId } = useAuth();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof answerSchema>>({
     resolver: zodResolver(answerSchema),
@@ -39,7 +41,12 @@ const AnswerForm = ({ questionId }: Props) => {
     setSubmiting(true);
     const { content } = values;
     try {
-      await createAnswer({ content, questionId, path });
+      await createAnswer({
+        content,
+        questionId,
+        userId: userId as string,
+        path: path as string,
+      });
       toast({
         title: "You post an answer successfull",
         variant: "default",

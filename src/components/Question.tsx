@@ -23,6 +23,7 @@ import { askQuestion } from "@/src/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
+import { useAuth } from "@clerk/nextjs";
 
 interface QuestionEdit {
   formType: string;
@@ -34,6 +35,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
 
   const path = usePathname();
   const router = useRouter();
+  const { userId } = useAuth();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -55,6 +57,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
         content,
         tags,
         path,
+        userId: userId as string,
       });
       toast({
         title: `You ${

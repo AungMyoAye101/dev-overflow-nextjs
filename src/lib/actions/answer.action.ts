@@ -2,7 +2,7 @@
 
 import connectToDB from "@/src/database/db";
 import { AnswerProps, DeleteAnswerPaams, VotesParams } from "@/src/type";
-import { getUser } from "./user.action";
+import { getUserByClerkId } from "./user.action";
 import { revalidatePath } from "next/cache";
 import Answer from "@/src/model/answer.model";
 import Question from "@/src/model/question.model";
@@ -10,11 +10,11 @@ import User from "@/src/model/User.Model";
 import Interaction from "@/src/model/Interaction.model";
 
 export const createAnswer = async (params: AnswerProps) => {
-  const { content, questionId, path } = params;
+  const { content, questionId, userId, path } = params;
 
   try {
     await connectToDB();
-    const user = await getUser();
+    const user = await getUserByClerkId(userId);
     if (!user) {
       return console.log("now user found");
     }
