@@ -23,9 +23,10 @@ import "prismjs/components/prism-sql";
 import "prismjs/components/prism-mongodb";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import prism from "prismjs";
 const RenderText = ({ content }: { content: string }) => {
   useEffect(() => {
-    prism.hightlightAll();
+    prism.highlightAll();
   }, []);
 
   return <div>{parse(content)}</div>;
