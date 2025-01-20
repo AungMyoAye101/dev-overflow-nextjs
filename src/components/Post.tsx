@@ -23,9 +23,6 @@ const Post = ({ question }: PostProps) => {
       <div className="flex justify-between gap-4 items-start">
         <Link href={`/question/${question._id}`} className="hover:text-orange">
           <h2 className="h3-bold ">{question.title}</h2>
-          <p className="para text-wrap  line-clamp-2  mt-2">
-            {question.content}
-          </p>
         </Link>
         {userId === question.author.clerkId && (
           <EditDeleteAction type="question" id={question._id!} />

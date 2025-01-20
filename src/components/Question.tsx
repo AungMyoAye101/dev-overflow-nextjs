@@ -140,10 +140,18 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
               <FormControl>
                 <Editor
                   apiKey="7o3fzwo8vlsxhmogqdzf3vbqxgetr2t663ockiwk8u09x89d"
-                  //@ts-nocheck
-                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  onInit={(_evt, editor) => {
+                    //@ts-ignore
+                    editorRef.current = editor;
+                  }}
                   initialValue={field.value}
-                  onEditorChange={(content) => field.onChange(content)}
+                  onBlur={() =>
+                    field.onChange(
+                      //@ts-ignore
+                      editorRef.current.getContent()
+                    )
+                  }
+                  onChange={(content) => field.onChange(content)}
                   init={{
                     height: 250,
                     menubar: false,
@@ -179,7 +187,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
 
                     toolbar:
                       "undo redo | blocks " +
-                      "codesample  bold italic forecolor | alignleft aligncenter " +
+                      " bold italic forecolor codesample  | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist outdent indent | " +
                       "removeformat | help",
                     content_style:
