@@ -9,7 +9,6 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
-import parse from "html-react-parser";
 import RenderText from "@/src/components/RenderText";
 
 const page = async ({

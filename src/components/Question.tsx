@@ -16,7 +16,6 @@ import {
 } from "@/src/components/ui/form";
 import { Input } from "@/src/components/ui/input";
 import { useForm } from "react-hook-form";
-import { Textarea } from "./ui/textarea";
 import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
 import { askQuestion } from "@/src/lib/actions/question.action";

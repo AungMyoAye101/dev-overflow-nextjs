@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { answerSchema } from "@/src/lib/FormViladitaion";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,18 +14,19 @@ import {
   FormMessage,
 } from "@/src/components/ui/form";
 import { useForm } from "react-hook-form";
-
-import { Textarea } from "./ui/textarea";
 import { createAnswer } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
+import { Editor } from "@tinymce/tinymce-react";
+
 interface Props {
   questionId: string;
 }
 
 const AnswerForm = ({ questionId }: Props) => {
   const [isSubmiting, setSubmiting] = useState(false);
+  const editorRef = useRef(null);
   const path = usePathname();
   const { userId } = useAuth();
   const { toast } = useToast();
@@ -73,7 +74,62 @@ const AnswerForm = ({ questionId }: Props) => {
               <FormItem>
                 <FormLabel>What is your answer</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Enter your though" {...field} />
+                  <Editor
+                    apiKey="7o3fzwo8vlsxhmogqdzf3vbqxgetr2t663ockiwk8u09x89d"
+                    onInit={(_evt, editor) => {
+                      //@ts-ignore
+                      editorRef.current = editor;
+                    }}
+                    initialValue={field.value}
+                    onBlur={() =>
+                      field.onChange(
+                        //@ts-ignore
+                        editorRef.current.getContent()
+                      )
+                    }
+                    onChange={(content) => field.onChange(content)}
+                    init={{
+                      height: 250,
+                      menubar: false,
+                      codesample_global_prismjs: true,
+
+                      plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "code",
+                        "help",
+                        "wordcount",
+                        "codesample",
+                      ],
+                      codesample_languages: [
+                        { text: "HTML/XML", value: "markup" },
+                        { text: "JavaScript", value: "javascript" },
+                        { text: "CSS", value: "css" },
+                        { text: "Python", value: "python" },
+                      ],
+
+                      toolbar:
+                        "undo redo | blocks " +
+                        " bold italic forecolor codesample  | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
+                  />
                 </FormControl>
 
                 <FormMessage />

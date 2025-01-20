@@ -5,6 +5,7 @@ import { timestamp } from "../lib/utils";
 import Link from "next/link";
 import EditDeleteAction from "./EditDeleteAction";
 import { FaRegThumbsUp } from "react-icons/fa";
+import RenderText from "./RenderText";
 interface AnswerCardProps {
   answer: AnswerTypes;
   currUserId: string;
@@ -40,8 +41,9 @@ const AnswerCard = ({ answer, currUserId }: AnswerCardProps) => {
           {currUserId && <EditDeleteAction type="answer" id={answer._id} />}
         </div>
         <div className=" font-noto_serif">
-          <Link href={`/question/${answer.question}`}>{answer.content}</Link>
+          <Link href={`/question/${answer.question}`}></Link>
         </div>
+        <RenderText content={answer.content} />
 
         <div className="flex items-center gap-1  text-sm font-noto_serif">
           <FaRegThumbsUp className="text-blue-600 cursor-pointer" />
