@@ -50,28 +50,29 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // const { title, content, tags } = values;
-    // setSubmiting(true);
-    // try {
-    //   await askQuestion({
-    //     title,
-    //     content,
-    //     tags,
-    //     path,
-    //     userId: userId as string,
-    //   });
-    //   toast({
-    //     title: `You ${
-    //       formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
-    //     } a question successfull`,
-    //     variant: "default",
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setSubmiting(false);
-    //   router.push("/");
-    // }
+    const { title, content, tags } = values;
+
+    setSubmiting(true);
+    try {
+      await askQuestion({
+        title,
+        content,
+        tags,
+        path,
+        userId: userId as string,
+      });
+      toast({
+        title: `You ${
+          formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
+        } a question successfull`,
+        variant: "default",
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmiting(false);
+      router.push("/");
+    }
   }
 
   const handleOnKeyDown = (
@@ -142,6 +143,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
                   //@ts-nocheck
                   onInit={(_evt, editor) => (editorRef.current = editor)}
                   initialValue={field.value}
+                  onEditorChange={(content) => field.onChange(content)}
                   init={{
                     height: 250,
                     menubar: false,
@@ -168,6 +170,13 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
                       "wordcount",
                       "codesample",
                     ],
+                    codesample_languages: [
+                      { text: "HTML/XML", value: "markup" },
+                      { text: "JavaScript", value: "javascript" },
+                      { text: "CSS", value: "css" },
+                      { text: "Python", value: "python" },
+                    ],
+
                     toolbar:
                       "undo redo | blocks " +
                       "codesample  bold italic forecolor | alignleft aligncenter " +
