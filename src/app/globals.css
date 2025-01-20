@@ -59,6 +59,9 @@
   .btn-bg {
     @apply bg-gradient-to-tr from-orange to-yellow-500 text-white;
   }
+  .is-active {
+    @apply bg-orange;
+  }
 }
 
 @layer base {

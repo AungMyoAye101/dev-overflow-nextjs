@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { formSchema } from "@/src/lib/FormViladitaion";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,7 +24,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import Editor from "./Editor";
+import { Editor } from "@tinymce/tinymce-react";
 
 interface QuestionEdit {
   formType: string;
@@ -33,7 +33,7 @@ interface QuestionEdit {
 
 export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   const [isSubmiting, setSubmiting] = useState(false);
-
+  const editorRef = useRef(null);
   const path = usePathname();
   const router = useRouter();
   const { userId } = useAuth();
@@ -50,28 +50,28 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { title, content, tags } = values;
-    setSubmiting(true);
-    try {
-      await askQuestion({
-        title,
-        content,
-        tags,
-        path,
-        userId: userId as string,
-      });
-      toast({
-        title: `You ${
-          formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
-        } a question successfull`,
-        variant: "default",
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmiting(false);
-      router.push("/");
-    }
+    // const { title, content, tags } = values;
+    // setSubmiting(true);
+    // try {
+    //   await askQuestion({
+    //     title,
+    //     content,
+    //     tags,
+    //     path,
+    //     userId: userId as string,
+    //   });
+    //   toast({
+    //     title: `You ${
+    //       formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
+    //     } a question successfull`,
+    //     variant: "default",
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setSubmiting(false);
+    //   router.push("/");
+    // }
   }
 
   const handleOnKeyDown = (
@@ -137,8 +137,46 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                {/* <Textarea {...field} /> */}
-                <Editor />
+                <Editor
+                  apiKey="7o3fzwo8vlsxhmogqdzf3vbqxgetr2t663ockiwk8u09x89d"
+                  //@ts-nocheck
+                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  initialValue={field.value}
+                  init={{
+                    height: 250,
+                    menubar: false,
+                    codesample_global_prismjs: true,
+
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      "help",
+                      "wordcount",
+                      "codesample",
+                    ],
+                    toolbar:
+                      "undo redo | blocks " +
+                      "codesample  bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | help",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.
