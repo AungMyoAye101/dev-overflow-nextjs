@@ -140,13 +140,13 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
                 <Editor
                   apiKey="7o3fzwo8vlsxhmogqdzf3vbqxgetr2t663ockiwk8u09x89d"
                   onInit={(_evt, editor) => {
-                    //@ts-ignore
+                    //@ts-expect-error  editor error
                     editorRef.current = editor;
                   }}
                   initialValue={field.value}
                   onBlur={() =>
                     field.onChange(
-                      //@ts-ignore
+                      //@ts-expect-error editor error
                       editorRef.current.getContent()
                     )
                   }
@@ -212,7 +212,6 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
                 <div className="flex flex-col gap-4 ">
                   <Input
                     placeholder="tags"
-                    // {...field}
                     disabled={formType === "Edit"}
                     onKeyDown={(e) => handleOnKeyDown(e, field)}
                   />

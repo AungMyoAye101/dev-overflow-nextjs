@@ -77,13 +77,13 @@ const AnswerForm = ({ questionId }: Props) => {
                   <Editor
                     apiKey="7o3fzwo8vlsxhmogqdzf3vbqxgetr2t663ockiwk8u09x89d"
                     onInit={(_evt, editor) => {
-                      //@ts-ignore
+                      //@ts-expect-error editor error
                       editorRef.current = editor;
                     }}
                     initialValue={field.value}
                     onBlur={() =>
                       field.onChange(
-                        //@ts-ignore
+                        //@ts-expect-error editor error
                         editorRef.current.getContent()
                       )
                     }
