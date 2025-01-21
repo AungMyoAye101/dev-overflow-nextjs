@@ -20,9 +20,9 @@ const Post = ({ question }: PostProps) => {
   const { userId } = useAuth();
 
   return (
-    <div className="w-full flex flex-col gap-4 px-6 py-10 rounded-md shadow-md dark:shadow-none bg_dark_white">
+    <div className="w-full flex flex-col gap-4 px-5 py-6 rounded-md shadow-md dark:shadow-none bg_dark_white">
       <div className="flex justify-between gap-4 items-start">
-        <Link href={`/question/${question._id}`} className="hover:text-orange">
+        <Link href={`/question/${question._id}`}>
           <h2 className="h3-bold ">{question.title}</h2>
         </Link>
         {userId === question.author.clerkId && (

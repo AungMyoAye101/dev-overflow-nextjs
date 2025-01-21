@@ -20,8 +20,11 @@ const config: Config = {
       },
       colors: {
         orange: "#FF6F00",
-        "dark-gray": "#333333",
+        "dark-333": "#333333",
+        "dark-100": "#4D4D4D",
         "light-gray": "#F5F5F5",
+        "primary-blue": "#203DDF",
+        "secondary-blue": "#4C64E6",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
