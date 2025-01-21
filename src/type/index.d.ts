@@ -104,6 +104,11 @@ export interface AnswerProps {
   userId: string;
   path: string;
 }
+export interface AllAnswerParams {
+  questionId: string;
+  sortQuery: string;
+  page?: number;
+}
 export interface DeleteAnswerPaams {
   answerId: string;
   path: string;

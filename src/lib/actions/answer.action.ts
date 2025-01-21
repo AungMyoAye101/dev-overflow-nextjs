@@ -1,7 +1,12 @@
 "use server";
 
 import connectToDB from "@/src/database/db";
-import { AnswerProps, DeleteAnswerPaams, VotesParams } from "@/src/type";
+import {
+  AllAnswerParams,
+  AnswerProps,
+  DeleteAnswerPaams,
+  VotesParams,
+} from "@/src/type";
 import { getUserByClerkId } from "./user.action";
 import { revalidatePath } from "next/cache";
 import Answer from "@/src/model/answer.model";
@@ -53,22 +58,46 @@ export const createAnswer = async (params: AnswerProps) => {
   }
 };
 
-export const getAllAnswers = async (id: string) => {
+export const getAllAnswers = async (params: AllAnswerParams) => {
   try {
     await connectToDB();
-    const question = await Question.findById(id).populate({
-      path: "answers",
-      populate: {
-        path: "author",
-        model: User,
-      },
-    });
+    const { questionId, sortQuery, page = 1 } = params;
 
-    if (!question) {
-      throw new Error("Question not found");
+    let sortBy = {};
+
+    switch (sortQuery) {
+      case "most recent":
+        sortBy = { createdAt: -1 };
+        console.log("most recent");
+        break;
+      case "oldest":
+        sortBy = { createdAt: 1 };
+        console.log("oldest");
+        break;
+      case "highest upvotes":
+        sortBy = { upvotes: -1 };
+        console.log("highest upvotes");
+        break;
+      case "lowest upvotes":
+        sortBy = { upvotes: 1 };
+        console.log("lowest upvotes");
+        break;
+      default:
+        sortBy = { createdAt: -1 };
+        break;
     }
 
-    return question.answers;
+    const answers = await Answer.find({ question: questionId })
+      .sort(sortBy)
+      .skip((page - 1) * 10)
+      .limit(10)
+      .populate("author", "_id name username email picture");
+
+    if (!answers) {
+      throw new Error("Answers not found");
+    }
+
+    return answers;
   } catch (error) {
     console.error("Failed to fetch answers", error);
     throw error;

@@ -8,7 +8,6 @@ import { QuestionProps, SearchParamsProps } from "../type";
 import Filter from "../components/Filter";
 import { filteredSearch } from "../constants";
 import PaginationBox from "../components/PaginationBox";
-import AllAnswer from "../components/AllAnswer";
 
 interface ResultsType {
   questions: QuestionProps[];

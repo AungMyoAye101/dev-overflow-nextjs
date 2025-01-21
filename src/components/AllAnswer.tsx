@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
-import { filteredSearch } from "../constants";
+import { answerSort } from "../constants";
 import Link from "next/link";
 import Votes from "./Votes";
 import Image from "next/image";
@@ -15,13 +8,19 @@ import { getAllAnswers } from "../lib/actions/answer.action";
 import { getUserByClerkId } from "../lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
 import RenderText from "./RenderText";
+import Filter from "./Filter";
 
 interface Props {
   questionId: string;
+  filter?: string;
 }
 
-const AllAnswer = async ({ questionId }: Props) => {
-  const question = await getAllAnswers(questionId);
+const AllAnswer = async ({ questionId, filter }: Props) => {
+  const question = await getAllAnswers({
+    questionId,
+    sortQuery: filter || "",
+  });
+
   if (!question) return;
   const answers = JSON.parse(JSON.stringify(question));
   const { userId } = await auth();
@@ -35,18 +34,7 @@ const AllAnswer = async ({ questionId }: Props) => {
         <h2 className="h3-bold text-orange capatalize">
           {answers.length} {answers.length > 1 ? "Answers" : "Answer"}
         </h2>
-        <Select>
-          <SelectTrigger className="font-poppins font-semibold w-fit px-4 py-2 ">
-            <SelectValue placeholder="Filter" />
-          </SelectTrigger>
-          <SelectContent>
-            {filteredSearch.map((item) => (
-              <SelectItem key={item} value={item}>
-                {item}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <Filter filterArray={answerSort} />
       </div>
       {answers.length > 0 &&
         answers.map((answer: any) => (
