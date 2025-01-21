@@ -36,7 +36,7 @@ const Post = ({ question }: PostProps) => {
           </Link>
         ))}
       </div>
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <Link
           href={`/profile/${question.author.clerkId}`}
           className="flex items-center gap-2 font-noto_serif"

@@ -25,7 +25,7 @@ const SideBar = () => {
             </Link>
           </SheetTitle>
         </SheetHeader>
-        <div className="flex flex-col gap-4 mt-4 h-full">
+        <div className="flex flex-col gap-4 mt-[5rem] h-full">
           {sideLinks.map((link, index) => (
             <Link
               href={link.href}

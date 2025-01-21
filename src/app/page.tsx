@@ -8,6 +8,7 @@ import { QuestionProps, SearchParamsProps } from "../type";
 import Filter from "../components/Filter";
 import { filteredSearch } from "../constants";
 import PaginationBox from "../components/PaginationBox";
+import { FaQuestionCircle } from "react-icons/fa";
 
 interface ResultsType {
   questions: QuestionProps[];
@@ -27,7 +28,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
   return (
     <div className="page_padding">
-      <div className="flex flex-col-reverse md:flex-row justify-between items-start md:items-center  ">
+      <div className="flex  md:flex-row justify-between items-start md:items-center  ">
         <h1 className="text-2xl md:text-4xl font-poppins font-semibold">
           All Questions
         </h1>
@@ -35,10 +36,11 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           href={"/question"}
           className="self-end btn-bg font-poppins  font-semibold py-2 px-4 rounded-md "
         >
-          Ask a Question
+          <span className="hidden sm:block">Ask a Question</span>
+          <FaQuestionCircle className="sm:hidden" />
         </Link>
       </div>
-      <div className="flex flex-row lg:flex-col gap-4">
+      <div className="flex  sm:flex-row lg:flex-col gap-4">
         <LocalSearchBox />
         <Filter filterArray={filteredSearch} />
       </div>

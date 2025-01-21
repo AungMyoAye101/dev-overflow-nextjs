@@ -40,7 +40,7 @@ const Filter: FC<FilterProps> = ({ filterArray }) => {
 
   return (
     <>
-      <div className="block lg:hidden">
+      <div className="block lg:hidden ">
         <Select onValueChange={handleFilter}>
           <SelectTrigger className="font-poppins font-semibold w-fit h-11 px-4 ">
             <SelectValue placeholder="Filter" />

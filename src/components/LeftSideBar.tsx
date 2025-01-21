@@ -48,7 +48,7 @@ const LeftSideBar = () => {
             <SignOutButton>
               <button className="side-links text-rose-500">
                 <GoSignOut />
-                Log out
+                <span className="hidden md:block">Log out</span>
               </button>
             </SignOutButton>
           ) : (
