@@ -27,7 +27,7 @@ const page = async ({
 
   return (
     <section className="page_padding">
-      <div className="flex flex-col gap-6 bg_dark_white px-6 py-6 rounded-lg shadow-md dark:shadow-none">
+      <div className="flex flex-col gap-6 bg_dark_white px-6 py-6 rounded-lg shadow-md dark:shadow-none w-fit ">
         {/* User profile and votes */}
         <div className="flex justify-between items-center ">
           <Link
@@ -75,7 +75,9 @@ const page = async ({
               <p>{question.views} Views</p>
             </div>
           </div>
-          <RenderText content={question.content} />
+          <div className="text-wrap">
+            <RenderText content={question.content} />
+          </div>
           <div className="flex items-center gap-4 ">
             {question.tags.map((tag: { _id: string; name: string }) => (
               <Badge key={tag._id} className="px-4 py-1.5">

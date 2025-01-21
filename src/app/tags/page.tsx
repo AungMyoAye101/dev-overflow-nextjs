@@ -25,11 +25,11 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         <LocalSearchBox />
         <Filter filterArray={sortTags} />
       </div>
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {results.tags.map((tag) => (
           <div
             key={tag._id}
-            className="bg_dark_white flex  items-center  gap-4 px-4 py-6 shadow_rounded w-fit"
+            className="bg_dark_white flex  items-center  gap-4 p-4 shadow_rounded "
           >
             <Link href={`/tags/${tag._id}`}>
               <Badge className="py-2 px-4 w-fit">{tag.name}</Badge>
@@ -37,7 +37,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 
             <div className="font-noto_serif flex gap-2 text-sm">
               <span className="text-orange">{tag.questions.length} +</span>
-              <span>Question</span>
+              <span>{tag.questions.length > 1 ? "Questions" : "Question"}</span>
             </div>
           </div>
         ))}
