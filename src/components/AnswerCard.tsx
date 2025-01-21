@@ -41,7 +41,9 @@ const AnswerCard = ({ answer, currUserId }: AnswerCardProps) => {
           {currUserId && <EditDeleteAction type="answer" id={answer._id} />}
         </div>
         <div className=" font-noto_serif">
-          <Link href={`/question/${answer.question}`}></Link>
+          <Link href={`/question/${answer.question}`}>
+            <RenderText content={answer.content} />
+          </Link>
         </div>
         <RenderText content={answer.content} />
 

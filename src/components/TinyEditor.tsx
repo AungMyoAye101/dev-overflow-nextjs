@@ -11,7 +11,7 @@ const TinyEditor: FC<EditorProps> = ({ value, onChange }) => {
   const editorRef = useRef(null);
   return (
     <Editor
-      apiKey={process.env.TINYMCE_API}
+      apiKey="7o3fzwo8vlsxhmogqdzf3vbqxgetr2t663ockiwk8u09x89d"
       onInit={(_evt, editor) => {
         //@ts-expect-error  editor error
         editorRef.current = editor;

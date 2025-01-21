@@ -8,6 +8,7 @@ import Link from "next/link";
 import { timestamp } from "../lib/utils";
 import EditDeleteAction from "./EditDeleteAction";
 import { useAuth } from "@clerk/nextjs";
+import RenderText from "./RenderText";
 
 interface PostProps {
   question: QuestionProps;
@@ -23,6 +24,7 @@ const Post = ({ question }: PostProps) => {
       <div className="flex justify-between gap-4 items-start">
         <Link href={`/question/${question._id}`} className="hover:text-orange">
           <h2 className="h3-bold ">{question.title}</h2>
+          <RenderText content={question.content} />
         </Link>
         {userId === question.author.clerkId && (
           <EditDeleteAction type="question" id={question._id!} />

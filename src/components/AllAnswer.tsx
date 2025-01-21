@@ -14,6 +14,7 @@ import { timestamp } from "../lib/utils";
 import { getAllAnswers } from "../lib/actions/answer.action";
 import { getUserByClerkId } from "../lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
+import RenderText from "./RenderText";
 
 interface Props {
   questionId: string;
@@ -83,7 +84,7 @@ const AllAnswer = async ({ questionId }: Props) => {
                 type="answer"
               />
             </div>
-            <div className="mt-4 font-noto_serif">{answer.content}</div>
+            <RenderText content={answer.content} />
           </main>
         ))}
     </section>
