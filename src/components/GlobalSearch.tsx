@@ -57,10 +57,10 @@ const GlobalSearch = () => {
 
   return (
     <div
-      className="relative max-w-2xl flex-1 flex items-center px-2 py-1 rounded-lg  shadow secondary_bg "
+      className="relative max-w-2xl flex-1 flex items-center px-2 py-1 rounded-lg  shadow bg-primary-white dark:bg-black-card"
       ref={resultContainer}
     >
-      <IoSearchOutline className="text-xl text-gray-500 " />
+      <IoSearchOutline className="text-xl  " />
       <Input
         type="text"
         placeholder="Search anything globally"

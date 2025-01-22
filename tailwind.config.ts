@@ -21,8 +21,8 @@ const config: Config = {
       colors: {
         "black-bg": "#121212",
         "black-card": "#1E1E2E",
-        "dark-primary-text": "#E0E0E0",
-        "dark-secondary-text": "#B3B3B3",
+        "primary-white": "#E0E0E0",
+        "secondary-white": "#B3B3B3",
         "muted-text": "#8c8c8c",
         "accent-blue": "#3399ff",
         "accent-purple": "#6a0dad",

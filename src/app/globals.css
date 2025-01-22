@@ -10,7 +10,7 @@
     @apply font-poppins text-2xl font-bold;
   }
   .h3-bold {
-    @apply font-poppins text-xl font-bold dark:text-dark-primary-text;
+    @apply font-poppins text-xl font-bold dark:text-primary-white;
   }
   .para {
     @apply text-sm font-noto_serif;
@@ -22,7 +22,7 @@
     @apply pt-[7rem] pb-10 px-4 md:px-10 space-y-6 flex-1;
   }
   .bg_dark_white {
-    @apply bg-white dark:bg-black-card dark:text-dark-primary-text;
+    @apply bg-white dark:bg-black-card dark:text-primary-white;
   }
 
   .side-links {
@@ -36,7 +36,7 @@
     @apply shadow-md dark:shadow-none rounded-md;
   }
   .button_bg {
-    @apply bg-[#007bff] text-white;
+    @apply bg-[#007bff] text-white hover:bg-accent-purple;
   }
   .secondary_bg {
     @apply bg-gray-100 dark:bg-gray-800;

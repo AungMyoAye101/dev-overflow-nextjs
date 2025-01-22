@@ -20,7 +20,7 @@ const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
 
   return (
-    <nav className="dark:bg-[#1A1A2E] border-2 flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full  shadow-md dark:shadow-none">
+    <nav className="dark:bg-[#1A1A2E]  flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full  shadow-md dark:shadow-none">
       <Link href="/" className="flex items-center gap-2">
         <Image
           src={"/assets/icons/site-logo.svg"}
@@ -39,9 +39,9 @@ const NavBar: React.FC = () => {
           <MenubarMenu>
             <MenubarTrigger className=" border-none rounded-full p-0 focus:bg-light-gray  data-[state=open]:bg-light-gray  dark:focus:bg-dark-gray dark:focus:text-orange dark:data-[state=open]:bg-dark-gray dark:data-[state=open]:text-orange cursor-pointer ">
               {mode === "dark" ? (
-                <FaMoon className="text-orange text-lg " />
+                <FaMoon className="text-orange text-lg text-accent-blue" />
               ) : (
-                <FaSun className="text-orange text-lg " />
+                <FaSun className="text-orange text-lg text-accent-blue" />
               )}
             </MenubarTrigger>
             <MenubarContent className=" absolute top-4 -right-8 min-w-40 w-fit">

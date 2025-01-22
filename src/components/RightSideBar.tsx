@@ -12,7 +12,7 @@ const RightSideBar = async () => {
   const topTags: TopTagsType[] = JSON.parse(JSON.stringify(tags));
 
   return (
-    <section className="dark:bg-[#161625] hidden lg:block  h-screen overflow-hidden overflow-y-scroll  sticky right-0 left-0 top-0  pt-[7rem] pb-4 px-4 w-64 ">
+    <section className="dark:bg-[#161625] hidden lg:block  h-screen overflow-hidden overflow-y-scroll  sticky right-0 left-0 top-0  pt-[6rem] pb-4 px-4 w-64 ">
       <div className="flex flex-col gap-4 pt-4 ">
         <div>
           <h1 className="text-xl font-poppins font-semibold">Top Questions</h1>
@@ -25,7 +25,7 @@ const RightSideBar = async () => {
               <Link
                 href={`/question/${q._id!}`}
                 key={q._id}
-                className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif hover:text-orange "
+                className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif hover:text-accent-blue "
               >
                 <p>{q.title}</p>
                 <button>
@@ -45,9 +45,11 @@ const RightSideBar = async () => {
                 <Link
                   key={t._id}
                   href={`/tags/${t._id}`}
-                  className="flex justify-between items-center"
+                  className="flex justify-between items-center "
                 >
-                  <Badge className="px-3 py-1 font-noto_serif ">{t.name}</Badge>
+                  <Badge className="px-3 py-1 font-poppins button_bg ">
+                    {t.name}
+                  </Badge>
                   <span>{t.numberOfQuestions}</span>
                 </Link>
               ))}
