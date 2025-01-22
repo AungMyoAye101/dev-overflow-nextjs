@@ -13,7 +13,7 @@ import RenderText from "@/src/components/RenderText";
 
 interface PageProps {
   params: Promise<{ questionId: string }>;
-  searchParams: { filter: string; page?: number };
+  searchParams: Promise<{ filter: string; page?: number }>;
 }
 
 const page = async ({ params, searchParams }: PageProps) => {
