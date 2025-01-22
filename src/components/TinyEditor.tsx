@@ -30,7 +30,7 @@ const TinyEditor: FC<EditorProps> = ({ value, onChange }) => {
         height: 300,
         menubar: false,
         codesample_global_prismjs: true,
-
+        skin: mode === "dark" ? "oxide-dark" : "oxide",
         plugins: [
           "advlist",
           "autolink",

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { answerSchema } from "@/src/lib/FormViladitaion";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,6 @@ import { createAnswer } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import { Editor } from "@tinymce/tinymce-react";
 import TinyEditor from "./TinyEditor";
 
 interface Props {
@@ -27,7 +26,6 @@ interface Props {
 
 const AnswerForm = ({ questionId }: Props) => {
   const [isSubmiting, setSubmiting] = useState(false);
-  const editorRef = useRef(null);
   const path = usePathname();
   const { userId } = useAuth();
   const { toast } = useToast();

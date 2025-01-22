@@ -48,8 +48,8 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           results.questions.map((q) => <Post key={q._id} question={q} />)
         ) : (
           <Empty
-            title="There no question"
-            desecription="Be the first create a question"
+            title="There no question to show"
+            desecription="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion."
             btn="Create a question"
             link="/question"
           />

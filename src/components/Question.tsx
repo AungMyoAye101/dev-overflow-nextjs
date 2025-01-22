@@ -23,7 +23,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import { Editor } from "@tinymce/tinymce-react";
 import TinyEditor from "./TinyEditor";
 
 interface QuestionEdit {
@@ -33,7 +32,6 @@ interface QuestionEdit {
 
 export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   const [isSubmiting, setSubmiting] = useState(false);
-  const editorRef = useRef(null);
   const path = usePathname();
   const router = useRouter();
   const { userId } = useAuth();

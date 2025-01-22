@@ -32,7 +32,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
           results.questions.map((q: any) => <Post key={q.title} question={q} />)
         ) : (
           <Empty
-            title="You have no saved question."
+            title="You have not saved question yet."
             desecription="You can save a question from question detail page."
             btn="Save a question"
             link="/"

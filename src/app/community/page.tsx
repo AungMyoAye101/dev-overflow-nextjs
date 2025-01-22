@@ -1,4 +1,5 @@
 import Card from "@/src/components/Card";
+import Empty from "@/src/components/Empty";
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import PaginationBox from "@/src/components/PaginationBox";

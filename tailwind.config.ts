@@ -25,7 +25,7 @@ const config: Config = {
         "secondary-white": "#B3B3B3",
         "muted-text": "#8c8c8c",
         "accent-blue": "#3399ff",
-        "accent-purple": "#6a0dad",
+        "accent-purple": "#a855f7",
         "border-color": "#2a2a3b",
         "success-color": "#3cb371",
         "warning-color": "#ffA500",

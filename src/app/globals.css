@@ -36,7 +36,7 @@
     @apply shadow-md dark:shadow-none rounded-md;
   }
   .button_bg {
-    @apply bg-accent-blue hover:bg-accent-purple;
+    @apply bg-accent-blue hover:bg-purple-500;
   }
   .secondary_bg {
     @apply bg-gray-100 dark:bg-gray-800;

@@ -20,12 +20,12 @@ const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
 
   return (
-    <nav className="dark:bg-[#1A1A2E]  flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full  shadow-md dark:shadow-none">
+    <nav className="dark:bg-[#1A1A2E] bg-white flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full  shadow-md dark:shadow-none">
       <Link href="/" className="flex items-center gap-2">
         <Image
-          src={"/assets/icons/site-logo.svg"}
-          width={20}
-          height={20}
+          src={"/assets/images/logo.svg"}
+          width={40}
+          height={40}
           alt="site logo"
         />
         <div className="hidden sm:block text-2xl font-poppins font-bold">

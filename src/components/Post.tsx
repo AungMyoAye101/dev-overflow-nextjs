@@ -8,7 +8,6 @@ import Link from "next/link";
 import { timestamp } from "../lib/utils";
 import EditDeleteAction from "./EditDeleteAction";
 import { useAuth } from "@clerk/nextjs";
-import RenderText from "./RenderText";
 
 interface PostProps {
   question: QuestionProps;
