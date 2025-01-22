@@ -1,6 +1,5 @@
 import LocalSearchBox from "@/src/components/LocalSearchBox";
 import Post from "@/src/components/Post";
-
 import Link from "next/link";
 import { getAllQuestions } from "../lib/actions/question.action";
 import Empty from "../components/Empty";
@@ -34,7 +33,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </h1>
         <Link
           href={"/question"}
-          className="self-end btn-bg font-poppins  font-semibold py-2 px-4 rounded-md "
+          className="self-end button_bg font-poppins  font-semibold py-2 px-4 rounded-md "
         >
           <span className="hidden sm:block">Ask a Question</span>
           <FaQuestionCircle className="sm:hidden" />

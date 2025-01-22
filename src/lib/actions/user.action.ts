@@ -100,7 +100,15 @@ export const getAllUsers = async (params: SearchFilterQueryParams) => {
     const users = await User.find(query)
       .skip(skipAmount)
       .limit(pageSize)
-      .sort(sortBy);
+      .sort(sortBy)
+      .populate({
+        path: "questions",
+        model: "Users", // Reference to the user's questions
+        populate: {
+          path: "tags", // Populate the tags inside questions
+          model: "Tags", // Model name for tags
+        },
+      });
     if (!users) {
       throw new Error("Users not found");
     }

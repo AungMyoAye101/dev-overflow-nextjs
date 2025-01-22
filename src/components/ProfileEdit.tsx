@@ -71,7 +71,11 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
                 <FormItem>
                   <FormLabel> Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="name" {...field} />
+                    <Input
+                      className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
+                      placeholder="name"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -85,7 +89,11 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
                 <FormItem>
                   <FormLabel> Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="username" {...field} />
+                    <Input
+                      className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
+                      placeholder="username"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -99,7 +107,12 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
                 <FormItem>
                   <FormLabel>Portfolio Link</FormLabel>
                   <FormControl>
-                    <Input type="text" placeholder="you@gmail.com" {...field} />
+                    <Input
+                      type="text"
+                      className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
+                      placeholder="you@gmail.com"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -113,7 +126,11 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
                 <FormItem>
                   <FormLabel>Location</FormLabel>
                   <FormControl>
-                    <Input placeholder="Mandalay" {...field} />
+                    <Input
+                      className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
+                      placeholder="Mandalay"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -127,7 +144,11 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="bio" {...field} />
+                    <Textarea
+                      className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card"
+                      placeholder="bio"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -137,7 +158,7 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
             <Button
               type="submit"
               disabled={edit}
-              className="btn-bg self-end px-6"
+              className="button_bg self-end px-6"
             >
               {edit ? "Editing" : "Edit"}
             </Button>

@@ -121,7 +121,11 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Qusetion Title</FormLabel>
               <FormControl>
-                <Input placeholder="Title" {...field} />
+                <Input
+                  className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
+                  placeholder="Title"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Be specific and imagine you’re asking a question to another
@@ -161,6 +165,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
                 <div className="flex flex-col gap-4 ">
                   <Input
                     placeholder="tags"
+                    className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
                     disabled={formType === "Edit"}
                     onKeyDown={(e) => handleOnKeyDown(e, field)}
                   />
@@ -169,11 +174,11 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
                       {field.value.map((tag, index) => (
                         <Badge
                           key={index}
-                          className="flex items-center gap-2 px-4 py-2  font-poppins"
+                          className="flex items-center gap-2 px-3 py-1.5  font-poppins hover:bg-primary-blue hover:text-primary-white"
                         >
                           <span className="capitalize">{tag}</span>
                           <button
-                            className="text-lg hover:text-orange"
+                            className="text-lg hover:text-rose-500"
                             onClick={() => {
                               form.setValue(
                                 "tags",

@@ -54,6 +54,7 @@ export const askQuestion = async (params: CreateQuestionParams) => {
       tags: tagsId,
     });
     await User.findByIdAndUpdate(user._id, {
+      $push: { questions: question._id },
       $inc: {
         reputation: 5,
       },
