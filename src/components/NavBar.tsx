@@ -20,7 +20,7 @@ const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
 
   return (
-    <nav className="border-2 flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full bg-white dark:bg-gray-900 shadow-md dark:shadow-none">
+    <nav className="dark:bg-[#1A1A2E] border-2 flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full  shadow-md dark:shadow-none">
       <Link href="/" className="flex items-center gap-2">
         <Image
           src={"/assets/icons/site-logo.svg"}
@@ -30,7 +30,7 @@ const NavBar: React.FC = () => {
         />
         <div className="hidden sm:block text-2xl font-poppins font-bold">
           <span className="text-dark-gray dark:text-light-gray ">Dev</span>
-          <span className="text-orange ml-0.5">Overflow</span>
+          <span className="text-primary-blue ml-0.5">Overflow</span>
         </div>
       </Link>
       <GlobalSearch />

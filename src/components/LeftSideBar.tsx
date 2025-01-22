@@ -24,7 +24,7 @@ const LeftSideBar = () => {
   };
 
   return (
-    <section className="  overflow-hidden hidden sm:block sticky top-0 pt-[7rem] px-4 pb-10 h-screen   left-0 bg-white dark:bg-gray-900  sm:w-fit md:min-w-60  ">
+    <section className="dark:bg-[#161625]  overflow-hidden hidden sm:block sticky top-0 pt-[7rem] px-4 pb-10 h-screen   left-0  sm:w-fit md:min-w-60  ">
       <div className="flex flex-col justify-between  h-full">
         <div className="flex flex-col gap-4 ">
           {sideLinks.map((link, index) => (
