@@ -16,7 +16,7 @@
     @apply text-sm font-noto_serif;
   }
   .active-link {
-    @apply btn-bg;
+    @apply bg-accent-blue;
   }
   .page_padding {
     @apply pt-[7rem] pb-10 px-4 md:px-10 space-y-6 flex-1;
@@ -26,22 +26,22 @@
   }
 
   .side-links {
-    @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:btn-bg;
+    @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:bg-accent-blue;
   }
   .page-container {
-    @apply flex-1 flex flex-col gap-10   custom-scrollbar pt-28 pb-10 px-4 md:px-10 border-2;
+    @apply flex-1 flex flex-col gap-10    pt-28 pb-10 px-4 md:px-10 border-2;
   }
 
   .shadow_rounded {
     @apply shadow-md dark:shadow-none rounded-md;
   }
   .button_bg {
-    @apply bg-[#007bff] text-white hover:bg-accent-purple;
+    @apply bg-accent-blue hover:bg-accent-purple;
   }
   .secondary_bg {
     @apply bg-gray-100 dark:bg-gray-800;
   }
-  .custom-scrollbar {
+  /* .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;
   }
@@ -56,12 +56,10 @@
     background-color: #888;
     border-radius: 3px;
     border: 1px solid #f1f1f1;
-  }
-  .btn-bg {
-    @apply bg-gradient-to-tr from-primary-blue to-secondary-blue text-white;
-  }
+  } */
+
   .is-active {
-    @apply bg-orange;
+    @apply bg-accent-purple;
   }
 }
 

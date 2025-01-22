@@ -33,7 +33,7 @@ const PaginationBox: FC<Props> = ({ pageNumber, isNext }) => {
       >
         Prev
       </Button>
-      <p className="px-4 py-2 btn-bg rounded-lg">{pageNumber}</p>
+      <p className="px-4 py-2 button_bg rounded-lg">{pageNumber}</p>
       <Button
         disabled={!isNext}
         className="px-4 py-2 "

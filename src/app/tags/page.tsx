@@ -32,7 +32,9 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
             className="bg_dark_white flex  items-center  gap-4 p-4 shadow_rounded "
           >
             <Link href={`/tags/${tag._id}`}>
-              <Badge className="py-2 px-4 w-fit">{tag.name}</Badge>
+              <Badge className="py-1.5 px-3  w-fit button_bg hover:bg-accent-purple">
+                {tag.name}
+              </Badge>
             </Link>
 
             <div className="font-noto_serif flex gap-2 text-sm">

@@ -32,7 +32,7 @@ const page = async ({ params }: PageProps) => {
         badges={result.badgeCount}
       />
       <Tabs defaultValue="question">
-        <TabsList className="overflow-hidden  bg_dark_white shadow-md dark:shadow-none ">
+        <TabsList className="overflow-hidden shadow-md dark:shadow-none ">
           <TabsTrigger value="question" className="p-2 rounded-none">
             Top Questions
           </TabsTrigger>

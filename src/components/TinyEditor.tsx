@@ -1,6 +1,7 @@
 "use client";
 import React, { FC, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { useTheme } from "./Theme";
 
 interface EditorProps {
   value: string;
@@ -9,6 +10,7 @@ interface EditorProps {
 
 const TinyEditor: FC<EditorProps> = ({ value, onChange }) => {
   const editorRef = useRef(null);
+  const { mode } = useTheme();
   return (
     <Editor
       apiKey="7o3fzwo8vlsxhmogqdzf3vbqxgetr2t663ockiwk8u09x89d"

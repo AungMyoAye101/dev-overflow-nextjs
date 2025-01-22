@@ -59,8 +59,8 @@ const Filter: FC<FilterProps> = ({ filterArray }) => {
           <Button
             key={item}
             value={item}
-            className={`bg_dark_white text-dark-gray dark:text-light-gray shadow-md dark:shadow-none hover:btn-bg ${
-              active === item ? "btn-bg" : ""
+            className={` shadow-md dark:shadow-none  hover:bg-accent-blue ${
+              active === item ? "bg-accent-blue" : ""
             }`}
             onClick={() => handleFilter(item)}
           >

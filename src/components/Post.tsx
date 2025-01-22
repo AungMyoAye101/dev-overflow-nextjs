@@ -32,7 +32,7 @@ const Post = ({ question }: PostProps) => {
       <div className="flex items-center gap-4">
         {question.tags.map((tag) => (
           <Link href={`/tags/${tag._id}`} key={tag.name}>
-            <Badge className="px-2 py-1 font-poppins button_bg">
+            <Badge className="px-2 py-1 font-poppins button_bg hover:bg-accent-purple">
               {tag.name}
             </Badge>
           </Link>

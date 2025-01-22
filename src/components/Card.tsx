@@ -27,9 +27,15 @@ const Card = ({ user }: CardProps) => {
         <p className="text-sm font-noto_serif opacity-90">{user.email}</p>
       </div>
       <div className="flex gap-2 font-poppins text-sm">
-        <Badge className="px-3 py-1.5 ">Node</Badge>
-        <Badge className="px-3 py-1.5 ">Node</Badge>
-        <Badge className="px-3 py-1.5 ">Node</Badge>
+        <Badge className="px-3 py-1.5 button_bg hover:bg-accent-purple">
+          Node
+        </Badge>
+        <Badge className="px-3 py-1.5 button_bg hover:bg-accent-purple">
+          Node
+        </Badge>
+        <Badge className="px-3 py-1.5 button_bg hover:bg-accent-purple">
+          Node
+        </Badge>
       </div>
     </Link>
   );

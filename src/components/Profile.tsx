@@ -30,23 +30,27 @@ const Profile = ({ user, clerkId }: user) => {
           />
 
           <div className="flex flex-col gap-4 ">
-            <div className="flex flex-col gap-1">
-              <h1 className="text-2xl font-poppins font-semibold capitalize">
+            <div className="flex flex-col gap-0.5">
+              <h1 className="text-2xl font-poppins font-semibold capitalize text-primary-white">
                 {user.username}
               </h1>
-              <p className="font-poppins text-xs opacity-95">{user.email}</p>
-            </div>
-            <div>
-              <p className="font-noto_serif w-fit ">
-                {user.bio ? user.bio : "add bio"}
+              <p className="font-poppins text-xs text-secondary-white">
+                {user.email}
               </p>
             </div>
+
+            <p className="font-noto_serif w-fit text-primary-white ">
+              {user.bio ? user.bio : "add bio"}
+            </p>
+
             <div className="flex gap-2 text-sm flex-wrap">
               <div className="flex gap-1 items-center">
                 <FaLink />
                 <span>
                   {user.portfolio ? (
-                    <a href={user.portfolio}>{user.portfolio}</a>
+                    <a href={user.portfolio} className="hover:text-accent-blue">
+                      {user.portfolio}
+                    </a>
                   ) : (
                     "example.com"
                   )}
@@ -66,7 +70,10 @@ const Profile = ({ user, clerkId }: user) => {
           </div>
         </div>
         {user.clerkId === clerkId && (
-          <Link href={"/profile/edit"} className="absolute right-2 top-2">
+          <Link
+            href={"/profile/edit"}
+            className="absolute right-2 top-2 button_bg rounded-lg shadow dark:shadow-none"
+          >
             <p className=" font-poppins btn-bg px-4 py-1.5 text-nowrap text-sm rounded-md">
               Edit Profile
             </p>

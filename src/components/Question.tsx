@@ -199,7 +199,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
         <Button
           type="submit"
           disabled={isSubmiting}
-          className="self-end btn-bg"
+          className="self-end button_bg hover:bg-primary-blue"
         >
           {formType === "create"
             ? isSubmiting

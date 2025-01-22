@@ -40,7 +40,7 @@ export default function RootLayout({
           <Suspense>
             <ThemeProvider>
               <NavBar />
-              <div className="flex overscroll-y-auto  ">
+              <div className="flex  ">
                 <LeftSideBar />
                 {children}
                 <RightSideBar />

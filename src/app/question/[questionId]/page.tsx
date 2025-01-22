@@ -82,7 +82,10 @@ const page = async ({ params, searchParams }: PageProps) => {
           </div>
           <div className="flex items-center gap-4 ">
             {question.tags.map((tag: { _id: string; name: string }) => (
-              <Badge key={tag._id} className="px-4 py-1.5">
+              <Badge
+                key={tag._id}
+                className="px-4 py-1.5 bg-accent-blue hover:bg-accent-purple"
+              >
                 {tag.name}
               </Badge>
             ))}

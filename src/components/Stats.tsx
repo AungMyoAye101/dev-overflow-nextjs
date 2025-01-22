@@ -25,7 +25,7 @@ const Stats: FC<StatsProps> = ({ totalQuestion, totalAnswer, badges }) => {
     <section className="space-y-4">
       <h1 className="h2-bold">Stats</h1>
       <div className="flex flex-wrap items-center gap-4">
-        <div className="text-sm  bg_dark_white shadow_rounded py-3 px-5 flex flex-col items-center justify-center  font-noto_serif font-bold ">
+        <div className="text-sm  bg_dark_white shadow_rounded py-5 px-5 flex flex-col items-center justify-center  font-noto_serif font-bold ">
           <div className="space-x-1 ">
             <span className="text-orange">{totalQuestion}</span>
             <span>{totalQuestion > 1 ? "Questions" : "Question"}</span>

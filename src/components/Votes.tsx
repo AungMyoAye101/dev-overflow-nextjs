@@ -135,12 +135,12 @@ const Votes = ({
         <button onClick={upvoteHandle}>
           <ImArrowUp
             className={`text-lg ${
-              hasUpvoted ? "text-orange" : "text-gray-300"
+              hasUpvoted ? "text-primary-blue" : "text-gray-300"
             }`}
           />
         </button>
 
-        <p className="bg-gray-300 text-black text-xs px-2 py-1 rounded ">
+        <p className="bg-gray-300 text-primary-blue text-xs px-2 py-1 rounded ">
           {upVotes}
         </p>
       </div>
@@ -148,17 +148,19 @@ const Votes = ({
         <button onClick={downvoteHandle}>
           <ImArrowDown
             className={`text-lg ${
-              hasDownvoted ? "text-orange" : "text-gray-300"
+              hasDownvoted ? "text-rose-500" : "text-gray-300"
             }`}
           />
         </button>
-        <p className="bg-gray-300 text-black text-xs px-2 py-1 rounded ">
+        <p className="bg-gray-300 text-xs text-primary-blue px-2 py-1 rounded ">
           {downVotes}
         </p>
       </div>
       {type === "question" && (
         <button
-          className={`text-lg ${hasSaved ? "text-orange" : "text-gray-300"}`}
+          className={`text-lg ${
+            hasSaved ? "text-primary-blue" : "text-gray-300"
+          }`}
           onClick={savedHandle}
         >
           <FaStar />
