@@ -32,7 +32,9 @@ const Post = ({ question }: PostProps) => {
       <div className="flex items-center gap-4">
         {question.tags.map((tag) => (
           <Link href={`/tags/${tag._id}`} key={tag.name}>
-            <Badge className="px-2 py-1 font-poppins">{tag.name}</Badge>
+            <Badge className="px-2 py-1 font-poppins button_bg">
+              {tag.name}
+            </Badge>
           </Link>
         ))}
       </div>
@@ -50,7 +52,7 @@ const Post = ({ question }: PostProps) => {
           />
           <h3 className="text-sm font-semibold ">{question.author.name}</h3>
 
-          <p className="text-xs">{formatDate}</p>
+          <p className="text-xs dark:text-dark-secondary-text">{formatDate}</p>
         </Link>
         <div className="flex items-center gap-2 text-sm font-noto_serif">
           <div className="flex items-center gap-1">

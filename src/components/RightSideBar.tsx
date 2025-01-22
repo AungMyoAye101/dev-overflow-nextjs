@@ -12,7 +12,7 @@ const RightSideBar = async () => {
   const topTags: TopTagsType[] = JSON.parse(JSON.stringify(tags));
 
   return (
-    <section className="bg_dark_white hidden lg:block  h-screen overflow-hidden overflow-y-scroll custom-scrollbar sticky right-0 top-0  pt-[7rem] pb-10 px-4 w-64 ">
+    <section className="dark:bg-[#161625] hidden lg:block  h-screen overflow-hidden overflow-y-scroll  sticky right-0 left-0 top-0  pt-[7rem] pb-4 px-4 w-64 ">
       <div className="flex flex-col gap-4 pt-4 ">
         <div>
           <h1 className="text-xl font-poppins font-semibold">Top Questions</h1>

@@ -10,7 +10,7 @@
     @apply font-poppins text-2xl font-bold;
   }
   .h3-bold {
-    @apply font-poppins text-xl font-bold;
+    @apply font-poppins text-xl font-bold dark:text-dark-primary-text;
   }
   .para {
     @apply text-sm font-noto_serif;
@@ -22,21 +22,21 @@
     @apply pt-[7rem] pb-10 px-4 md:px-10 space-y-6 flex-1;
   }
   .bg_dark_white {
-    @apply bg-gradient-to-br bg-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900  text-neutral-700 dark:text-neutral-200;
+    @apply bg-white dark:bg-black-card dark:text-dark-primary-text;
   }
 
   .side-links {
     @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:btn-bg;
   }
   .page-container {
-    @apply flex-1 flex flex-col gap-10   custom-scrollbar pt-28 pb-10 px-4 md:px-10 bg-neutral-100 dark:bg-dark-333 border-2;
+    @apply flex-1 flex flex-col gap-10   custom-scrollbar pt-28 pb-10 px-4 md:px-10 border-2;
   }
 
   .shadow_rounded {
     @apply shadow-md dark:shadow-none rounded-md;
   }
   .button_bg {
-    @apply bg-gray-300 dark:bg-gray-700;
+    @apply bg-[#007bff] text-white;
   }
   .secondary_bg {
     @apply bg-gray-100 dark:bg-gray-800;
