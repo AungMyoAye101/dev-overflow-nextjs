@@ -18,7 +18,7 @@ import { createAnswer } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import TinyEditor from "./TinyEditor";
+import TipTapEditor from "./TipTapEditor";
 
 interface Props {
   questionId: string;
@@ -73,9 +73,9 @@ const AnswerForm = ({ questionId }: Props) => {
               <FormItem>
                 <FormLabel>What is your answer</FormLabel>
                 <FormControl>
-                  <TinyEditor
-                    value={field.value}
-                    onChange={(content) => field.onChange(content)}
+                  <TipTapEditor
+                    content={field.value}
+                    onChange={field.onChange}
                   />
                 </FormControl>
 
