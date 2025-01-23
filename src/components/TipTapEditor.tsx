@@ -15,6 +15,12 @@ import {
   FaQuoteRight,
 } from "react-icons/fa6";
 import { PiCodeBlockLight } from "react-icons/pi";
+import Code from "@tiptap/extension-code";
+import CodeBlock from "@tiptap/extension-code-block";
+import Bold from "@tiptap/extension-bold";
+import Italic from "@tiptap/extension-italic";
+import Underline from "@tiptap/extension-underline";
+import Highlight from "@tiptap/extension-highlight";
 
 export function MenuBar({ editor }: { editor: Editor }) {
   const items = [
@@ -144,7 +150,15 @@ export function MenuBar({ editor }: { editor: Editor }) {
 
 const TipTapEditor = () => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Code,
+      CodeBlock,
+      Bold,
+      Italic,
+      Underline,
+      Highlight,
+    ],
     content: "<p>Hello World! 🌎️</p>",
   });
   return (
