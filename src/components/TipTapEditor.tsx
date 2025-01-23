@@ -22,7 +22,8 @@ import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
 
-export function MenuBar({ editor }: { editor: Editor }) {
+export function MenuBar({ editor }: { editor: Editor | null }) {
+  if (!editor) return <Fragment></Fragment>;
   const items = [
     {
       icon: <FaBold />,
@@ -44,9 +45,6 @@ export function MenuBar({ editor }: { editor: Editor }) {
       isActive: () => editor.isActive("code"),
     },
 
-    {
-      type: "divider",
-    },
     {
       icon: "H1",
       title: "Heading 1",
@@ -80,7 +78,7 @@ export function MenuBar({ editor }: { editor: Editor }) {
     {
       icon: <FaListCheck />,
       title: "Task List",
-      action: () => editor.chain().focus().toggleList().run(),
+      action: () => {},
       isActive: () => editor.isActive("taskList"),
     },
     {
@@ -90,9 +88,6 @@ export function MenuBar({ editor }: { editor: Editor }) {
       isActive: () => editor.isActive("codeBlock"),
     },
     {
-      type: "divider",
-    },
-    {
       icon: <FaQuoteRight />,
       title: "Blockquote",
       action: () => editor.chain().focus().toggleBlockquote().run(),
@@ -100,20 +95,9 @@ export function MenuBar({ editor }: { editor: Editor }) {
     },
 
     {
-      type: "divider",
-    },
-    {
-      icon: "T",
-      title: "Hard Break",
-      action: () => editor.chain().focus().setHardBreak().run(),
-    },
-    {
       icon: "F",
       title: "Clear Format",
       action: () => editor.chain().focus().clearNodes().unsetAllMarks().run(),
-    },
-    {
-      type: "divider",
     },
     {
       icon: <FaUndo />,
@@ -128,21 +112,17 @@ export function MenuBar({ editor }: { editor: Editor }) {
   ];
 
   return (
-    <div className="editor__header">
+    <div className="flex gap-1 p-2 bg-secondary-white dark:bg-black-card">
       {items.map((item, index) => (
-        <Fragment key={index}>
-          {item.type === "divider" ? (
-            <div className="divider" />
-          ) : (
-            <button
-              onClick={item.action}
-              title={item.title}
-              className="w-8 h-10 flex justify-center items-center rounded-md bg-primary-white dark:bg-black-bg"
-            >
-              {item.icon}
-            </button>
-          )}
-        </Fragment>
+        <button
+          type="button"
+          key={index}
+          onClick={item.action}
+          title={item.title}
+          className="w-9 h-11 text-lg flex justify-center items-center rounded-md bg-primary-white dark:bg-black-bg"
+        >
+          {item.icon}
+        </button>
       ))}
     </div>
   );
@@ -150,6 +130,7 @@ export function MenuBar({ editor }: { editor: Editor }) {
 
 const TipTapEditor = () => {
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit,
       Code,
@@ -159,10 +140,46 @@ const TipTapEditor = () => {
       Underline,
       Highlight,
     ],
-    content: "<p>Hello World! 🌎️</p>",
+    editorProps: {
+      attributes: {
+        class: "p-4 focus:outline-none min-h-[200px] ",
+      },
+    },
+
+    content: `
+      <h2>
+    Hi there,
+  </h2>
+
+  <p>
+    this is a basic <em>basic</em> example of <strong>Tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
+  </p>
+  <ul>
+    <li>
+      That’s a bullet list with one …
+    </li>
+    <li>
+      … or two list items.
+    </li>
+  </ul>
+  <p>
+    Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
+  </p>
+<pre><code class="language-css">body {
+display: none;
+}</code></pre>
+  <p>
+    I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
+  </p>
+  <blockquote>
+    Wow, that’s amazing. Good work, boy! 👏
+    <br />
+    — Mom
+  </blockquote>
+`,
   });
   return (
-    <div className="border-2 border-white dark:border-black-card rounded-lg overflow-hidden">
+    <div className="border-2  border-secondary-white dark:border-black-card rounded-lg overflow-hidden">
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>
