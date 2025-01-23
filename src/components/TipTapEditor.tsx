@@ -3,7 +3,7 @@
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-import { Fragment } from "react";
+import { FC, Fragment } from "react";
 import { FaRedo, FaUndo } from "react-icons/fa";
 import {
   FaBold,
@@ -21,6 +21,8 @@ import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrderedList from "@tiptap/extension-ordered-list";
 
 export function MenuBar({ editor }: { editor: Editor | null }) {
   if (!editor) return <Fragment></Fragment>;
@@ -128,11 +130,27 @@ export function MenuBar({ editor }: { editor: Editor | null }) {
   );
 }
 
-const TipTapEditor = () => {
+interface TipTapEditorProps {
+  content: string;
+  onChange: (content: string) => void;
+}
+
+const TipTapEditor: FC<TipTapEditorProps> = ({ content, onChange }) => {
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
       StarterKit,
+
+      OrderedList.configure({
+        HTMLAttributes: {
+          class: "list-decimal ml-3",
+        },
+      }),
+      BulletList.configure({
+        HTMLAttributes: {
+          class: "list-disc ml-3",
+        },
+      }),
       Code,
       CodeBlock,
       Bold,
@@ -146,37 +164,10 @@ const TipTapEditor = () => {
       },
     },
 
-    content: `
-      <h2>
-    Hi there,
-  </h2>
-
-  <p>
-    this is a basic <em>basic</em> example of <strong>Tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-  </p>
-  <ul>
-    <li>
-      That’s a bullet list with one …
-    </li>
-    <li>
-      … or two list items.
-    </li>
-  </ul>
-  <p>
-    Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
-  </p>
-<pre><code class="language-css">body {
-display: none;
-}</code></pre>
-  <p>
-    I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
-  </p>
-  <blockquote>
-    Wow, that’s amazing. Good work, boy! 👏
-    <br />
-    — Mom
-  </blockquote>
-`,
+    content: content ? content : "<h1>Type your question</h1>",
+    onUpdate({ editor }) {
+      onChange(editor.getHTML());
+    },
   });
   return (
     <div className="border-2  border-secondary-white dark:border-black-card rounded-lg overflow-hidden">

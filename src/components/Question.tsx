@@ -23,7 +23,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import TinyEditor from "./TinyEditor";
 import TipTapEditor from "./TipTapEditor";
 
 interface QuestionEdit {
@@ -50,7 +49,6 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title, content, tags } = values;
-
     setSubmiting(true);
     try {
       await askQuestion({
@@ -141,11 +139,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <TipTapEditor />
-                {/* <TinyEditor
-                  value={field.value}
-                  onChange={(content) => field.onChange(content)}
-                /> */}
+                <TipTapEditor content={field.value} onChange={field.onChange} />
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.
