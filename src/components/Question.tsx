@@ -24,6 +24,7 @@ import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
 import TinyEditor from "./TinyEditor";
+import TipTapEditor from "./TipTapEditor";
 
 interface QuestionEdit {
   formType: string;
@@ -140,10 +141,11 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <TinyEditor
+                <TipTapEditor />
+                {/* <TinyEditor
                   value={field.value}
                   onChange={(content) => field.onChange(content)}
-                />
+                /> */}
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.

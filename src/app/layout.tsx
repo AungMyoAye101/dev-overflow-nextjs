@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Noto_Serif } from "next/font/google";
 import "./globals.css";
 import "../styles/prism.css";
+import "../styles/TipTapEditor.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/src/components/NavBar";
 import ThemeProvider from "@/src/components/Theme";
