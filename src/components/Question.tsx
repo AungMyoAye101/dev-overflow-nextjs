@@ -23,7 +23,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import TipTapEditor from "./TipTapEditor";
 import QuillEditor from "./QuillEditor";
 
 interface QuestionEdit {
@@ -37,7 +36,6 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   const router = useRouter();
   const { userId } = useAuth();
   const { toast } = useToast();
-  const quillRef = useRef(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

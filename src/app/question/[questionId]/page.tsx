@@ -29,7 +29,7 @@ const page = async ({ params, searchParams }: PageProps) => {
 
   return (
     <section className="page_padding">
-      <div className="flex flex-col gap-6 bg_dark_white px-6 py-6 rounded-lg shadow-md dark:shadow-none w-fit ">
+      <div className="w-full flex flex-col gap-6 bg_dark_white px-6 py-6 rounded-lg shadow-md dark:shadow-none  ">
         {/* User profile and votes */}
         <div className="flex justify-between items-center ">
           <Link

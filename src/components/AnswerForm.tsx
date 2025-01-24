@@ -18,7 +18,7 @@ import { createAnswer } from "../lib/actions/answer.action";
 import { usePathname } from "next/navigation";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import TipTapEditor from "./TipTapEditor";
+
 import QuillEditor from "./QuillEditor";
 
 interface Props {
