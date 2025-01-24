@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { formSchema } from "@/src/lib/FormViladitaion";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +24,7 @@ import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
 import TipTapEditor from "./TipTapEditor";
+import QuillEditor from "./QuillEditor";
 
 interface QuestionEdit {
   formType: string;
@@ -36,6 +37,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   const router = useRouter();
   const { userId } = useAuth();
   const { toast } = useToast();
+  const quillRef = useRef(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -139,7 +141,8 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <TipTapEditor content={field.value} onChange={field.onChange} />
+                <QuillEditor />
+                {/* <TipTapEditor content={field.value} onChange={field.onChange} /> */}
               </FormControl>
               <FormDescription>
                 Introduce the problem and expand on what you put in the title.

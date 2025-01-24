@@ -23,6 +23,7 @@ import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 
 export function MenuBar({ editor }: { editor: Editor | null }) {
   if (!editor) return <Fragment></Fragment>;
@@ -140,7 +141,9 @@ const TipTapEditor: FC<TipTapEditorProps> = ({ content, onChange }) => {
     immediatelyRender: false,
     extensions: [
       StarterKit,
-
+      // CodeBlockLowlight.configure({
+      //   lowlight: require("lowlight"),
+      // }),
       OrderedList.configure({
         HTMLAttributes: {
           class: "list-decimal ml-3",
