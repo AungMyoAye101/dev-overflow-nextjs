@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 import { useToast } from "../hooks/use-toast";
 import { useAuth } from "@clerk/nextjs";
 import TipTapEditor from "./TipTapEditor";
+import QuillEditor from "./QuillEditor";
 
 interface Props {
   questionId: string;
@@ -73,7 +74,7 @@ const AnswerForm = ({ questionId }: Props) => {
               <FormItem>
                 <FormLabel>What is your answer</FormLabel>
                 <FormControl>
-                  <TipTapEditor
+                  <QuillEditor
                     content={field.value}
                     onChange={field.onChange}
                   />

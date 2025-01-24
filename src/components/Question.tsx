@@ -141,7 +141,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
             <FormItem>
               <FormLabel>Detailed explanation of your problem? *</FormLabel>
               <FormControl>
-                <QuillEditor />
+                <QuillEditor content={field.value} onChange={field.onChange} />
                 {/* <TipTapEditor content={field.value} onChange={field.onChange} /> */}
               </FormControl>
               <FormDescription>
