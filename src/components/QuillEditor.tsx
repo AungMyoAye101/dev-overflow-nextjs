@@ -11,20 +11,6 @@ interface QuillEditorProps {
   onChange: (value: string) => void;
 }
 const QuillEditor: FC<QuillEditorProps> = ({ content, onChange }) => {
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ["bold", "italic", "underline", "code", "codeblock", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
-      ["clean"],
-    ],
-  };
-
   const toolbarOptions = [
     ["bold", "italic", "underline"], // toggled buttons
     ["blockquote", "code-block"],
