@@ -30,7 +30,7 @@ const NavBar: React.FC = () => {
         />
         <div className="hidden sm:block text-2xl font-poppins font-bold">
           <span className="text-dark-gray dark:text-light-gray ">Dev</span>
-          <span className="text-primary-blue ml-0.5">Overflow</span>
+          <span className="text-accent-blue ml-0.5">Overflow</span>
         </div>
       </Link>
       <GlobalSearch />

@@ -14,7 +14,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     page: query.page ? +query.page : 1,
   });
   if (!allUsers) return console.log("failed tp fetch all users");
-  console.log(allUsers);
+  console.log(allUsers.users[0].questions[0].tags);
 
   return (
     <section className="page_padding">

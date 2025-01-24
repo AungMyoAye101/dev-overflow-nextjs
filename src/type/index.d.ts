@@ -9,8 +9,8 @@ export interface UserProps {
   _id?: string;
   clerkId: string;
   name: string;
-  username: string | null;
   email?: string;
+  questions?: any;
   password?: string;
   bio?: string;
   picture?: string;

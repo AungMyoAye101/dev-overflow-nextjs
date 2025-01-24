@@ -103,12 +103,10 @@ export const getAllUsers = async (params: SearchFilterQueryParams) => {
       .sort(sortBy)
       .populate({
         path: "questions",
-        model: "Users", // Reference to the user's questions
-        populate: {
-          path: "tags", // Populate the tags inside questions
-          model: "Tags", // Model name for tags
-        },
+        select: "_id title",
+        populate: { path: "tags", select: "_id name" },
       });
+
     if (!users) {
       throw new Error("Users not found");
     }
