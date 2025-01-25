@@ -86,7 +86,7 @@ const AnswerForm = ({ questionId }: Props) => {
           />
           <Button
             type="submit"
-            className="px-4 py-1.5 button_bg self-end"
+            className="px-4 py-1.5 button_bg self-end mt-6"
             disabled={isSubmiting}
           >
             {isSubmiting ? "Submitting" : "Submit"}

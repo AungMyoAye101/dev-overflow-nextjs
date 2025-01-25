@@ -1,4 +1,4 @@
-import { FaGreaterThan } from "react-icons/fa";
+import { FaGreaterThan } from "react-icons/fa6";
 import { Badge } from "./ui/badge";
 import { getTopQuestions } from "../lib/actions/question.action";
 import Link from "next/link";
@@ -27,7 +27,7 @@ const RightSideBar = async () => {
                 key={q._id}
                 className="flex w-full justify-between items-center text-sm gap-4 font-noto_serif hover:text-accent-blue "
               >
-                <p>{q.title}</p>
+                <p className="line-clamp-2">{q.title}</p>
                 <button>
                   <FaGreaterThan />
                 </button>

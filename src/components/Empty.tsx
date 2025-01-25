@@ -6,12 +6,12 @@ import Image from "next/image";
 const Empty: FC<EmptyProps> = ({ title, desecription, link, btn }) => {
   return (
     <div className="flex flex-col items-center gap-2 w-[90%] sm:w-[60%]  mx-auto text-center">
-      <Image
+      {/* <Image
         src="/assets/images/noquestion.svg"
         width={300}
         height={350}
         alt="no question photo"
-      />
+      /> */}
       <h2 className="text-2xl font-poppins font-semibold">{title}</h2>
       <p className="para ">{desecription}</p>
       <Link

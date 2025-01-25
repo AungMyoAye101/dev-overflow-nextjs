@@ -16,7 +16,7 @@
     @apply text-sm font-noto_serif;
   }
   .active-link {
-    @apply bg-accent-blue;
+    @apply bg-accent-blue text-primary-white;
   }
   .page_padding {
     @apply pt-[7rem] pb-10 px-4 md:px-10 space-y-6 flex-1;
@@ -26,7 +26,7 @@
   }
 
   .side-links {
-    @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:bg-accent-blue;
+    @apply p-2 w-fit md:w-full font-noto_serif flex items-center gap-2 rounded-md shadow dark:shadow-none  hover:bg-accent-blue hover:text-primary-white;
   }
   .page-container {
     @apply flex-1 flex flex-col gap-10    pt-28 pb-10 px-4 md:px-10 border-2;
@@ -58,8 +58,16 @@
     border: 1px solid #f1f1f1;
   } */
 
-  .is-active {
-    @apply bg-accent-purple;
+  .react-quill-dark {
+    @apply bg-black-card text-primary-white;
+  }
+
+  .react-quill-dark .ql-toolbar {
+    @apply bg-secondary-white rounded-t-md;
+  }
+
+  .react-quill-dark .ql-container {
+    @apply bg-black-card text-primary-white rounded-b-md;
   }
 }
 
