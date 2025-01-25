@@ -34,7 +34,6 @@ export interface UpdateUser {
   clerkId: string;
   updateData: {
     name?: string;
-    username: string | null;
     email?: string;
     password?: string;
     picture?: string;

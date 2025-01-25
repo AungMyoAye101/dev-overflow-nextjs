@@ -7,13 +7,13 @@
     @apply font-poppins text-4xl font-bold;
   }
   .h2-bold {
-    @apply font-poppins text-2xl font-bold;
+    @apply font-poppins text-2xl font-bold text-black-bg dark:text-primary-white;
   }
   .h3-bold {
     @apply font-poppins text-xl font-bold dark:text-primary-white;
   }
   .para {
-    @apply text-sm font-noto_serif;
+    @apply text-sm font-noto_serif text-black-card dark:text-primary-white;
   }
   .active-link {
     @apply bg-accent-blue text-primary-white;

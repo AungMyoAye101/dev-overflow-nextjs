@@ -41,11 +41,13 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
 
   async function onSubmit(values: z.infer<typeof editProfileSchema>) {
     //add logic
+
     const { clerkId } = user;
+
     const updateData = values;
+    setEdit(true);
     try {
       await updateUser({ clerkId, updateData, path });
-      setEdit(true);
       router.push(`/profile/${clerkId}`);
     } catch (error) {
       console.log(error);

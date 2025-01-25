@@ -31,17 +31,13 @@ const Profile = ({ user, clerkId }: user) => {
 
           <div className="flex flex-col gap-4 ">
             <div className="flex flex-col gap-0.5">
-              <h1 className="text-2xl font-poppins font-semibold capitalize text-primary-white">
-                {user.name}
-              </h1>
-              <p className="font-poppins text-xs text-secondary-white">
+              <h1 className="h2-bold capitalize ">{user.name}</h1>
+              <p className="font-poppins text-xs text-black-card dark:text-secondary-white">
                 {user.email}
               </p>
             </div>
 
-            <p className="font-noto_serif w-fit text-primary-white ">
-              {user.bio ? user.bio : "add bio"}
-            </p>
+            <p className="para w-fit  ">{user.bio ? user.bio : "add bio"}</p>
 
             <div className="flex gap-2 text-sm flex-wrap">
               <div className="flex gap-1 items-center">
