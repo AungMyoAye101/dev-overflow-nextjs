@@ -73,8 +73,7 @@ export async function POST(req: Request) {
 
   if (eventType === "user.updated") {
     console.log("update user");
-    const { id, username, first_name, last_name, image_url, email_addresses } =
-      evt.data;
+    const { id, first_name, last_name, image_url, email_addresses } = evt.data;
 
     const updatedUser = await updateUser({
       clerkId: id,
