@@ -8,14 +8,14 @@ import { SearchParamsProps } from "@/src/type";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
-  const allUsers = await getAllUsers({
+  const res = await getAllUsers({
     searchQuery: query.q || "",
     sortQuery: query.filter || "",
     page: query.page ? +query.page : 1,
   });
+  const allUsers = JSON.parse(JSON.stringify(res));
   if (!allUsers) return console.log("failed tp fetch all users");
-  console.log(allUsers.users[0].questions[0].tags);
-
+  const { users } = allUsers;
   return (
     <section className="page_padding">
       <h1 className="h1-bold">All Users</h1>
@@ -26,7 +26,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 
       {/* Grid container */}
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-4 place-items-center">
-        {allUsers.users.map((user) => (
+        {users.map((user: any) => (
           <Card user={user} key={user._id} />
         ))}
       </div>
