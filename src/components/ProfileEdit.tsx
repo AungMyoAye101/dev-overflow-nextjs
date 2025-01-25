@@ -32,7 +32,6 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
       name: user.name || "",
-      username: user.username || "",
       email: user.email || "",
       portfolio: user.portfolio || "",
       bio: user.bio || "",
@@ -74,24 +73,6 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
                     <Input
                       className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
                       placeholder="name"
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel> Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
-                      placeholder="username"
                       {...field}
                     />
                   </FormControl>

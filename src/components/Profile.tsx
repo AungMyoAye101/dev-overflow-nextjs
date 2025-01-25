@@ -32,7 +32,7 @@ const Profile = ({ user, clerkId }: user) => {
           <div className="flex flex-col gap-4 ">
             <div className="flex flex-col gap-0.5">
               <h1 className="text-2xl font-poppins font-semibold capitalize text-primary-white">
-                {user.username}
+                {user.name}
               </h1>
               <p className="font-poppins text-xs text-secondary-white">
                 {user.email}

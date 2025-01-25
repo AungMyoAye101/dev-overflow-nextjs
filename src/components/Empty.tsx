@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React, { FC } from "react";
 import { EmptyProps } from "../type";
-import Image from "next/image";
 
 const Empty: FC<EmptyProps> = ({ title, desecription, link, btn }) => {
   return (
