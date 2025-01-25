@@ -47,7 +47,7 @@ const RightSideBar = async () => {
                   href={`/tags/${t._id}`}
                   className="flex justify-between items-center "
                 >
-                  <Badge className="px-3 py-1 font-poppins button_bg ">
+                  <Badge className="px-3 py-1 font-poppins button_bg hover:bg-accent-purple ">
                     {t.name}
                   </Badge>
                   <span>{t.numberOfQuestions}</span>
