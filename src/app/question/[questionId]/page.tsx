@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 import RenderText from "@/src/components/RenderText";
+import { redirect } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ questionId: string }>;
@@ -23,6 +24,10 @@ const page = async ({ params, searchParams }: PageProps) => {
   const question = JSON.parse(JSON.stringify(res));
   const formattedDate = timestamp(question.createdAt);
   const { userId: clerkId } = await auth();
+  if (!clerkId) {
+    redirect("/sign-in");
+  }
+
   const user = await getUserByClerkId(clerkId!);
   if (!user) return;
   const currUserId = user._id.toString();
@@ -47,6 +52,7 @@ const page = async ({ params, searchParams }: PageProps) => {
               {question.author.name}
             </h1>
           </Link>
+
           <Votes
             itemId={question._id}
             userId={currUserId}
