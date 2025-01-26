@@ -78,7 +78,7 @@
   }
 
   .react-quill .ql-container {
-    @apply bg-secondary-white text-primary-white rounded-b-md;
+    @apply bg-primary-white text-primary-white rounded-b-md;
   }
 }
 
