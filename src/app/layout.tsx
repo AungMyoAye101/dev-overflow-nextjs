@@ -36,7 +36,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${poppins.variable} ${noto_serif.variable} bg-neutral-100 dark:bg-[#121212] text-dark-gray dark:text-neutral-100`}
+          className={`${poppins.variable} ${noto_serif.variable} bg-primary-white dark:bg-[#121212] text-dark-gray dark:text-neutral-100`}
         >
           <Suspense>
             <ThemeProvider>
