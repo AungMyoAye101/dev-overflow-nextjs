@@ -59,7 +59,7 @@
   } */
 
   .react-quill-dark {
-    @apply bg-black-card text-primary-white;
+    @apply bg-black-card text-white;
   }
 
   .react-quill-dark .ql-toolbar {
@@ -68,6 +68,17 @@
 
   .react-quill-dark .ql-container {
     @apply bg-black-card text-primary-white rounded-b-md;
+  }
+  .react-quill {
+    @apply bg-white text-white;
+  }
+
+  .react-quill .ql-toolbar {
+    @apply bg-white rounded-t-md;
+  }
+
+  .react-quill .ql-container {
+    @apply bg-secondary-white text-primary-white rounded-b-md;
   }
 }
 

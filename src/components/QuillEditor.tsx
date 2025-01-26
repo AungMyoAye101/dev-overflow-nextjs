@@ -28,12 +28,13 @@ const QuillEditor: FC<QuillEditorProps> = ({ content, onChange }) => {
 
   return (
     <ReactQuill
-      theme="snow"
       modules={{ toolbar: toolbarOptions }}
       value={content}
       onChange={onChange}
       placeholder="Start typing..."
-      className={`${mode === "dark" ? "react-quill-dark" : ""} h-96 rounded-md`}
+      className={`${
+        mode === "dark" ? "react-quill-dark" : "react-quill"
+      } h-96 rounded-md`}
     />
   );
 };

@@ -119,7 +119,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
               <FormLabel>Qusetion Title</FormLabel>
               <FormControl>
                 <Input
-                  className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
+                  className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-white dark:bg-black-card py-1"
                   placeholder="Title"
                   {...field}
                 />
@@ -159,8 +159,8 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
               <FormControl>
                 <div className="flex flex-col gap-4 ">
                   <Input
-                    placeholder="tags"
-                    className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-primary-white dark:bg-black-card py-1"
+                    placeholder="Enter a tag"
+                    className="border-none focus:outline-none focus:ring-0 focus-visible:ring-0 bg-white dark:bg-black-card py-1"
                     disabled={formType === "Edit"}
                     onKeyDown={(e) => handleOnKeyDown(e, field)}
                   />
