@@ -31,7 +31,10 @@ const SideBar = ({ handleClick }: { handleClick: () => void }) => {
         <div className="flex flex-col gap-2">
           {userId ? (
             <SignOutButton>
-              <button className="sideBar-links w-full" onClick={handleClick}>
+              <button
+                className="sideBar-links w-full bg-rose-500 text-white"
+                onClick={handleClick}
+              >
                 <FaSignOutAlt />
                 <span>LogOut</span>
               </button>

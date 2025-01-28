@@ -16,6 +16,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   const allUsers = JSON.parse(JSON.stringify(res));
   if (!allUsers) return console.log("failed tp fetch all users");
   const { users } = allUsers;
+  console.log(allUsers);
   return (
     <section className="page_padding">
       <h1 className="h1-bold">All Users</h1>

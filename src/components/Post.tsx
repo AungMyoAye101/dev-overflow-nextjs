@@ -53,7 +53,10 @@ const Post = ({ question }: PostProps) => {
 
           <p className="text-xs dark:text-dark-secondary-text">{formatDate}</p>
         </Link>
-        <div className="flex items-center gap-2 text-sm font-noto_serif">
+        <Link
+          href={`/question/${question._id}`}
+          className="flex items-center gap-2 text-sm font-noto_serif"
+        >
           <div className="flex items-center gap-1">
             <FaThumbsUp className="text-blue-600 cursor-pointer" />
             <p>{question.upvotes?.length} Votes</p>
@@ -66,7 +69,7 @@ const Post = ({ question }: PostProps) => {
             <FaEye className="text-blue-600 cursor-pointer" />
             <p>{question.views} Views</p>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );

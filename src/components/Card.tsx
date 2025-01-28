@@ -41,14 +41,20 @@ const Card = ({ user }: CardProps) => {
         <p className="text-sm font-noto_serif opacity-90">{user.email}</p>
       </div>
       <div className="flex gap-2 font-poppins text-sm">
-        {user.questions[0].tags.map((tag) => (
-          <Badge
-            key={tag._id}
-            className="px-2 py-1 button_bg hover:bg-accent-purple"
-          >
-            {truncateTagName(tag.name)}
+        {user.questions.length > 0 ? (
+          user.questions[0].tags.map((tag) => (
+            <Badge
+              key={tag._id}
+              className="px-2 py-1 button_bg hover:bg-accent-purple"
+            >
+              {truncateTagName(tag.name)}
+            </Badge>
+          ))
+        ) : (
+          <Badge className="px-2 py-1 button_bg hover:bg-accent-purple">
+            No tags
           </Badge>
-        ))}
+        )}
       </div>
     </Link>
   );

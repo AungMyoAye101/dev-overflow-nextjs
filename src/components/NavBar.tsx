@@ -15,7 +15,7 @@ import SideBar from "./SideBar";
 import Image from "next/image";
 
 import GlobalSearch from "./GlobalSearch";
-import { FaBars } from "react-icons/fa6";
+import { FaBars, FaX } from "react-icons/fa6";
 import { useState } from "react";
 
 const NavBar: React.FC = () => {
@@ -78,7 +78,11 @@ const NavBar: React.FC = () => {
         </div>
 
         <button className="block md:hidden " onClick={handleClick}>
-          <FaBars className="text-xl" />
+          {isOpen ? (
+            <FaX className="text-lg" />
+          ) : (
+            <FaBars className="text-lg" />
+          )}
         </button>
       </div>
       {isOpen && <SideBar handleClick={handleClick} />}
