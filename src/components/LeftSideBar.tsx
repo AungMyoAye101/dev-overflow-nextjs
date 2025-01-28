@@ -53,7 +53,6 @@ const LeftSideBar = () => {
             </SignOutButton>
           ) : (
             <>
-              {" "}
               <Link
                 href={"/sign-in"}
                 className={`side-links  ${

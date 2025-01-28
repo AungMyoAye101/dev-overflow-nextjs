@@ -15,12 +15,18 @@ import SideBar from "./SideBar";
 import Image from "next/image";
 
 import GlobalSearch from "./GlobalSearch";
+import { FaBars } from "react-icons/fa6";
+import { useState } from "react";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <nav className="dark:bg-[#1A1A2E] bg-white flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-[1000] w-full  shadow-md dark:shadow-none">
+    <nav className="dark:bg-[#1A1A2E] bg-white flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-50 w-full  shadow-md dark:shadow-none">
       <Link href="/" className="flex items-center gap-2">
         <Image
           src={"/assets/images/logo.svg"}
@@ -70,10 +76,12 @@ const NavBar: React.FC = () => {
         <div className="hidden md:block">
           <UserButton />
         </div>
-        <div className="block md:hidden">
-          <SideBar />
-        </div>
+
+        <button className="block md:hidden " onClick={handleClick}>
+          <FaBars className="text-xl" />
+        </button>
       </div>
+      {isOpen && <SideBar handleClick={handleClick} />}
     </nav>
   );
 };
