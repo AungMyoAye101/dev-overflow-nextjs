@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "@/src/components/AuthProvider";
 import { useToast } from "@/src/hooks/use-toast";
 import { LogIn, LogInIcon, LogOut, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface AuthActionsProps {
   mobile?: boolean;
@@ -30,8 +31,8 @@ const AuthActions = ({ mobile = false, onNavigate }: AuthActionsProps) => {
       <button
         className={
           mobile
-            ? "sideBar-links w-full border-destructive/20 bg-destructive/10 text-destructive hover:bg-destructive/15"
-            : "side-links text-destructive hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
+            ? "sidebar-link  w-full border-destructive/20 bg-destructive/10 text-destructive hover:bg-destructive/15"
+            : "sidebar-link text-destructive hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
         }
         onClick={handleSignOut}
       >
@@ -43,30 +44,35 @@ const AuthActions = ({ mobile = false, onNavigate }: AuthActionsProps) => {
 
   return (
     <>
-      <Link
-        href="/sign-in"
-        className={
-          mobile
-            ? "sideBar-links w-full text-primary"
-            : "side-links"
-        }
-        onClick={onNavigate}
+      <Button
+        variant={'outline'}
+        size={'lg'}
+        asChild
       >
-        <LogIn />
-        <span>Log in</span>
-      </Link>
-      <Link
-        href="/sign-up"
-        className={
-          mobile
-            ? "sideBar-links w-full bg-primary text-primary-foreground hover:bg-primary/90"
-            : "side-links bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
-        }
-        onClick={onNavigate}
+
+
+        <Link
+          href="/sign-in"
+          className=' flex justify-start gap-2 text-lg'
+          onClick={onNavigate}
+        >
+          <LogIn />
+          <span>Log in</span>
+        </Link>
+      </Button>
+      <Button
+        size={'lg'}
+        asChild
       >
-        <User className="text-lg" />
-        <span>Sign up</span>
-      </Link>
+        <Link
+          href="/sign-up"
+          className='flex justify-start'
+          onClick={onNavigate}
+        >
+          <User className="text-lg" />
+          <span>Sign up</span>
+        </Link>
+      </Button>
     </>
   );
 };

@@ -24,7 +24,6 @@ export const createUserSession = async (user: SessionUserInput) => {
     sub: user._id,
     email: user.email,
     name: user.name,
-    picture: user.picture,
   });
 
   const cookieStore = await getCookieStore();

@@ -15,19 +15,20 @@ const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useSession();
   const handleClick = () => {
+    console.log("clicl", mode)
     setIsOpen(!isOpen);
   };
 
   return (
-    <>
-      <nav className="sticky top-4 z-50  flex items-center justify-between gap-4 rounded-2xl border border-border  px-4 py-2 shadow-lg shadow-primary/5 backdrop-blur md:px-6">
+    <header className="sticky top-0 z-50 bg-background py-4 ">
+      <nav className=" flex items-center justify-between gap-4 rounded-2xl border border-border  px-4 py-2 shadow-lg shadow-primary/5 bg-background md:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <DevSyncIcon className="text-primary w-10 h-10" />
           <div className="min-w-0">
-            <p className="uppercase font-semibold tracking-[0.3em] text-foreground ">
+            <p className="uppercase font-semibold tracking-[0.3em]  hidden sm:block text-primary">
               Devsyncmm
             </p>
-            <p className="hidden text-xs text-muted-foreground sm:block">
+            <p className="hidden text-xs text-muted-foreground sm:block ">
               Ask, answer, and grow together
             </p>
           </div>
@@ -39,13 +40,24 @@ const NavBar: React.FC = () => {
           <Button
             size={'icon'}
             variant={'outline'}
-
             onClick={() => setMode(mode === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
             className="rounded-full cursor-pointer"
           >
             {mode === "dark" ? <Moon /> : <Sun />}
           </Button>
+          <Button
+            size={'icon'}
+            onClick={handleClick}
+            aria-label="toggle side bar"
+            className="rounded-full flex justify-center items-center md:hidden font-medium text-xl transition-all duration-300"
+          >
+            {
+              isOpen ? <X /> : <Menu />
+            }
+
+          </Button>
+
 
           {user ? (
             <Link
@@ -61,27 +73,15 @@ const NavBar: React.FC = () => {
               </div>
             </Link>
           ) : (
-            <Button asChild className="hidden rounded-full px-5 sm:inline-flex">
+            <Button asChild className="hidden rounded-full  md:flex">
               <Link href="/login"><LogIn />Log in</Link>
             </Button>
           )}
 
-          <button
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-card text-foreground transition hover:border-primary/30 hover:text-primary lg:hidden"
-            onClick={handleClick}
-            type="button"
-            aria-label="Open navigation"
-          >
-            {isOpen ? (
-              <X className="text-lg" />
-            ) : (
-              <Menu className="text-lg" />
-            )}
-          </button>
         </div>
       </nav>
       {isOpen && <SideBar handleClick={handleClick} />}
-    </>
+    </header>
   );
 };
 

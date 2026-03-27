@@ -162,3 +162,9 @@
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .sidebar-link {
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg
+  }
+}

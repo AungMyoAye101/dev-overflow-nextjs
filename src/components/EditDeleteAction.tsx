@@ -1,8 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { FC } from "react";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FC } from "react";
 import { useToast } from "../hooks/use-toast";
+import { Edit, Trash } from "lucide-react";
 
 interface EditDeleteActionProps {
   type: string;
@@ -49,15 +49,15 @@ const EditDeleteAction: FC<EditDeleteActionProps> = ({ type, id }) => {
       {type === "question" ? (
         <div className="flex items-center gap-2">
           <button onClick={handleEdit}>
-            <FaEdit />
+            <Edit />
           </button>
           <button className="text-red-500 " onClick={handleDelete}>
-            <FaTrashAlt />
+            <Trash />
           </button>
         </div>
       ) : (
         <button className="text-red-500" onClick={handleDelete}>
-          <FaTrashAlt />
+          <Trash />
         </button>
       )}
     </>

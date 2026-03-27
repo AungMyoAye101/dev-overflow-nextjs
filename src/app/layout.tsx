@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   description: "Ask , answer and grow together",
   icons: "/assets/images/logo.svg",
 };
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
+// const inter = Inter({
+//   subsets: ['latin'],
+//   variable: '--font-inter',
+//   display: 'swap',
+// });
 
 export default async function RootLayout({
   children,
@@ -40,7 +40,7 @@ export default async function RootLayout({
     : null;
 
   return (
-    <html lang="en" className={cn(inter.className)}>
+    <html lang="en" className={cn("font-sans")}>
       <body className="bg-background text-foreground">
         <Suspense fallback={null}>
           <AuthProvider initialUser={initialUser}>
@@ -50,11 +50,11 @@ export default async function RootLayout({
                 shell={
                   <div className="bg-background text-foreground  mx-auto flex min-h-screen w-full max-w-7xl  flex-col px-4 pb-8 md:px-6 xl:px-8">
                     <NavBar />
-                    {/* <div className="grid flex-1 grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)_300px]">
+                    <div className=" grid flex-1 grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)_300px] ">
                       <LeftSideBar />
-                      <main className="min-w-0">{children}</main>
+                      <main className="py-4 ">{children}</main>
                       <RightSideBar />
-                    </div> */}
+                    </div>
                   </div>
                 }
               />

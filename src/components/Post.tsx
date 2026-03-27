@@ -1,13 +1,12 @@
 "use client";
-import React from "react";
 import { Badge } from "./ui/badge";
-import { FaComment, FaEye, FaThumbsUp } from "react-icons/fa";
 import Image from "next/image";
 import { QuestionProps } from "../type";
 import Link from "next/link";
 import { timestamp } from "../lib/utils";
 import EditDeleteAction from "./EditDeleteAction";
 import { useSession } from "@/src/components/AuthProvider";
+import { Eye, Text, ThumbsUp } from "lucide-react";
 
 interface PostProps {
   question: QuestionProps;
@@ -58,15 +57,15 @@ const Post = ({ question }: PostProps) => {
           className="flex items-center gap-2 text-sm font-noto_serif"
         >
           <div className="flex items-center gap-1">
-            <FaThumbsUp className="text-blue-600 cursor-pointer" />
+            <ThumbsUp className="text-blue-600 cursor-pointer" />
             <p>{question.upvotes?.length} Votes</p>
           </div>
           <div className="flex items-center gap-1">
-            <FaComment className="text-blue-600 cursor-pointer" />
+            <Text className="text-blue-600 cursor-pointer" />
             <p>{question.answers?.length} Answers</p>
           </div>
           <div className="flex items-center gap-1">
-            <FaEye className="text-blue-600 cursor-pointer" />
+            <Eye className="text-blue-600 cursor-pointer" />
             <p>{question.views} Views</p>
           </div>
         </Link>

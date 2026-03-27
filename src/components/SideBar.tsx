@@ -18,8 +18,8 @@ const SideBar = ({ handleClick }: { handleClick: () => void }) => {
         <div className="flex h-full flex-col justify-between">
           <div className="flex flex-col gap-2">
             <div className="mb-4 px-2">
-              <p className="font-poppins text-xl font-bold tracking-tight">
-                DevOverflow
+              <p className="text-xl font-bold tracking-tight">
+                DevSyncMM
               </p>
               <p className="text-sm text-muted-foreground">
                 Browse the platform
@@ -33,16 +33,15 @@ const SideBar = ({ handleClick }: { handleClick: () => void }) => {
                       ? `/profile/${user._id}`
                       : "/sign-in"
                     : link.href === "/collection" && !user
-                    ? "/sign-in"
-                    : link.href
+                      ? "/sign-in"
+                      : link.href
                 }
                 key={index}
-                className={`sideBar-links ${
-                  (pathname.includes(link.href) && link.href.length > 1) ||
-                  pathname === link.href
+                className={`sideBar-links ${(pathname.includes(link.href) && link.href.length > 1) ||
+                    pathname === link.href
                     ? "active-link"
                     : ""
-                }`}
+                  }`}
                 onClick={handleClick}
               >
                 <span>{link.icon}</span>
