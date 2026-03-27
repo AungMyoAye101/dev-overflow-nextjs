@@ -11,8 +11,7 @@ import {
   VotesParams,
 } from "@/src/type";
 import User from "@/src/model/User.Model";
-import { auth } from "@clerk/nextjs/server";
-import { getUserByClerkId } from "./user.action";
+import { getUserById } from "./user.action";
 import Answer from "@/src/model/answer.model";
 import Interaction from "@/src/model/Interaction.model";
 import { FilterQuery } from "mongoose";
@@ -21,7 +20,7 @@ export const askQuestion = async (params: CreateQuestionParams) => {
   const { title, content, tags, path, userId } = params;
   try {
     await connectToDB();
-    const user = await getUserByClerkId(userId);
+    const user = await getUserById(userId);
     if (!user) return;
 
     const question = await Question.create({
@@ -232,11 +231,15 @@ export const createDownVotes = async (params: VotesParams) => {
 };
 
 export const getSavedQuestion = async (params: SearchFilterQueryParams) => {
-  const { userId: clerkId } = await auth();
-
   try {
     await connectToDB();
-    const { searchQuery, sortQuery, page = 1, pageSize = 10 } = params;
+    const {
+      searchQuery,
+      sortQuery,
+      page = 1,
+      pageSize = 10,
+      userId,
+    } = params as SearchFilterQueryParams & { userId: string };
 
     const query: FilterQuery<typeof Question> = {};
     //For local search
@@ -277,7 +280,7 @@ export const getSavedQuestion = async (params: SearchFilterQueryParams) => {
 
     const skipAmount = (page - 1) * pageSize;
 
-    const user: any = await User.findOne({ clerkId })
+    const user: any = await User.findById(userId)
       .lean()
       .populate({
         path: "saved",

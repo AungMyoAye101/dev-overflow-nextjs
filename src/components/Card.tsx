@@ -5,8 +5,8 @@ import { Badge } from "./ui/badge";
 
 export interface CardProps {
   user: {
+    _id: string;
     name: string;
-    clerkId: string;
     picture: string;
     email: string;
     questions: {
@@ -25,7 +25,7 @@ const truncateTagName = (name: string, maxLength: number = 4): string => {
 const Card = ({ user }: CardProps) => {
   return (
     <Link
-      href={`/profile/${user.clerkId}`}
+      href={`/profile/${user._id}`}
       className="bg_dark_white flex flex-col justify-center items-center gap-4 px-4 py-6 shadow_rounded w-fit"
     >
       <Image

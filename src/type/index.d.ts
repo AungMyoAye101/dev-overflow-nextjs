@@ -7,7 +7,6 @@ export interface ThemeContextProps {
 
 export interface UserProps {
   _id?: string;
-  clerkId: string;
   name: string;
   email?: string;
   questions?: any;
@@ -22,16 +21,14 @@ export interface UserProps {
 }
 
 export interface CreateUser {
-  clerkId: string;
   name: string;
-  username: string | null;
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
   picture?: string;
 }
 
 export interface UpdateUser {
-  clerkId: string;
+  userId: string;
   updateData: {
     name?: string;
     email?: string;
@@ -41,8 +38,8 @@ export interface UpdateUser {
   path?: string;
 }
 
-export interface ClerkIdProp {
-  clerkId: string;
+export interface UserIdProp {
+  userId: string;
 }
 
 export interface ProfileCardProps {
@@ -185,6 +182,7 @@ export interface SearchFilterQueryParams {
   sortQuery?: string;
   page?: number;
   pageSize?: number;
+  userId?: string;
 }
 
 export interface GlobalSearchParams {

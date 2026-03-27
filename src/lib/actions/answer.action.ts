@@ -7,7 +7,7 @@ import {
   DeleteAnswerPaams,
   VotesParams,
 } from "@/src/type";
-import { getUserByClerkId } from "./user.action";
+import { getUserById } from "./user.action";
 import { revalidatePath } from "next/cache";
 import Answer from "@/src/model/answer.model";
 import Question from "@/src/model/question.model";
@@ -19,7 +19,7 @@ export const createAnswer = async (params: AnswerProps) => {
 
   try {
     await connectToDB();
-    const user = await getUserByClerkId(userId);
+    const user = await getUserById(userId);
     if (!user) {
       return console.log("now user found");
     }

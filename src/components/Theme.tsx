@@ -7,26 +7,55 @@ import { createContext } from "react";
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState("system");
 
-  const handleTheme = () => {
-    //@ts-nocheck
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setMode("dark"), document.documentElement.classList.add("dark");
-    } else {
-      setMode("light"), document.documentElement.classList.remove("dark");
-    }
-  };
   useEffect(() => {
-    handleTheme();
-  }, [mode]);
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const applyTheme = (nextMode: string) => {
+      const resolvedMode =
+        nextMode === "system"
+          ? mediaQuery.matches
+            ? "dark"
+            : "light"
+          : nextMode;
+
+      document.documentElement.classList.toggle("dark", resolvedMode === "dark");
+    };
+
+    const storedMode = localStorage.getItem("theme") ?? "system";
+    setMode(storedMode);
+    applyTheme(storedMode);
+
+    const handleSystemThemeChange = () => {
+      if ((localStorage.getItem("theme") ?? "system") === "system") {
+        applyTheme("system");
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+    return () => mediaQuery.removeEventListener("change", handleSystemThemeChange);
+  }, []);
+
+  const updateMode = (nextMode: string) => {
+    setMode(nextMode);
+
+    if (nextMode === "system") {
+      localStorage.removeItem("theme");
+    } else {
+      localStorage.setItem("theme", nextMode);
+    }
+
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const resolvedMode =
+      nextMode === "system" ? (prefersDark ? "dark" : "light") : nextMode;
+
+    document.documentElement.classList.toggle("dark", resolvedMode === "dark");
+  };
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode }}>
+    <ThemeContext.Provider value={{ mode, setMode: updateMode }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -5,16 +5,25 @@ import PaginationBox from "@/src/components/PaginationBox";
 import Post from "@/src/components/Post";
 import { sortCollection } from "@/src/constants";
 import { getSavedQuestion } from "@/src/lib/actions/question.action";
+import { getCurrentUser } from "@/src/lib/auth/session";
 import { SearchParamsProps } from "@/src/type";
 
 import React from "react";
+import { redirect } from "next/navigation";
 
 const page = async ({ searchParams }: SearchParamsProps) => {
   const query = await searchParams;
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    redirect("/sign-in");
+  }
+
   const res = await getSavedQuestion({
     searchQuery: query.q || "",
     sortQuery: query.filter || "",
     page: query.page ? +query.page : 1,
+    userId: currentUser._id.toString(),
   });
   if (!res) {
     return console.log("No queston found  ");

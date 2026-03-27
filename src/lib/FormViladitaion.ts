@@ -25,9 +25,12 @@ export const editProfileSchema = z.object({
   }),
 
   email: z.string().email(),
-  portfolio: z.string().url().min(4, {
-    message: "portfolio link must be at least 3 characters.",
-  }),
+  portfolio: z
+    .string()
+    .url({
+      message: "Portfolio must be a valid URL.",
+    })
+    .or(z.literal("")),
   bio: z.string().min(12, {
     message: "bio must be at least 12 characters.",
   }),

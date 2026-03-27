@@ -5,10 +5,9 @@ import Votes from "./Votes";
 import Image from "next/image";
 import { timestamp } from "../lib/utils";
 import { getAllAnswers } from "../lib/actions/answer.action";
-import { getUserByClerkId } from "../lib/actions/user.action";
-import { auth } from "@clerk/nextjs/server";
 import RenderText from "./RenderText";
 import Filter from "./Filter";
+import { getCurrentUser } from "@/src/lib/auth/session";
 
 interface Props {
   questionId: string;
@@ -23,8 +22,7 @@ const AllAnswer = async ({ questionId, filter }: Props) => {
 
   if (!question) return;
   const answers = JSON.parse(JSON.stringify(question));
-  const { userId } = await auth();
-  const user = await getUserByClerkId(userId!);
+  const user = await getCurrentUser();
   if (!user) return;
   const currUserId = user._id.toString();
 
@@ -44,7 +42,7 @@ const AllAnswer = async ({ questionId, filter }: Props) => {
           >
             <div className="flex justify-between items-center ">
               <Link
-                href={`/profile/${answer.author.clerkId}`}
+                href={`/profile/${answer.author._id}`}
                 className="flex items-center gap-2"
               >
                 <Image

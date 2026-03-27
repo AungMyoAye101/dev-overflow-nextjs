@@ -1,12 +1,15 @@
 import ProfileEdit from "@/src/components/ProfileEdit";
-import { getUserByClerkId } from "@/src/lib/actions/user.action";
-import { auth } from "@clerk/nextjs/server";
+import { getUserById } from "@/src/lib/actions/user.action";
+import { getCurrentUser } from "@/src/lib/auth/session";
 import React from "react";
+import { redirect } from "next/navigation";
 
 const Page = async () => {
-  const { userId } = await auth();
-  if (!userId) return;
-  const user = await getUserByClerkId(userId);
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    redirect("/sign-in");
+  }
+  const user = await getUserById(currentUser._id.toString());
 
   return (
     <>

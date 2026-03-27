@@ -1,9 +1,7 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { FC } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { deleteQuestion } from "../lib/actions/question.action";
-import { deleteAnswer } from "../lib/actions/answer.action";
 import { useToast } from "../hooks/use-toast";
 
 interface EditDeleteActionProps {
@@ -13,7 +11,6 @@ interface EditDeleteActionProps {
 
 const EditDeleteAction: FC<EditDeleteActionProps> = ({ type, id }) => {
   const router = useRouter();
-  const path = usePathname();
   const { toast } = useToast();
   const handleEdit = () => {
     router.push(`/question/edit/${id}`);
@@ -21,25 +18,28 @@ const EditDeleteAction: FC<EditDeleteActionProps> = ({ type, id }) => {
 
   const handleDelete = async () => {
     try {
+      if (!confirm("Are you sure?")) return;
+
       if (type === "question") {
-        confirm("Are you sure ");
-        await deleteQuestion({
-          questionId: id,
-          path,
+        await fetch(`/api/questions/${id}`, {
+          method: "DELETE",
         });
       }
 
       if (type === "answer") {
-        confirm("Are you sure ");
-        await deleteAnswer({
-          answerId: id,
-          path,
+        await fetch(`/api/answers/${id}`, {
+          method: "DELETE",
         });
       }
       toast({
         title: `You deleted ${type} `,
         variant: "default",
       });
+      if (type === "question") {
+        router.push("/");
+      } else {
+        router.refresh();
+      }
     } catch (error) {
       throw error;
     }

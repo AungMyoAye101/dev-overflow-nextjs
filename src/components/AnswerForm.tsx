@@ -14,12 +14,11 @@ import {
   FormMessage,
 } from "@/src/components/ui/form";
 import { useForm } from "react-hook-form";
-import { createAnswer } from "../lib/actions/answer.action";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useToast } from "../hooks/use-toast";
-import { useAuth } from "@clerk/nextjs";
 
 import QuillEditor from "./QuillEditor";
+import { useSession } from "@/src/components/AuthProvider";
 
 interface Props {
   questionId: string;
@@ -28,7 +27,8 @@ interface Props {
 const AnswerForm = ({ questionId }: Props) => {
   const [isSubmiting, setSubmiting] = useState(false);
   const path = usePathname();
-  const { userId } = useAuth();
+  const router = useRouter();
+  const { isAuthenticated } = useSession();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof answerSchema>>({
     resolver: zodResolver(answerSchema),
@@ -42,12 +42,27 @@ const AnswerForm = ({ questionId }: Props) => {
     setSubmiting(true);
     const { content } = values;
     try {
-      await createAnswer({
-        content,
-        questionId,
-        userId: userId as string,
-        path: path as string,
+      if (!isAuthenticated) {
+        router.push("/sign-in");
+        return;
+      }
+
+      const response = await fetch("/api/answers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content,
+          questionId,
+          path,
+        }),
       });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to post answer");
+      }
       toast({
         title: "You post an answer successfull",
         variant: "default",

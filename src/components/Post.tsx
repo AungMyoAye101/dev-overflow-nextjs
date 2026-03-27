@@ -7,7 +7,7 @@ import { QuestionProps } from "../type";
 import Link from "next/link";
 import { timestamp } from "../lib/utils";
 import EditDeleteAction from "./EditDeleteAction";
-import { useAuth } from "@clerk/nextjs";
+import { useSession } from "@/src/components/AuthProvider";
 
 interface PostProps {
   question: QuestionProps;
@@ -16,7 +16,7 @@ interface PostProps {
 
 const Post = ({ question }: PostProps) => {
   const formatDate = timestamp(question.createdAt);
-  const { userId } = useAuth();
+  const { user } = useSession();
 
   return (
     <div className="w-full flex flex-col gap-4 px-5 py-6 rounded-md shadow-md dark:shadow-none bg_dark_white">
@@ -24,7 +24,7 @@ const Post = ({ question }: PostProps) => {
         <Link href={`/question/${question._id}`}>
           <h2 className="h3-bold ">{question.title}</h2>
         </Link>
-        {userId === question.author.clerkId && (
+        {user?._id === question.author._id && (
           <EditDeleteAction type="question" id={question._id!} />
         )}
       </div>
@@ -39,7 +39,7 @@ const Post = ({ question }: PostProps) => {
       </div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <Link
-          href={`/profile/${question.author.clerkId}`}
+          href={`/profile/${question.author._id}`}
           className="flex items-center gap-2 font-noto_serif"
         >
           <Image

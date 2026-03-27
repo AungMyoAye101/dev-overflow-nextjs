@@ -2,7 +2,6 @@ import Profile from "@/src/components/Profile";
 import Stats from "@/src/components/Stats";
 import UserQuestion from "@/src/components/UserQuestion";
 import { getUserInfo } from "@/src/lib/actions/user.action";
-import { auth } from "@clerk/nextjs/server";
 import {
   Tabs,
   TabsContent,
@@ -10,6 +9,7 @@ import {
   TabsTrigger,
 } from "@/src/components/ui/tabs";
 import UserAnswers from "@/src/components/UserAnswers";
+import { getCurrentUser } from "@/src/lib/auth/session";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -17,7 +17,7 @@ interface PageProps {
 
 const page = async ({ params }: PageProps) => {
   const { id } = await params;
-  const { userId: clerkId } = await auth();
+  const currentUser = await getCurrentUser();
   const res = await getUserInfo(id);
   if (!res) {
     return console.log("No result found");
@@ -25,7 +25,10 @@ const page = async ({ params }: PageProps) => {
   const result = JSON.parse(JSON.stringify(res));
   return (
     <section className="page_padding">
-      <Profile user={result.user} clerkId={clerkId} />
+      <Profile
+        user={result.user}
+        currentUserId={currentUser?._id?.toString() || null}
+      />
       <Stats
         totalQuestion={result.totalQuestions}
         totalAnswer={result.totalAnswers}

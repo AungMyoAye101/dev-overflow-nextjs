@@ -1,22 +1,21 @@
 "use client";
 
 import { sideLinks } from "@/src/constants";
-import { SignOutButton, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
-import { GoSignOut } from "react-icons/go";
+import { useSession } from "@/src/components/AuthProvider";
+import AuthActions from "@/src/components/AuthActions";
 const LeftSideBar = () => {
-  const { userId: clerkId } = useAuth();
+  const { user } = useSession();
   const pathname = usePathname();
 
   const handleNavigate = (link: string) => {
     let url = "/";
 
     if (link === "/profile") {
-      url = clerkId ? `/profile/${clerkId}` : "/sign-in";
+      url = user ? `/profile/${user._id}` : "/sign-in";
     } else if (link === "/collection") {
-      url = clerkId ? link : "/sign-in";
+      url = user ? link : "/sign-in";
     } else {
       url = link;
     }
@@ -24,9 +23,14 @@ const LeftSideBar = () => {
   };
 
   return (
-    <section className="bg-white   dark:bg-[#161625]  overflow-hidden hidden sm:block sticky top-0 pt-[7rem] px-4 pb-10 h-screen   left-0  sm:w-fit md:min-w-60  ">
-      <div className="flex flex-col justify-between  h-full">
-        <div className="flex flex-col gap-4 ">
+    <aside className="sticky top-32 hidden h-fit lg:block">
+      <div className="shadow_rounded bg-card p-4">
+        <div className="mb-5">
+          <p className="font-poppins text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            Navigation
+          </p>
+        </div>
+        <div className="flex flex-col gap-2">
           {sideLinks.map((link, index) => (
             <Link
               href={handleNavigate(link.href)}
@@ -43,39 +47,11 @@ const LeftSideBar = () => {
             </Link>
           ))}
         </div>
-        <div className="flex flex-col  gap-2 ">
-          {clerkId ? (
-            <SignOutButton>
-              <button className="side-links text-rose-500">
-                <GoSignOut />
-                <span className="hidden md:block">Log out</span>
-              </button>
-            </SignOutButton>
-          ) : (
-            <>
-              <Link
-                href={"/sign-in"}
-                className={`side-links  ${
-                  pathname === "login" ? "active-link" : ""
-                }`}
-              >
-                <FaSignInAlt />
-                <span className="hidden md:block">Log in</span>
-              </Link>
-              <Link
-                href={"/sign-up"}
-                className={`side-links  ${
-                  pathname === "signup" ? "active-link" : ""
-                }`}
-              >
-                <FaUserPlus className="text-lg" />
-                <span className="hidden md:block">Sign up</span>
-              </Link>
-            </>
-          )}
+        <div className="mt-6 flex flex-col gap-2 border-t border-border/60 pt-4">
+          <AuthActions />
         </div>
       </div>
-    </section>
+    </aside>
   );
 };
 

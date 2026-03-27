@@ -3,14 +3,13 @@ import Answer from "@/src/components/AnswerForm";
 import { Badge } from "@/src/components/ui/badge";
 import Votes from "@/src/components/Votes";
 import { getQuestionById } from "@/src/lib/actions/question.action";
-import { getUserByClerkId } from "@/src/lib/actions/user.action";
 import { timestamp } from "@/src/lib/utils";
-import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaComment, FaEye } from "react-icons/fa";
 import RenderText from "@/src/components/RenderText";
 import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/src/lib/auth/session";
 
 interface PageProps {
   params: Promise<{ questionId: string }>;
@@ -23,13 +22,10 @@ const page = async ({ params, searchParams }: PageProps) => {
   const res = await getQuestionById(questionId);
   const question = JSON.parse(JSON.stringify(res));
   const formattedDate = timestamp(question.createdAt);
-  const { userId: clerkId } = await auth();
-  if (!clerkId) {
+  const user = await getCurrentUser();
+  if (!user) {
     redirect("/sign-in");
   }
-
-  const user = await getUserByClerkId(clerkId!);
-  if (!user) return;
   const currUserId = user._id.toString();
 
   return (
@@ -38,7 +34,7 @@ const page = async ({ params, searchParams }: PageProps) => {
         {/* User profile and votes */}
         <div className="flex justify-between items-center ">
           <Link
-            href={`/profile/${question.author.clerkId}`}
+            href={`/profile/${question.author._id}`}
             className="flex items-center gap-2"
           >
             <Image

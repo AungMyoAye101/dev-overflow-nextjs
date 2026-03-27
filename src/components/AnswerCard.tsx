@@ -21,7 +21,7 @@ const AnswerCard = ({ answer, currUserId }: AnswerCardProps) => {
       >
         <div className="flex justify-between items-center ">
           <Link
-            href={`/profile/${answer.author.clerkId}`}
+            href={`/profile/${answer.author._id}`}
             className="flex items-center gap-2"
           >
             <Image

@@ -15,9 +15,9 @@ import { useForm } from "react-hook-form";
 import { editProfileSchema } from "@/src/lib/FormViladitaion";
 import { Textarea } from "@/src/components/ui/textarea";
 import { Button } from "@/src/components/ui/button";
-import { updateUser } from "@/src/lib/actions/user.action";
 import { UserProps } from "../type";
 import { usePathname, useRouter } from "next/navigation";
+import { useToast } from "@/src/hooks/use-toast";
 
 interface ProfileProps {
   user: UserProps;
@@ -27,6 +27,7 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
   const [edit, setEdit] = useState(false);
   const router = useRouter();
   const path = usePathname();
+  const { toast } = useToast();
   //@ts-nocheck
   const form = useForm<z.infer<typeof editProfileSchema>>({
     resolver: zodResolver(editProfileSchema),
@@ -40,15 +41,26 @@ const ProfileEdit: FC<ProfileProps> = ({ user }) => {
   });
 
   async function onSubmit(values: z.infer<typeof editProfileSchema>) {
-    //add logic
-
-    const { clerkId } = user;
-
     const updateData = values;
     setEdit(true);
     try {
-      await updateUser({ clerkId, updateData, path });
-      router.push(`/profile/${clerkId}`);
+      const response = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ updateData, path }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to update profile");
+      }
+
+      toast({ title: "Profile updated" });
+      router.push(`/profile/${data.userId}`);
+      router.refresh();
     } catch (error) {
       console.log(error);
     } finally {

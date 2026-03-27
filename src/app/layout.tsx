@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
-import { Poppins, Noto_Serif } from "next/font/google";
 import "./globals.css";
 import "../styles/prism.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import NavBar from "@/src/components/NavBar";
 import ThemeProvider from "@/src/components/Theme";
-import LeftSideBar from "@/src/components/LeftSideBar";
-import RightSideBar from "@/src/components/RightSideBar";
 import { Toaster } from "../components/ui/toaster";
 import { Suspense } from "react";
+import AuthProvider from "@/src/components/AuthProvider";
+import { getCurrentUser } from "@/src/lib/auth/session";
+import AppShell from "@/src/components/AppShell";
+import NavBar from "@/src/components/NavBar";
+import LeftSideBar from "@/src/components/LeftSideBar";
+import RightSideBar from "@/src/components/RightSideBar";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
@@ -16,41 +21,76 @@ export const metadata: Metadata = {
   icons: "/assets/images/logo.svg",
 };
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
-});
-const noto_serif = Noto_Serif({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-noto-serif",
-});
+export const dynamic = "force-dynamic";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialUserPromise = getCurrentUser();
+
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${poppins.variable} ${noto_serif.variable} bg-primary-white dark:bg-[#121212] text-dark-gray dark:text-neutral-100`}
-        >
-          <Suspense>
-            <ThemeProvider>
+    <html lang="en" className={cn("font-sans", geist.variable)}>
+      <body
+        className="bg-background text-foreground"
+        style={
+          {
+            "--font-poppins":
+              '"Aptos", "Segoe UI Variable Display", "Segoe UI", sans-serif',
+            "--font-noto-serif":
+              '"Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif',
+          } as React.CSSProperties
+        }
+      >
+        <Suspense>
+          <LayoutContent initialUserPromise={initialUserPromise}>
+            {children}
+          </LayoutContent>
+        </Suspense>
+      </body>
+    </html>
+  );
+}
+
+async function LayoutContent({
+  children,
+  initialUserPromise,
+}: {
+  children: React.ReactNode;
+  initialUserPromise: ReturnType<typeof getCurrentUser>;
+}) {
+  const user: any = await initialUserPromise;
+
+  return (
+    <AuthProvider
+      initialUser={
+        user
+          ? {
+              _id: user._id.toString(),
+              name: user.name,
+              email: user.email,
+              picture: user.picture,
+            }
+          : null
+      }
+    >
+      <ThemeProvider>
+        <AppShell
+          standalone={children}
+          shell={
+            <div className="mx-auto flex min-h-screen w-full max-w-[1600px] flex-col px-4 pb-8 md:px-6 xl:px-8">
               <NavBar />
-              <div className="flex  ">
+              <div className="grid flex-1 grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)_300px]">
                 <LeftSideBar />
-                {children}
+                <main className="min-w-0">{children}</main>
                 <RightSideBar />
               </div>
-              <Toaster />
-            </ThemeProvider>
-          </Suspense>
-        </body>
-      </html>
-    </ClerkProvider>
+            </div>
+          }
+        />
+        <Toaster />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }

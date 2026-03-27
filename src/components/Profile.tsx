@@ -6,10 +6,10 @@ import Link from "next/link";
 
 interface user {
   user: UserProps;
-  clerkId: string | null;
+  currentUserId: string | null;
 }
 
-const Profile = ({ user, clerkId }: user) => {
+const Profile = ({ user, currentUserId }: user) => {
   const formattedDate = user.joinedAt
     ? new Date(user.joinedAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -65,7 +65,7 @@ const Profile = ({ user, clerkId }: user) => {
             </div>
           </div>
         </div>
-        {user.clerkId === clerkId && (
+        {user._id === currentUserId && (
           <Link
             href={"/profile/edit"}
             className="absolute right-2 top-2 button_bg rounded-lg shadow dark:shadow-none"

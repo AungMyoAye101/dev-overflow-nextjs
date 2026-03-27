@@ -2,15 +2,11 @@
 
 import { FaStar } from "react-icons/fa";
 import { ImArrowDown, ImArrowUp } from "react-icons/im";
-import { createDownVotes, createUpVotes } from "../lib/actions/question.action";
 import { VotesProps } from "../type";
-import { answerDownVotes, answerUpVotes } from "../lib/actions/answer.action";
 import { usePathname, useRouter } from "next/navigation";
-import { saveQuestion } from "../lib/actions/user.action";
 import { useEffect } from "react";
-import { viewQuestion } from "../lib/actions/interaction.action";
-import { useAuth } from "@clerk/nextjs";
 import { useToast } from "../hooks/use-toast";
+import { useSession } from "@/src/components/AuthProvider";
 
 const Votes = ({
   itemId,
@@ -24,89 +20,83 @@ const Votes = ({
 }: VotesProps) => {
   const path = usePathname();
   const router = useRouter();
-  const { userId: clerkId } = useAuth();
+  const { isAuthenticated } = useSession();
   const { toast } = useToast();
   const upvoteHandle = async () => {
-    if (!clerkId) {
+    if (!isAuthenticated) {
       return toast({
         title: "Failed to Upvote",
         description: "You need to login first",
       });
     }
-    if (type === "question") {
-      try {
-        await createUpVotes({
+    try {
+      const response = await fetch("/api/votes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type,
+          action: "upvote",
           itemId,
           userId,
           hasUpvoted,
           hasDownvoted,
           path,
-        });
-        toast({
-          title: " Successful Upvoted to the question",
-          variant: "default",
-        });
-      } catch (error) {
-        console.log(error);
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Vote failed");
       }
-    } else if (type === "answer") {
-      try {
-        await answerUpVotes({
-          itemId,
-          userId,
-          hasUpvoted,
-          hasDownvoted,
-          path,
-        });
-        toast({
-          title: " Successful Upvoted to the answer",
-          variant: "default",
-        });
-      } catch (error) {
-        console.log(error);
-      }
+
+      toast({
+        title: `Successful upvote on the ${type}`,
+        variant: "default",
+      });
+      router.refresh();
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const downvoteHandle = async () => {
-    if (!clerkId) {
+    if (!isAuthenticated) {
       return toast({
         title: "Failed to Upvote",
         description: "You need to login first",
       });
     }
-    if (type === "question") {
-      try {
-        await createDownVotes({
+    try {
+      const response = await fetch("/api/votes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type,
+          action: "downvote",
           itemId,
           userId,
           hasUpvoted,
           hasDownvoted,
           path,
-        });
-        toast({
-          title: " Successfully downVoted to the question",
-          variant: "destructive",
-        });
-      } catch (error: any) {
-        console.error("Error upvoting:", error.message);
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Vote failed");
       }
-    } else if (type === "answer") {
-      try {
-        await answerDownVotes({
-          itemId,
-          userId,
-          hasUpvoted,
-          hasDownvoted,
-          path,
-        });
-        toast({
-          title: " Successfully downVoted to the answer",
-          variant: "destructive",
-        });
-      } catch (error: any) {
-        console.error("Error upvoting:", error.message);
-      }
+
+      toast({
+        title: `Successful downvote on the ${type}`,
+        variant: "destructive",
+      });
+      router.refresh();
+    } catch (error: any) {
+      console.error("Error upvoting:", error.message);
     }
   };
 
@@ -114,20 +104,43 @@ const Votes = ({
 
   const savedHandle = async () => {
     try {
-      await saveQuestion({ userId, questionId: itemId, hasSaved, path });
+      const response = await fetch("/api/questions/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          questionId: itemId,
+          hasSaved,
+          path,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Save failed");
+      }
+
       toast({
         title: "Successfully saved",
         description: "This question saved to your collection",
         variant: "default",
       });
+      router.refresh();
     } catch (error: any) {
       console.log(error.message);
     }
   };
 
   useEffect(() => {
-    viewQuestion({ itemId, userId, path });
-  }, [itemId, userId, path, router]);
+    fetch("/api/questions/view", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ itemId, path }),
+    });
+  }, [itemId, path]);
 
   return (
     <section className="flex gap-4 items-center">

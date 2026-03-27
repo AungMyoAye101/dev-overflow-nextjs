@@ -1,9 +1,9 @@
-import { SignUp } from "@clerk/nextjs";
+import AuthForm from "@/src/components/AuthForm";
 
 const page = () => {
   return (
-    <div className="min-h-screen w-screen flex items-center justify-center page_padding">
-      <SignUp />
+    <div className="flex min-h-screen w-full items-center justify-center py-8">
+      <AuthForm mode="sign-up" />
     </div>
   );
 };

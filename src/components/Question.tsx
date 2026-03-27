@@ -18,12 +18,11 @@ import { Input } from "@/src/components/ui/input";
 import { useForm } from "react-hook-form";
 import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
-import { askQuestion } from "@/src/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
-import { useAuth } from "@clerk/nextjs";
 import QuillEditor from "./QuillEditor";
+import { useSession } from "@/src/components/AuthProvider";
 
 interface QuestionEdit {
   formType: string;
@@ -34,7 +33,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   const [isSubmiting, setSubmiting] = useState(false);
   const path = usePathname();
   const router = useRouter();
-  const { userId } = useAuth();
+  const { isAuthenticated } = useSession();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,15 +48,31 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title, content, tags } = values;
+    if (!isAuthenticated) {
+      router.push("/sign-in");
+      return;
+    }
+
     setSubmiting(true);
     try {
-      await askQuestion({
-        title,
-        content,
-        tags,
-        path,
-        userId: userId as string,
+      const response = await fetch("/api/questions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          content,
+          tags,
+          path,
+        }),
       });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to save question");
+      }
+
       toast({
         title: `You ${
           formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
@@ -68,8 +83,8 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
       console.log(error);
     } finally {
       setSubmiting(false);
-      router.push("/");
     }
+    router.push("/");
   }
 
   const handleOnKeyDown = (

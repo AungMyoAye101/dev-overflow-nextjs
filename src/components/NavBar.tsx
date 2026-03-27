@@ -1,92 +1,121 @@
 "use client";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
 import { useTheme } from "./Theme";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
-} from "@/src/components/ui/menubar";
 import { themeOptions } from "@/src/constants";
 import { FaMoon, FaSun } from "react-icons/fa";
 import SideBar from "./SideBar";
 import Image from "next/image";
 
-import GlobalSearch from "./GlobalSearch";
 import { FaBars, FaX } from "react-icons/fa6";
 import { useState } from "react";
+import { useSession } from "@/src/components/AuthProvider";
+import { Button } from "@/src/components/ui/button";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useSession();
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="dark:bg-[#1A1A2E] bg-white flex justify-between items-center gap-4  px-4 py-3 fixed top-0 z-50 w-full  shadow-md dark:shadow-none">
-      <Link href="/" className="flex items-center gap-2">
-        <Image
-          src={"/assets/images/logo.svg"}
-          width={40}
-          height={40}
-          alt="site logo"
-        />
-        <div className="hidden sm:block text-2xl font-poppins font-bold">
-          <span className="text-dark-gray dark:text-light-gray ">Dev</span>
-          <span className="text-accent-blue ml-0.5">Overflow</span>
-        </div>
-      </Link>
-      <GlobalSearch />
-      <div className="flex items-center gap-4">
-        <Menubar className="relative bg-transparent border-none shadow-none">
-          <MenubarMenu>
-            <MenubarTrigger className=" border-none rounded-full p-0 focus:bg-light-gray  data-[state=open]:bg-light-gray  dark:focus:bg-dark-gray dark:focus:text-orange dark:data-[state=open]:bg-dark-gray dark:data-[state=open]:text-orange cursor-pointer ">
-              {mode === "dark" ? (
-                <FaMoon className="text-orange text-lg text-accent-blue" />
-              ) : (
-                <FaSun className="text-orange text-lg text-accent-blue" />
-              )}
-            </MenubarTrigger>
-            <MenubarContent className=" absolute top-4 -right-8 min-w-40 w-fit">
-              {themeOptions.map((items) => (
-                <MenubarItem
-                  key={items.value}
-                  onClick={() => {
-                    setMode(items.value);
-                    if (items.value !== "system") {
-                      localStorage.theme = items.value;
-                    } else {
-                      localStorage.removeItem("theme");
-                    }
-                  }}
+    <>
+      <nav className="sticky top-8 z-50 mb-8 flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-background/85 px-4 py-3 shadow-lg shadow-primary/5 backdrop-blur md:px-6">
+        <Link href="/" className="flex min-w-0 items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/12">
+            <Image
+              src={"/assets/images/logo.svg"}
+              width={26}
+              height={26}
+              alt="site logo"
+            />
+          </div>
+          <div className="min-w-0">
+            <p className="font-poppins text-lg font-extrabold tracking-tight text-foreground">
+              DevOverflow
+            </p>
+            <p className="hidden text-xs text-muted-foreground sm:block">
+              Ask, answer, and grow together
+            </p>
+          </div>
+        </Link>
+
+        <div className="flex items-center gap-2">
+          <div className="hidden items-center gap-1 rounded-full border border-border/70 bg-card p-1 sm:flex">
+            {themeOptions.map((item) => {
+              const isActive = mode === item.value;
+              return (
+                <button
+                  key={item.value}
+                  type="button"
+                  className={`rounded-full px-3 py-2 text-sm transition ${
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
+                  onClick={() => setMode(item.value)}
+                  aria-label={`Switch to ${item.label} mode`}
                 >
-                  <div className="flex items-center gap-2 text-md font-noto_serif">
-                    {items.icon}
-                    <span>{items.label}</span>
-                  </div>
-                </MenubarItem>
-              ))}
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
+                  <span className="flex items-center gap-2">
+                    {item.value === "dark" ? (
+                      <FaMoon />
+                    ) : item.value === "light" ? (
+                      <FaSun />
+                    ) : (
+                      item.icon
+                    )}
+                    <span className="hidden md:inline">{item.label}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
 
-        <div className="hidden md:block">
-          <UserButton />
-        </div>
+          <button
+            type="button"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-card text-foreground transition hover:border-primary/30 hover:text-primary sm:hidden"
+            onClick={() => setMode(mode === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+          >
+            {mode === "dark" ? <FaMoon /> : <FaSun />}
+          </button>
 
-        <button className="block md:hidden " onClick={handleClick}>
-          {isOpen ? (
-            <FaX className="text-lg" />
+          {user ? (
+            <Link
+              href={`/profile/${user._id}`}
+              className="hidden items-center gap-3 rounded-full border border-border/70 bg-card px-2 py-2 sm:flex"
+            >
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+              <div className="hidden text-left lg:block">
+                <p className="text-sm font-semibold text-foreground">{user.name}</p>
+                <p className="text-xs text-muted-foreground">Profile</p>
+              </div>
+            </Link>
           ) : (
-            <FaBars className="text-lg" />
+            <Button asChild className="hidden rounded-full px-5 sm:inline-flex">
+              <Link href="/sign-in">Log in</Link>
+            </Button>
           )}
-        </button>
-      </div>
+
+          <button
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-card text-foreground transition hover:border-primary/30 hover:text-primary lg:hidden"
+            onClick={handleClick}
+            type="button"
+            aria-label="Open navigation"
+          >
+            {isOpen ? (
+              <FaX className="text-lg" />
+            ) : (
+              <FaBars className="text-lg" />
+            )}
+          </button>
+        </div>
+      </nav>
       {isOpen && <SideBar handleClick={handleClick} />}
-    </nav>
+    </>
   );
 };
 

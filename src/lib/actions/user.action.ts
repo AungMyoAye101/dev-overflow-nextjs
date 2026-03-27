@@ -5,11 +5,11 @@ import Answer from "@/src/model/answer.model";
 import Question from "@/src/model/question.model";
 import User from "@/src/model/User.Model";
 import {
-  ClerkIdProp,
   CreateUser,
   SavedParams,
   SearchFilterQueryParams,
   UpdateUser,
+  UserIdProp,
 } from "@/src/type";
 import { FilterQuery } from "mongoose";
 import { revalidatePath } from "next/cache";
@@ -18,50 +18,60 @@ import { assignedBadge } from "../utils";
 export const createUser = async (params: CreateUser) => {
   try {
     await connectToDB();
-    const newuser = await User.create(params);
+    const newUser = await User.create(params);
 
-    return newuser;
+    return newUser;
   } catch (err: any) {
-    console.log("Faild to create user", err.message);
+    console.log("Failed to create user", err.message);
     return { success: false, error: err.message };
   }
 };
 
 export const updateUser = async (params: UpdateUser) => {
-  const { clerkId, updateData, path } = params;
+  const { userId, updateData, path } = params;
   try {
     await connectToDB();
-    await User.findOneAndUpdate({ clerkId }, updateData, { new: true });
+    await User.findByIdAndUpdate(userId, updateData, { new: true });
 
     if (path) {
       revalidatePath(path);
     }
     return { success: true };
   } catch (err: any) {
-    console.log("Faild to create user", err.message);
+    console.log("Failed to update user", err.message);
     return { success: false, error: err.message };
   }
 };
 
-export const deleteUser = async (params: ClerkIdProp) => {
-  const { clerkId } = params;
+export const deleteUser = async (params: UserIdProp) => {
+  const { userId } = params;
   try {
     await connectToDB();
-    await User.findOneAndDelete({ clerkId });
+    await User.findByIdAndDelete(userId);
   } catch (err: any) {
-    console.log("Faild to create user", err.message);
+    console.log("Failed to delete user", err.message);
     return { success: false, error: err.message };
   }
 };
 
-export const getUserByClerkId = async (clerkId: string) => {
+export const getUserById = async (userId: string) => {
   try {
     await connectToDB();
-    const user = await User.findOne({ clerkId });
+    const user = await User.findById(userId);
     return user;
   } catch (err: any) {
-    console.log("Faild to fetch user", err.message);
+    console.log("Failed to fetch user", err.message);
     return { success: false, error: err.message };
+  }
+};
+
+export const getUserByEmail = async (email: string) => {
+  try {
+    await connectToDB();
+    return await User.findOne({ email: email.toLowerCase() });
+  } catch (err: any) {
+    console.log("Failed to fetch user by email", err.message);
+    return null;
   }
 };
 
@@ -70,14 +80,11 @@ export const getAllUsers = async (params: SearchFilterQueryParams) => {
     await connectToDB();
     const { searchQuery, sortQuery, page = 1, pageSize = 10 } = params;
     const query: FilterQuery<typeof User> = {};
-    //search
+
     if (searchQuery) {
-      query.$or = [
-        { name: { $regex: new RegExp(searchQuery, "i") } },
-        { username: { $regex: new RegExp(searchQuery, "i") } },
-      ];
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
     }
-    //query by filter
+
     let sortBy = {};
     switch (sortQuery) {
       case "new users":
@@ -94,7 +101,6 @@ export const getAllUsers = async (params: SearchFilterQueryParams) => {
         break;
     }
 
-    //for pagination
     const skipAmount = (page - 1) * pageSize;
 
     const users = await User.find(query)
@@ -120,29 +126,17 @@ export const getAllUsers = async (params: SearchFilterQueryParams) => {
   }
 };
 
-export const getUserById = async (id: string) => {
+export const getUserInfo = async (id: string) => {
   try {
     await connectToDB();
     const user = await User.findById(id);
     if (!user) {
-      throw new Error("user not find");
+      throw new Error("User not found");
     }
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
-export const getUserInfo = async (id: string) => {
-  try {
-    await connectToDB();
-    const user = await User.findOne({ clerkId: id });
-    if (!user) {
-      throw new Error("user not find");
-    }
+
     const totalQuestions = await Question.countDocuments({ author: user._id });
     const totalAnswers = await Answer.countDocuments({ author: user._id });
 
-    //cout question upvotes
     const [questionUpvotes] = await Question.aggregate([
       { $match: { author: user._id } },
       { $project: { _id: 0, upvotes: { $size: "$upvotes" } } },
@@ -153,7 +147,7 @@ export const getUserInfo = async (id: string) => {
         },
       },
     ]);
-    //cout answer upvotes
+
     const [answerUpvotes] = await Answer.aggregate([
       { $match: { author: user._id } },
       { $project: { _id: 0, upvotes: { $size: "$upvotes" } } },
@@ -164,10 +158,9 @@ export const getUserInfo = async (id: string) => {
         },
       },
     ]);
-    //cout question view
+
     const [totalViews] = await Question.aggregate([
       { $match: { author: user._id } },
-
       {
         $group: {
           _id: null,
@@ -176,7 +169,6 @@ export const getUserInfo = async (id: string) => {
       },
     ]);
 
-    //criteria
     const criteria = [
       { type: "Questions_count", count: totalQuestions },
       { type: "Answers_count", count: totalAnswers },
@@ -205,9 +197,8 @@ export const saveQuestion = async (params: SavedParams) => {
     }
 
     await User.findByIdAndUpdate(userId, updateQuery, { new: true });
-    console.log("question saved successfull");
     revalidatePath(path);
   } catch (error: any) {
-    throw new Error("Failed to save question", error.message);
+    throw new Error(error.message || "Failed to save question");
   }
 };
