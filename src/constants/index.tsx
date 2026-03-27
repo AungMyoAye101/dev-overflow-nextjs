@@ -1,63 +1,54 @@
-import React from "react";
-import {
-  FaHome,
-  FaLaptop,
-  FaMoon,
-  FaQuestion,
-  FaStar,
-  FaSun,
-  FaTag,
-  FaUser,
-  FaUserFriends,
-} from "react-icons/fa";
+import { Home, Laptop, Moon, ShieldQuestion, Star, Sun, Tag, User, UserRound } from "lucide-react";
+
+
 export const themeOptions = [
   {
     value: "light",
     label: "Light",
-    icon: <FaSun />,
+    icon: <Sun />,
   },
   {
     value: "dark",
     label: "Dark",
-    icon: <FaMoon />,
+    icon: <Moon />,
   },
   {
     value: "system",
     label: "System",
-    icon: <FaLaptop />,
+    icon: <Laptop />,
   },
 ];
 
 export const sideLinks = [
   {
     label: "Home",
-    icon: <FaHome />,
+    icon: <Home />,
     href: "/",
   },
   {
     label: "Community",
-    icon: <FaUserFriends />,
+    icon: <UserRound />,
     href: "/community",
   },
   {
     label: "Collection",
-    icon: <FaStar />,
+    icon: <Star />,
     href: "/collection",
   },
   {
     label: "Tags",
-    icon: <FaTag />,
+    icon: <Tag />,
     href: "/tags",
   },
 
   {
     label: "Questions",
-    icon: <FaQuestion />,
+    icon: <ShieldQuestion />,
     href: "/question",
   },
   {
     label: "Profile",
-    icon: <FaUser />,
+    icon: <User />,
     href: "/profile",
   },
 ];

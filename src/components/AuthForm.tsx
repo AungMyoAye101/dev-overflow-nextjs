@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,6 +41,7 @@ type AuthFormValues = {
 
 const AuthForm = ({ mode }: { mode: Mode }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const { setUser } = useSession();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -80,7 +81,8 @@ const AuthForm = ({ mode }: { mode: Mode }) => {
             ? "Your account is ready to use."
             : "Welcome back to Dev Overflow.",
       });
-      router.push("/");
+      const redirectTo = searchParams.get("redirectTo") || "/";
+      router.push(redirectTo);
       router.refresh();
     } catch (error) {
       toast({
@@ -100,10 +102,10 @@ const AuthForm = ({ mode }: { mode: Mode }) => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.28),transparent_35%),linear-gradient(180deg,transparent,rgba(6,10,34,0.18))]" />
         <div className="relative space-y-6">
           <div>
-            <p className="font-poppins text-sm font-semibold uppercase tracking-[0.3em] text-primary-foreground/70">
-              DevOverflow
+            <p className=" text-sm font-semibold uppercase tracking-[0.3em] text-primary-foreground/70">
+              DevSyncMM
             </p>
-            <h2 className="mt-4 font-poppins text-4xl font-extrabold tracking-tight">
+            <h2 className="mt-4  text-4xl font-extrabold tracking-tight">
               {mode === "sign-up"
                 ? "Join the blue side of the conversation."
                 : "Pick up the discussion where you left off."}
@@ -202,8 +204,8 @@ const AuthForm = ({ mode }: { mode: Mode }) => {
                   ? "Creating account..."
                   : "Signing in..."
                 : mode === "sign-up"
-                ? "Create account"
-                : "Sign in"}
+                  ? "Create account"
+                  : "Sign in"}
             </Button>
           </form>
         </Form>
@@ -225,3 +227,5 @@ const AuthForm = ({ mode }: { mode: Mode }) => {
 };
 
 export default AuthForm;
+
+

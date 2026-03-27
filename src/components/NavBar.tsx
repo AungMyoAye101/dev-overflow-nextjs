@@ -2,14 +2,13 @@
 import Link from "next/link";
 import { useTheme } from "./Theme";
 import { themeOptions } from "@/src/constants";
-import { FaMoon, FaSun } from "react-icons/fa";
 import SideBar from "./SideBar";
 import Image from "next/image";
-
-import { FaBars, FaX } from "react-icons/fa6";
 import { useState } from "react";
 import { useSession } from "@/src/components/AuthProvider";
 import { Button } from "@/src/components/ui/button";
+import { LogIn, Menu, Moon, Sun, X } from "lucide-react";
+import { DevSyncIcon } from "../assets/icons/logo";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
@@ -21,19 +20,12 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <nav className="sticky top-8 z-50 mb-8 flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-background/85 px-4 py-3 shadow-lg shadow-primary/5 backdrop-blur md:px-6">
+      <nav className="sticky top-4 z-50  flex items-center justify-between gap-4 rounded-2xl border border-border  px-4 py-2 shadow-lg shadow-primary/5 backdrop-blur md:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/12">
-            <Image
-              src={"/assets/images/logo.svg"}
-              width={26}
-              height={26}
-              alt="site logo"
-            />
-          </div>
+          <DevSyncIcon className="text-primary w-10 h-10" />
           <div className="min-w-0">
-            <p className="font-poppins text-lg font-extrabold tracking-tight text-foreground">
-              DevOverflow
+            <p className="uppercase font-semibold tracking-[0.3em] text-foreground ">
+              Devsyncmm
             </p>
             <p className="hidden text-xs text-muted-foreground sm:block">
               Ask, answer, and grow together
@@ -42,44 +34,18 @@ const NavBar: React.FC = () => {
         </Link>
 
         <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-1 rounded-full border border-border/70 bg-card p-1 sm:flex">
-            {themeOptions.map((item) => {
-              const isActive = mode === item.value;
-              return (
-                <button
-                  key={item.value}
-                  type="button"
-                  className={`rounded-full px-3 py-2 text-sm transition ${
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-primary"
-                  }`}
-                  onClick={() => setMode(item.value)}
-                  aria-label={`Switch to ${item.label} mode`}
-                >
-                  <span className="flex items-center gap-2">
-                    {item.value === "dark" ? (
-                      <FaMoon />
-                    ) : item.value === "light" ? (
-                      <FaSun />
-                    ) : (
-                      item.icon
-                    )}
-                    <span className="hidden md:inline">{item.label}</span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
 
-          <button
-            type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-card text-foreground transition hover:border-primary/30 hover:text-primary sm:hidden"
+
+          <Button
+            size={'icon'}
+            variant={'outline'}
+
             onClick={() => setMode(mode === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
+            className="rounded-full cursor-pointer"
           >
-            {mode === "dark" ? <FaMoon /> : <FaSun />}
-          </button>
+            {mode === "dark" ? <Moon /> : <Sun />}
+          </Button>
 
           {user ? (
             <Link
@@ -96,7 +62,7 @@ const NavBar: React.FC = () => {
             </Link>
           ) : (
             <Button asChild className="hidden rounded-full px-5 sm:inline-flex">
-              <Link href="/sign-in">Log in</Link>
+              <Link href="/login"><LogIn />Log in</Link>
             </Button>
           )}
 
@@ -107,9 +73,9 @@ const NavBar: React.FC = () => {
             aria-label="Open navigation"
           >
             {isOpen ? (
-              <FaX className="text-lg" />
+              <X className="text-lg" />
             ) : (
-              <FaBars className="text-lg" />
+              <Menu className="text-lg" />
             )}
           </button>
         </div>

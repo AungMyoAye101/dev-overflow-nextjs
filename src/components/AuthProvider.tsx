@@ -1,21 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from "react";
-
-export interface SessionUser {
-  _id: string;
-  name: string;
-  email: string;
-  picture?: string;
-}
-
-interface AuthContextValue {
-  user: SessionUser | null;
-  isAuthenticated: boolean;
-  setUser: (user: SessionUser | null) => void;
-}
-
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+import React, { useEffect } from "react";
+import { SessionUser, useAuthStore } from "@/src/store/auth-store";
 
 const AuthProvider = ({
   children,
@@ -24,28 +10,26 @@ const AuthProvider = ({
   children: React.ReactNode;
   initialUser: SessionUser | null;
 }) => {
-  const [user, setUser] = useState<SessionUser | null>(initialUser);
+  const hydrateUser = useAuthStore((state) => state.hydrateUser);
 
-  const value = useMemo(
-    () => ({
-      user,
-      isAuthenticated: Boolean(user),
-      setUser,
-    }),
-    [user]
-  );
+  useEffect(() => {
+    hydrateUser(initialUser);
+  }, [hydrateUser, initialUser]);
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <>{children}</>;
 };
 
 export const useSession = () => {
-  const context = useContext(AuthContext);
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const setUser = useAuthStore((state) => state.setUser);
 
-  if (!context) {
-    throw new Error("useSession must be used within AuthProvider");
-  }
-
-  return context;
+  return {
+    user,
+    isAuthenticated,
+    setUser,
+  };
 };
 
 export default AuthProvider;
+

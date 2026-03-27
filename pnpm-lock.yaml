@@ -41,6 +41,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.6
         version: 1.2.8(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      bcryptjs:
+        specifier: ^3.0.3
+        version: 3.0.3
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -50,6 +53,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      jose:
+        specifier: ^6.2.2
+        version: 6.2.2
       lucide-react:
         specifier: ^0.469.0
         version: 0.469.0(react@19.2.4)
@@ -101,6 +107,9 @@ importers:
       zod:
         specifier: ^3.24.1
         version: 3.25.76
+      zustand:
+        specifier: ^5.0.12
+        version: 5.0.12(@types/react@19.2.14)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -1820,6 +1829,10 @@ packages:
   baseline-browser-mapping@2.10.11:
     resolution: {integrity: sha512-DAKrHphkJyiGuau/cFieRYhcTFeK/lBuD++C7cZ6KZHbMhBrisoi+EvhQ5RZrIfV5qwsW8kgQ07JIC+MDJRAhg==}
     engines: {node: '>=6.0.0'}
+    hasBin: true
+
+  bcryptjs@3.0.3:
+    resolution: {integrity: sha512-GlF5wPWnSa/X5LKM1o0wz0suXIINz1iHRLvTS+sLyi7XPbe5ycmYI3DlZqVGZZtDgl4DmasFg7gOB3JYbphV5g==}
     hasBin: true
 
   body-parser@2.2.2:
@@ -3948,6 +3961,24 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
+  zustand@5.0.12:
+    resolution: {integrity: sha512-i77ae3aZq4dhMlRhJVCYgMLKuSiZAaUPAct2AksxQ+gOtimhGMdXljRT21P5BNpeT4kXlLIckvkPM029OljD7g==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -5687,6 +5718,8 @@ snapshots:
   balanced-match@4.0.4: {}
 
   baseline-browser-mapping@2.10.11: {}
+
+  bcryptjs@3.0.3: {}
 
   body-parser@2.2.2:
     dependencies:
@@ -8069,3 +8102,9 @@ snapshots:
       zod: 3.25.76
 
   zod@3.25.76: {}
+
+  zustand@5.0.12(@types/react@19.2.14)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4)):
+    optionalDependencies:
+      '@types/react': 19.2.14
+      react: 19.2.4
+      use-sync-external-store: 1.6.0(react@19.2.4)

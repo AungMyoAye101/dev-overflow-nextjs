@@ -32,7 +32,12 @@ export async function POST(request: Request) {
       );
     }
 
-    await createUserSession(user._id.toString());
+    await createUserSession({
+      _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      picture: user.picture,
+    });
 
     return NextResponse.json({
       user: {

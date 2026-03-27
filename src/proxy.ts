@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const SESSION_COOKIE_NAME = "dev_overflow_session";
+import { AUTH_COOKIE_NAME, verifyAuthToken } from "@/src/lib/auth/jwt";
 
 const protectedPaths = [
   "/collection",
@@ -11,23 +10,25 @@ const protectedPaths = [
 
 const authPaths = ["/sign-in", "/sign-up"];
 
-export function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const hasSession = Boolean(request.cookies.get(SESSION_COOKIE_NAME)?.value);
+  const token = request.cookies.get(AUTH_COOKIE_NAME)?.value;
+  const payload = token ? await verifyAuthToken(token) : null;
+  const isAuthenticated = Boolean(payload?.sub);
 
-  const isProtectedPath = protectedPaths.some((path) =>
-    pathname === path || pathname.startsWith(`${path}/`)
+  const isProtectedPath = protectedPaths.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`)
   );
 
   const isAuthPath = authPaths.some((path) => pathname.startsWith(path));
 
-  if (isProtectedPath && !hasSession) {
+  if (isProtectedPath && !isAuthenticated) {
     const signInUrl = new URL("/sign-in", request.url);
     signInUrl.searchParams.set("redirectTo", pathname);
     return NextResponse.redirect(signInUrl);
   }
 
-  if (isAuthPath && hasSession) {
+  if (isAuthPath && isAuthenticated) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 

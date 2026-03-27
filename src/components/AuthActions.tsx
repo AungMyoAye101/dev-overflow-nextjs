@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
-import { GoSignOut } from "react-icons/go";
 import { useSession } from "@/src/components/AuthProvider";
 import { useToast } from "@/src/hooks/use-toast";
+import { LogIn, LogInIcon, LogOut, User } from "lucide-react";
 
 interface AuthActionsProps {
   mobile?: boolean;
@@ -36,7 +35,7 @@ const AuthActions = ({ mobile = false, onNavigate }: AuthActionsProps) => {
         }
         onClick={handleSignOut}
       >
-        <GoSignOut />
+        <LogOut />
         <span>{mobile ? "LogOut" : "Log out"}</span>
       </button>
     );
@@ -53,7 +52,7 @@ const AuthActions = ({ mobile = false, onNavigate }: AuthActionsProps) => {
         }
         onClick={onNavigate}
       >
-        <FaSignInAlt />
+        <LogIn />
         <span>Log in</span>
       </Link>
       <Link
@@ -65,7 +64,7 @@ const AuthActions = ({ mobile = false, onNavigate }: AuthActionsProps) => {
         }
         onClick={onNavigate}
       >
-        <FaUserPlus className="text-lg" />
+        <User className="text-lg" />
         <span>Sign up</span>
       </Link>
     </>

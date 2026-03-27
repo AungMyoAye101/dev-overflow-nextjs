@@ -1,14 +1,29 @@
-import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from "crypto";
+import { scrypt as scryptCallback, timingSafeEqual } from "crypto";
+import { compare, hash } from "bcryptjs";
 import { promisify } from "util";
 
+const SALT_ROUNDS = 12;
+const LEGACY_KEY_LENGTH = 64;
 const scrypt = promisify(scryptCallback);
-const KEY_LENGTH = 64;
 
 export const hashPassword = async (password: string) => {
-  const salt = randomBytes(16).toString("hex");
-  const derivedKey = (await scrypt(password, salt, KEY_LENGTH)) as Buffer;
+  return await hash(password, SALT_ROUNDS);
+};
 
-  return `${salt}:${derivedKey.toString("hex")}`;
+const verifyLegacyScryptPassword = async (
+  password: string,
+  passwordHash: string
+) => {
+  const [salt, storedHash] = passwordHash.split(":");
+
+  if (!salt || !storedHash) return false;
+
+  const derivedKey = (await scrypt(password, salt, LEGACY_KEY_LENGTH)) as Buffer;
+  const storedBuffer = Buffer.from(storedHash, "hex");
+
+  if (storedBuffer.length !== derivedKey.length) return false;
+
+  return timingSafeEqual(storedBuffer, derivedKey);
 };
 
 export const verifyPassword = async (
@@ -17,13 +32,15 @@ export const verifyPassword = async (
 ) => {
   if (!passwordHash) return false;
 
-  const [salt, storedHash] = passwordHash.split(":");
-  if (!salt || !storedHash) return false;
+  // New bcrypt format
+  if (passwordHash.startsWith("$2a$") || passwordHash.startsWith("$2b$") || passwordHash.startsWith("$2y$")) {
+    return await compare(password, passwordHash);
+  }
 
-  const derivedKey = (await scrypt(password, salt, KEY_LENGTH)) as Buffer;
-  const storedBuffer = Buffer.from(storedHash, "hex");
+  // Backward compatibility for old scrypt-based users
+  if (passwordHash.includes(":")) {
+    return await verifyLegacyScryptPassword(password, passwordHash);
+  }
 
-  if (storedBuffer.length !== derivedKey.length) return false;
-
-  return timingSafeEqual(storedBuffer, derivedKey);
+  return false;
 };
