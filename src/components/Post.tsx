@@ -9,6 +9,8 @@ import { useSession } from "@/src/components/AuthProvider";
 import { Eye, MessageSquare, Text, ThumbsUp } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import RenderText from "./RenderText";
 
 interface PostProps {
   question: QuestionProps;
@@ -24,15 +26,16 @@ const Post = ({ question }: PostProps) => {
       <CardHeader>
 
         <div className="flex justify-between gap-4 items-start font-sans">
-          <div className="flex items-center gap-2">
-
-
-
-            <Avatar>
+          <div className="flex items-center justify-center  gap-2">
+            <Avatar size="lg">
               <AvatarImage src={user?.picture} />
               <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
             </Avatar>
-            <h1>{user?.name}</h1>
+            <div className="">
+              <h1 className="text-lg sm:font-xl font-medium">{user?.name}</h1>
+              <p className="text-xs font-light ">{formatDate}</p>
+            </div>
+
           </div>
           {user?._id === question.author._id && (
             <EditDeleteAction type="question" id={question._id!} />
@@ -43,10 +46,14 @@ const Post = ({ question }: PostProps) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-4">
+        <div className="h-20 bg-muted text-muted-foreground  overflow-hidden overflow-y-scroll scroll-smooth">
+
+          <RenderText content={question.content} />
+        </div>
+        <div className="flex items-center gap-4 mt-4">
           {question.tags.map((tag) => (
             <Link href={`/tags/${tag._id}`} key={tag.name}>
-              <Badge className="">
+              <Badge variant={'secondary'} className="px-4 py-2">
                 {tag.name}
               </Badge>
             </Link>
@@ -55,25 +62,25 @@ const Post = ({ question }: PostProps) => {
         <div className="flex flex-wrap items-center justify-between gap-4">
 
 
-          <p className="text-xs dark:text-dark-secondary-text">{formatDate}</p>
+
 
 
         </div>
       </CardContent>
-      <CardFooter className="flex items-center gap-4">
+      <CardFooter className="gap-4 bg-card">
 
-        <div className="flex items-center gap-1">
-          <ThumbsUp className=" cursor-pointer" />
+        <Button variant={'outline'} size={'lg'} className="flex-1 rounded-lg">
+          <ThumbsUp />
           <p>{question.upvotes?.length} Votes</p>
-        </div>
-        <div className="flex items-center gap-1">
-          <MessageSquare className=" cursor-pointer" />
+        </Button>
+        <Button variant={'outline'} size={'lg'} className="flex-1 rounded-lg">
+          <MessageSquare />
           <p>{question.answers?.length} Answers</p>
-        </div>
-        <div className="flex items-center gap-1">
-          <Eye className=" cursor-pointer" />
+        </Button>
+        <Button variant={'outline'} size={'lg'} className="flex-1 rounded-lg">
+          <Eye />
           <p>{question.views} Views</p>
-        </div>
+        </Button>
 
       </CardFooter>
     </Card>

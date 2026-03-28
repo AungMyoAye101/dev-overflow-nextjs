@@ -1,3 +1,4 @@
+import UserCard from "@/src/components/Card";
 import Card from "@/src/components/Card";
 import Filter from "@/src/components/Filter";
 import LocalSearchBox from "@/src/components/LocalSearchBox";
@@ -16,7 +17,6 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   const allUsers = JSON.parse(JSON.stringify(res));
   if (!allUsers) return console.log("failed tp fetch all users");
   const { users } = allUsers;
-  console.log(allUsers);
   return (
     <section className="page_padding">
       <h1 className="h1-bold">All Users</h1>
@@ -28,7 +28,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       {/* Grid container */}
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-4 place-items-center">
         {users.map((user: any) => (
-          <Card user={user} key={user._id} />
+          <UserCard user={user} key={user._id} />
         ))}
       </div>
       <PaginationBox

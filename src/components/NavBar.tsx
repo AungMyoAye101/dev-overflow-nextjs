@@ -9,6 +9,7 @@ import { useSession } from "@/src/components/AuthProvider";
 import { Button } from "@/src/components/ui/button";
 import { LogIn, Menu, Moon, Sun, X } from "lucide-react";
 import { DevSyncIcon } from "../assets/icons/logo";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const NavBar: React.FC = () => {
   const { mode, setMode } = useTheme();
@@ -62,15 +63,12 @@ const NavBar: React.FC = () => {
           {user ? (
             <Link
               href={`/profile/${user._id}`}
-              className="hidden items-center gap-3 rounded-full border border-border/70 bg-card px-2 py-2 sm:flex"
+              className="hidden md:block"
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-                {user.name.charAt(0).toUpperCase()}
-              </div>
-              <div className="hidden text-left lg:block">
-                <p className="text-sm font-semibold text-foreground">{user.name}</p>
-                <p className="text-xs text-muted-foreground">Profile</p>
-              </div>
+              <Avatar>
+                <AvatarImage src={user.picture} />
+                <AvatarFallback>{user.name?.[0] || "U"}</AvatarFallback>
+              </Avatar>
             </Link>
           ) : (
             <Button asChild className="hidden rounded-full  md:flex">

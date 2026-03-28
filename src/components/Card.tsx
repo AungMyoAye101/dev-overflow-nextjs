@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Badge } from "./ui/badge";
+import { Card } from "./ui/card";
 
 export interface CardProps {
   user: {
@@ -22,42 +23,45 @@ const truncateTagName = (name: string, maxLength: number = 4): string => {
   return name.length > maxLength ? `${name.slice(0, maxLength)}...` : name;
 };
 
-const Card = ({ user }: CardProps) => {
+const UserCard = ({ user }: CardProps) => {
   return (
-    <Link
-      href={`/profile/${user._id}`}
-      className="bg_dark_white flex flex-col justify-center items-center gap-4 px-4 py-6 shadow_rounded w-fit"
-    >
-      <Image
-        src={user.picture!}
-        width={40}
-        height={40}
-        alt="user photo"
-        className="w-20 h-20 rounded-full "
-      />
+    <Card>
 
-      <div className="text-center font-poppins">
-        <h3 className="text-lg font-semibold">{user.name}</h3>
-        <p className="text-sm font-noto_serif opacity-90">{user.email}</p>
-      </div>
-      <div className="flex gap-2 font-poppins text-sm">
-        {user.questions.length > 0 ? (
-          user.questions[0].tags.map((tag) => (
-            <Badge
-              key={tag._id}
-              className="px-2 py-1 button_bg hover:bg-accent-purple"
-            >
-              {truncateTagName(tag.name)}
+      <Link
+        href={`/profile/${user._id}`}
+        className=""
+      >
+        <Image
+          src={user.picture!}
+          width={40}
+          height={40}
+          alt="user photo"
+          className="w-20 h-20 rounded-full "
+        />
+
+        <div className="text-center font-poppins">
+          <h3 className="text-lg font-semibold">{user.name}</h3>
+          <p className="text-sm font-noto_serif opacity-90">{user.email}</p>
+        </div>
+        <div className="flex gap-2 font-poppins text-sm">
+          {user.questions.length > 0 ? (
+            user.questions[0].tags.map((tag) => (
+              <Badge
+                key={tag._id}
+                className="px-2 py-1 button_bg hover:bg-accent-purple"
+              >
+                {truncateTagName(tag.name)}
+              </Badge>
+            ))
+          ) : (
+            <Badge className="px-2 py-1 button_bg hover:bg-accent-purple">
+              No tags
             </Badge>
-          ))
-        ) : (
-          <Badge className="px-2 py-1 button_bg hover:bg-accent-purple">
-            No tags
-          </Badge>
-        )}
-      </div>
-    </Link>
+          )}
+        </div>
+      </Link>
+    </Card>
   );
 };
 
-export default Card;
+export default UserCard;

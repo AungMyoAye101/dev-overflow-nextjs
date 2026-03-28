@@ -22,12 +22,10 @@ export const signAuthToken = async (payload: {
   sub: string;
   email: string;
   name: string;
-  picture?: string;
 }) => {
   return await new SignJWT({
     email: payload.email,
     name: payload.name,
-    picture: payload.picture,
   })
     .setProtectedHeader({ alg: JWT_ALGORITHM })
     .setSubject(payload.sub)

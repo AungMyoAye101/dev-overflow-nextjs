@@ -1,8 +1,7 @@
 import Image from "next/image";
-import React from "react";
-import { FaCalendar, FaLink, FaLocationArrow } from "react-icons/fa";
 import { UserProps } from "../type";
 import Link from "next/link";
+import { Calendar, Link2, Pin } from "lucide-react";
 
 interface user {
   user: UserProps;
@@ -12,10 +11,10 @@ interface user {
 const Profile = ({ user, currentUserId }: user) => {
   const formattedDate = user.joinedAt
     ? new Date(user.joinedAt).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
     : "Date not available";
   return (
     <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
@@ -41,7 +40,7 @@ const Profile = ({ user, currentUserId }: user) => {
 
             <div className="flex gap-2 text-sm flex-wrap">
               <div className="flex gap-1 items-center">
-                <FaLink />
+                <Link2 />
                 <span>
                   {user.portfolio ? (
                     <a href={user.portfolio} className="hover:text-accent-blue">
@@ -53,13 +52,13 @@ const Profile = ({ user, currentUserId }: user) => {
                 </span>
               </div>
               <div className="flex gap-1 items-center">
-                <FaLocationArrow />
+                <Pin />
                 <span>
                   {user.location ? user.location : "add your location"}
                 </span>
               </div>
               <div className="flex gap-1 items-center">
-                <FaCalendar />
+                <Calendar />
                 <span>{formattedDate}</span>
               </div>
             </div>

@@ -27,14 +27,14 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   const results: ResultsType = JSON.parse(JSON.stringify(res));
 
   return (
-    <div className="page_padding">
+    <div className="space-y-6">
       <div className="flex  md:flex-row justify-between items-start md:items-center  ">
         <h1 className="text-2xl md:text-4xl font-poppins font-semibold">
           All Questions
         </h1>
         <Link
           href={"/question"}
-          className="self-end button_bg font-poppins  font-semibold py-2 px-4 rounded-md "
+          className="self-end  font-semibold py-2 px-4 rounded-md "
         >
           <span className="hidden sm:block">Ask a Question</span>
           <FileQuestion className="sm:hidden" />

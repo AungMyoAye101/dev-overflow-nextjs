@@ -4,8 +4,8 @@ import Image from "next/image";
 import { timestamp } from "../lib/utils";
 import Link from "next/link";
 import EditDeleteAction from "./EditDeleteAction";
-import { FaRegThumbsUp } from "react-icons/fa";
 import RenderText from "./RenderText";
+import { ThumbsUp } from "lucide-react";
 interface AnswerCardProps {
   answer: AnswerTypes;
   currUserId: string;
@@ -48,7 +48,7 @@ const AnswerCard = ({ answer, currUserId }: AnswerCardProps) => {
         <RenderText content={answer.content} />
 
         <div className="flex items-center gap-1  text-sm font-noto_serif">
-          <FaRegThumbsUp className="text-blue-600 cursor-pointer" />
+          <ThumbsUp className="text-blue-600 cursor-pointer" />
           <p>{answer.upvotes?.length} Votes</p>
         </div>
       </main>
