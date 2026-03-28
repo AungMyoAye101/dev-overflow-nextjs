@@ -1,81 +1,70 @@
-import Image from "next/image";
-import { UserProps } from "../type";
 import Link from "next/link";
 import { Calendar, Link2, Pin } from "lucide-react";
+import { UserProps } from "../type";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-interface user {
+interface UserProfileProps {
   user: UserProps;
   currentUserId: string | null;
 }
 
-const Profile = ({ user, currentUserId }: user) => {
+const Profile = ({ user, currentUserId }: UserProfileProps) => {
   const formattedDate = user.joinedAt
     ? new Date(user.joinedAt).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
     : "Date not available";
+
   return (
-    <section className="bg_dark_white p-4 rounded-md shadow dark:shadow-none">
-      <div className="relative ">
-        <div className="flex  gap-6 ">
-          <Image
-            src={user.picture!}
-            width={100}
-            height={100}
-            className="object-cover  w-20 h-20  rounded-full"
-            alt="profile image "
-          />
-
-          <div className="flex flex-col gap-4 ">
-            <div className="flex flex-col gap-0.5">
-              <h1 className="h2-bold capitalize ">{user.name}</h1>
-              <p className="font-poppins text-xs text-black-card dark:text-secondary-white">
-                {user.email}
-              </p>
-            </div>
-
-            <p className="para w-fit  ">{user.bio ? user.bio : "add bio"}</p>
-
-            <div className="flex gap-2 text-sm flex-wrap">
-              <div className="flex gap-1 items-center">
-                <Link2 />
-                <span>
-                  {user.portfolio ? (
-                    <a href={user.portfolio} className="hover:text-accent-blue">
-                      {user.portfolio}
-                    </a>
-                  ) : (
-                    "example.com"
-                  )}
-                </span>
-              </div>
-              <div className="flex gap-1 items-center">
-                <Pin />
-                <span>
-                  {user.location ? user.location : "add your location"}
-                </span>
-              </div>
-              <div className="flex gap-1 items-center">
-                <Calendar />
-                <span>{formattedDate}</span>
-              </div>
-            </div>
+    <Card className="border shadow-sm">
+      <CardHeader className="flex flex-row items-start justify-between gap-4">
+        <div className="flex items-start gap-4">
+          <Avatar size="lg" className="size-20">
+            <AvatarImage src={user.picture} />
+            <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div className="space-y-2">
+            <CardTitle className="text-2xl capitalize">{user.name}</CardTitle>
+            <p className="text-sm text-muted-foreground">{user.email}</p>
+            <p className="text-sm">{user.bio || "Add a short bio"}</p>
           </div>
         </div>
+
         {user._id === currentUserId && (
-          <Link
-            href={"/profile/edit"}
-            className="absolute right-2 top-2 button_bg rounded-lg shadow dark:shadow-none"
-          >
-            <p className=" font-poppins btn-bg px-4 py-1.5 text-nowrap text-sm rounded-md">
-              Edit Profile
-            </p>
-          </Link>
+          <Button asChild size="sm">
+            <Link href="/profile/edit">Edit Profile</Link>
+          </Button>
         )}
-      </div>
-    </section>
+      </CardHeader>
+
+      <CardContent className="flex flex-wrap gap-3 text-sm">
+        <Badge variant="secondary" className="gap-1 px-3 py-1">
+          <Link2 className="size-4" />
+          {user.portfolio ? (
+            <a href={user.portfolio} className="hover:underline" target="_blank" rel="noreferrer">
+              {user.portfolio}
+            </a>
+          ) : (
+            <span>example.com</span>
+          )}
+        </Badge>
+
+        <Badge variant="secondary" className="gap-1 px-3 py-1">
+          <Pin className="size-4" />
+          {user.location || "Add your location"}
+        </Badge>
+
+        <Badge variant="secondary" className="gap-1 px-3 py-1">
+          <Calendar className="size-4" />
+          {formattedDate}
+        </Badge>
+      </CardContent>
+    </Card>
   );
 };
 

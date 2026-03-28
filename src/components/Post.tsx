@@ -1,13 +1,19 @@
 "use client";
 import { Badge } from "./ui/badge";
-import Image from "next/image";
 import { QuestionProps } from "../type";
 import Link from "next/link";
 import { timestamp } from "../lib/utils";
 import EditDeleteAction from "./EditDeleteAction";
 import { useSession } from "@/src/components/AuthProvider";
-import { Eye, MessageSquare, Text, ThumbsUp } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { ArrowRight, Eye, MessageSquare, ThumbsUp } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import RenderText from "./RenderText";
@@ -22,69 +28,71 @@ const Post = ({ question }: PostProps) => {
   const { user } = useSession();
 
   return (
-    <Card>
+    <Card className="border shadow-sm">
       <CardHeader>
-
         <div className="flex justify-between gap-4 items-start font-sans">
-          <div className="flex items-center justify-center  gap-2">
+          <Link
+            href={`/profile/${question.author._id}`}
+            className="flex items-center justify-center gap-2"
+          >
             <Avatar size="lg">
-              <AvatarImage src={user?.picture} />
-              <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+              <AvatarImage src={question.author.picture} />
+              <AvatarFallback>{question.author.name?.charAt(0)}</AvatarFallback>
             </Avatar>
-            <div className="">
-              <h1 className="text-lg sm:font-xl font-medium">{user?.name}</h1>
-              <p className="text-xs font-light ">{formatDate}</p>
+            <div>
+              <h2 className="text-base font-medium">{question.author.name}</h2>
+              <p className="text-xs text-muted-foreground">{formatDate}</p>
             </div>
-
-          </div>
+          </Link>
           {user?._id === question.author._id && (
             <EditDeleteAction type="question" id={question._id!} />
           )}
         </div>
         <CardTitle>
-          {question.title}
+          <Link href={`/question/${question._id}`} className="hover:underline">
+            {question.title}
+          </Link>
         </CardTitle>
+        <CardDescription>
+          Preview of the question details from the post body.
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-20 bg-muted text-muted-foreground  overflow-hidden overflow-y-scroll scroll-smooth">
-
-          <RenderText content={question.content} />
-        </div>
+        <RenderText
+          content={question.content}
+          maxHeightClassName="max-h-32"
+          seeMoreHref={`/question/${question._id}`}
+        />
         <div className="flex items-center gap-4 mt-4">
           {question.tags.map((tag) => (
             <Link href={`/tags/${tag._id}`} key={tag.name}>
-              <Badge variant={'secondary'} className="px-4 py-2">
+              <Badge variant="secondary" className="px-3 py-1">
                 {tag.name}
               </Badge>
             </Link>
           ))}
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-
-
-
-
-
-        </div>
       </CardContent>
-      <CardFooter className="gap-4 bg-card">
-
-        <Button variant={'outline'} size={'lg'} className="flex-1 rounded-lg">
+      <CardFooter className="gap-2 bg-card">
+        <Button variant="outline" size="sm" className="flex-1">
           <ThumbsUp />
-          <p>{question.upvotes?.length} Votes</p>
+          <p>{question.upvotes?.length ?? 0}</p>
         </Button>
-        <Button variant={'outline'} size={'lg'} className="flex-1 rounded-lg">
+        <Button variant="outline" size="sm" className="flex-1">
           <MessageSquare />
-          <p>{question.answers?.length} Answers</p>
+          <p>{question.answers?.length ?? 0}</p>
         </Button>
-        <Button variant={'outline'} size={'lg'} className="flex-1 rounded-lg">
+        <Button variant="outline" size="sm" className="flex-1">
           <Eye />
-          <p>{question.views} Views</p>
+          <p>{question.views ?? 0}</p>
         </Button>
-
+        <Button variant="ghost" size="icon-sm" asChild>
+          <Link href={`/question/${question._id}`} aria-label="Go to detail">
+            <ArrowRight />
+          </Link>
+        </Button>
       </CardFooter>
     </Card>
-
   );
 };
 

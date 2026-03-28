@@ -1,11 +1,14 @@
 import React from "react";
 import { AnswerTypes } from "../type";
-import Image from "next/image";
 import { timestamp } from "../lib/utils";
 import Link from "next/link";
 import EditDeleteAction from "./EditDeleteAction";
 import RenderText from "./RenderText";
-import { ThumbsUp } from "lucide-react";
+import { MessageSquare, ThumbsUp } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "./ui/button";
+
 interface AnswerCardProps {
   answer: AnswerTypes;
   currUserId: string;
@@ -13,46 +16,45 @@ interface AnswerCardProps {
 
 const AnswerCard = ({ answer, currUserId }: AnswerCardProps) => {
   const formatDate = timestamp(answer.createdAt);
-  return (
-    <>
-      <main
-        key={answer._id}
-        className="flex flex-col gap-4 bg_dark_white p-4 rounded-lg shadow-md dark:shadow-none"
-      >
-        <div className="flex justify-between items-center ">
-          <Link
-            href={`/profile/${answer.author._id}`}
-            className="flex items-center gap-2"
-          >
-            <Image
-              src={answer.author.picture!}
-              width={40}
-              height={40}
-              alt={`${answer.author.name} profile`}
-              className="w-8 h-8 rounded-full"
-            />
-            <h1 className="font-semibold font-poppins ">
-              {answer.author.name}
-            </h1>
-            <p className="text-xs font-noto_serif opacity-80 capitalize">
-              {formatDate}
-            </p>
-          </Link>
-          {currUserId && <EditDeleteAction type="answer" id={answer._id} />}
-        </div>
-        <div className=" font-noto_serif">
-          <Link href={`/question/${answer.question}`}>
-            <RenderText content={answer.content} />
-          </Link>
-        </div>
-        <RenderText content={answer.content} />
 
-        <div className="flex items-center gap-1  text-sm font-noto_serif">
-          <ThumbsUp className="text-blue-600 cursor-pointer" />
-          <p>{answer.upvotes?.length} Votes</p>
+  return (
+    <Card key={answer._id} className="border shadow-sm">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <Link href={`/profile/${answer.author._id}`} className="flex items-center gap-2">
+            <Avatar>
+              <AvatarImage src={answer.author.picture} />
+              <AvatarFallback>{answer.author.name?.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="space-y-0.5">
+              <CardTitle className="text-sm">{answer.author.name}</CardTitle>
+              <p className="text-xs text-muted-foreground">{formatDate}</p>
+            </div>
+          </Link>
+
+          {currUserId === answer.author._id && (
+            <EditDeleteAction type="answer" id={answer._id} />
+          )}
         </div>
-      </main>
-    </>
+      </CardHeader>
+
+      <CardContent>
+        <RenderText content={answer.content} />
+      </CardContent>
+
+      <CardFooter className="justify-between">
+        <div className="flex items-center gap-1 text-sm">
+          <ThumbsUp className="text-blue-600" />
+          <p>{answer.upvotes?.length ?? 0} Votes</p>
+        </div>
+        <Button variant="outline" size="sm" asChild>
+          <Link href={`/question/${answer.question}`}>
+            <MessageSquare />
+            View question
+          </Link>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

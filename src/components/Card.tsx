@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { Badge } from "./ui/badge";
-import { Card } from "./ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
 
 export interface CardProps {
   user: {
@@ -19,47 +18,49 @@ export interface CardProps {
   };
 }
 
-const truncateTagName = (name: string, maxLength: number = 4): string => {
+const truncateTagName = (name: string, maxLength = 10): string => {
   return name.length > maxLength ? `${name.slice(0, maxLength)}...` : name;
 };
 
 const UserCard = ({ user }: CardProps) => {
+  const userTags = user.questions?.[0]?.tags || [];
+
   return (
-    <Card>
+    <Card className="w-full max-w-sm border shadow-sm">
+      <CardHeader>
+        <Link href={`/profile/${user._id}`} className="flex items-center gap-3">
+          <Avatar size="lg">
+            <AvatarImage src={user.picture} />
+            <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div className="space-y-1">
+            <CardTitle className="text-base">{user.name}</CardTitle>
+            <p className="text-xs text-muted-foreground">{user.email}</p>
+          </div>
+        </Link>
+      </CardHeader>
 
-      <Link
-        href={`/profile/${user._id}`}
-        className=""
-      >
-        <Image
-          src={user.picture!}
-          width={40}
-          height={40}
-          alt="user photo"
-          className="w-20 h-20 rounded-full "
-        />
-
-        <div className="text-center font-poppins">
-          <h3 className="text-lg font-semibold">{user.name}</h3>
-          <p className="text-sm font-noto_serif opacity-90">{user.email}</p>
+      <CardContent>
+        <div className="text-sm text-muted-foreground">
+          {userTags.length > 0
+            ? "Top tags from recent questions"
+            : "No tags available yet"}
         </div>
-        <div className="flex gap-2 font-poppins text-sm">
-          {user.questions.length > 0 ? (
-            user.questions[0].tags.map((tag) => (
-              <Badge
-                key={tag._id}
-                className="px-2 py-1 button_bg hover:bg-accent-purple"
-              >
-                {truncateTagName(tag.name)}
-              </Badge>
-            ))
-          ) : (
-            <Badge className="px-2 py-1 button_bg hover:bg-accent-purple">
-              No tags
+      </CardContent>
+
+      <CardFooter className="flex flex-wrap gap-2 border-t bg-muted/40">
+        {userTags.length > 0 ? (
+          userTags.map((tag) => (
+            <Badge key={tag._id} variant="secondary" className="px-2 py-1">
+              {truncateTagName(tag.name)}
             </Badge>
-          )}
-        </div>
-      </Link>
+          ))
+        ) : (
+          <Badge variant="outline" className="px-2 py-1">
+            No tags
+          </Badge>
+        )}
+      </CardFooter>
     </Card>
   );
 };
