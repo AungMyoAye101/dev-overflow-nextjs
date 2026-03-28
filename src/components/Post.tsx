@@ -6,7 +6,9 @@ import Link from "next/link";
 import { timestamp } from "../lib/utils";
 import EditDeleteAction from "./EditDeleteAction";
 import { useSession } from "@/src/components/AuthProvider";
-import { Eye, Text, ThumbsUp } from "lucide-react";
+import { Eye, MessageSquare, Text, ThumbsUp } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 interface PostProps {
   question: QuestionProps;
@@ -18,59 +20,64 @@ const Post = ({ question }: PostProps) => {
   const { user } = useSession();
 
   return (
-    <div className="w-full flex flex-col gap-4 px-5 py-6 rounded-md shadow-md dark:shadow-none bg_dark_white">
-      <div className="flex justify-between gap-4 items-start">
-        <Link href={`/question/${question._id}`}>
-          <h2 className="h3-bold ">{question.title}</h2>
-        </Link>
-        {user?._id === question.author._id && (
-          <EditDeleteAction type="question" id={question._id!} />
-        )}
-      </div>
-      <div className="flex items-center gap-4">
-        {question.tags.map((tag) => (
-          <Link href={`/tags/${tag._id}`} key={tag.name}>
-            <Badge className="px-2 py-1 font-poppins button_bg hover:bg-accent-purple">
-              {tag.name}
-            </Badge>
-          </Link>
-        ))}
-      </div>
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <Link
-          href={`/profile/${question.author._id}`}
-          className="flex items-center gap-2 font-noto_serif"
-        >
-          <Image
-            src={question.author.picture!}
-            alt="user"
-            width={40}
-            height={40}
-            className="w-8 h-8 rounded-full"
-          />
-          <h3 className="text-sm font-semibold ">{question.author.name}</h3>
+    <Card>
+      <CardHeader>
+
+        <div className="flex justify-between gap-4 items-start font-sans">
+          <div className="flex items-center gap-2">
+
+
+
+            <Avatar>
+              <AvatarImage src={user?.picture} />
+              <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <h1>{user?.name}</h1>
+          </div>
+          {user?._id === question.author._id && (
+            <EditDeleteAction type="question" id={question._id!} />
+          )}
+        </div>
+        <CardTitle>
+          {question.title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center gap-4">
+          {question.tags.map((tag) => (
+            <Link href={`/tags/${tag._id}`} key={tag.name}>
+              <Badge className="">
+                {tag.name}
+              </Badge>
+            </Link>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+
 
           <p className="text-xs dark:text-dark-secondary-text">{formatDate}</p>
-        </Link>
-        <Link
-          href={`/question/${question._id}`}
-          className="flex items-center gap-2 text-sm font-noto_serif"
-        >
-          <div className="flex items-center gap-1">
-            <ThumbsUp className="text-blue-600 cursor-pointer" />
-            <p>{question.upvotes?.length} Votes</p>
-          </div>
-          <div className="flex items-center gap-1">
-            <Text className="text-blue-600 cursor-pointer" />
-            <p>{question.answers?.length} Answers</p>
-          </div>
-          <div className="flex items-center gap-1">
-            <Eye className="text-blue-600 cursor-pointer" />
-            <p>{question.views} Views</p>
-          </div>
-        </Link>
-      </div>
-    </div>
+
+
+        </div>
+      </CardContent>
+      <CardFooter className="flex items-center gap-4">
+
+        <div className="flex items-center gap-1">
+          <ThumbsUp className=" cursor-pointer" />
+          <p>{question.upvotes?.length} Votes</p>
+        </div>
+        <div className="flex items-center gap-1">
+          <MessageSquare className=" cursor-pointer" />
+          <p>{question.answers?.length} Answers</p>
+        </div>
+        <div className="flex items-center gap-1">
+          <Eye className=" cursor-pointer" />
+          <p>{question.views} Views</p>
+        </div>
+
+      </CardFooter>
+    </Card>
+
   );
 };
 

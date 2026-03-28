@@ -13,7 +13,7 @@ const RightSideBar = async () => {
   const topTags: TopTagsType[] = JSON.parse(JSON.stringify(tags));
 
   return (
-    <aside className="sticky top-24  hidden h-fit lg:block  border border-border  rounded-xl shadow-2xl overflow-hidden bg-sidebar text-sidebar-foreground">
+    <aside className="sticky top-24  hidden h-[80vh] overflow-hidden overflow-y-scroll lg:block  border border-border  rounded-xl shadow-2xl bg-sidebar text-sidebar-foreground">
       <div className="shadow_rounded bg-card p-4">
         <div className="flex flex-col gap-4">
           <div>

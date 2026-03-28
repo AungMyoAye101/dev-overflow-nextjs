@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/src/components/AuthProvider";
 import { useToast } from "@/src/hooks/use-toast";
-import { LogIn, LogInIcon, LogOut, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { LogIn, LogOut, User } from "lucide-react";
+import { Button } from "@/src/components/ui/button";
 
 interface AuthActionsProps {
   mobile?: boolean;

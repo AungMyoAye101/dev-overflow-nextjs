@@ -16,13 +16,13 @@ import {
 } from "@/src/components/ui/form";
 import { Input } from "@/src/components/ui/input";
 import { useForm } from "react-hook-form";
-import { RxCrossCircled } from "react-icons/rx";
 import { Badge } from "./ui/badge";
 import { usePathname, useRouter } from "next/navigation";
 import { QuestionProps } from "../type";
 import { useToast } from "../hooks/use-toast";
 import QuillEditor from "./QuillEditor";
 import { useSession } from "@/src/components/AuthProvider";
+import { XCircle } from "lucide-react";
 
 interface QuestionEdit {
   formType: string;
@@ -74,9 +74,8 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
       }
 
       toast({
-        title: `You ${
-          formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
-        } a question successfull`,
+        title: `You ${formType.toLocaleLowerCase() === "edit" ? "edited" : "post"
+          } a question successfull`,
         variant: "default",
       });
     } catch (error) {
@@ -196,7 +195,7 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
                               );
                             }}
                           >
-                            <RxCrossCircled />
+                            <XCircle />
                           </button>
                         </Badge>
                       ))}
@@ -221,8 +220,8 @@ export const QuestionForm = ({ formType, question }: QuestionEdit) => {
               ? "Creating"
               : "Create"
             : isSubmiting
-            ? "Editing"
-            : "Edit"}
+              ? "Editing"
+              : "Edit"}
         </Button>
       </form>
     </Form>

@@ -6,10 +6,10 @@ import { getQuestionById } from "@/src/lib/actions/question.action";
 import { timestamp } from "@/src/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { FaClock, FaComment, FaEye } from "react-icons/fa";
 import RenderText from "@/src/components/RenderText";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/src/lib/auth/session";
+import { Clock, Eye, MessageSquare, TextQuote } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ questionId: string }>;
@@ -48,7 +48,7 @@ const page = async ({ params, searchParams }: PageProps) => {
               {question.author.name}
             </h1>
           </Link>
-
+          {/* 
           <Votes
             itemId={question._id}
             userId={currUserId}
@@ -58,7 +58,7 @@ const page = async ({ params, searchParams }: PageProps) => {
             hasDownvoted={question.downvotes.includes(currUserId)}
             hasSaved={user.saved.includes(question._id)}
             type="question"
-          />
+          /> */}
         </div>
 
         <div className="flex flex-col gap-4 ">
@@ -66,16 +66,16 @@ const page = async ({ params, searchParams }: PageProps) => {
 
           <div className="flex items-center gap-3 text-sm font-noto_serif">
             <div className="flex items-center gap-1">
-              <FaClock className="text-blue-600 cursor-pointer" />
+              <Clock className="text-blue-600 cursor-pointer" />
               <p>{formattedDate} </p>
             </div>
 
             <div className="flex items-center gap-1">
-              <FaComment className="text-blue-600 cursor-pointer" />
+              <MessageSquare className="text-blue-600 cursor-pointer" />
               <p>{question.answers.length} Answers</p>
             </div>
             <div className="flex items-center gap-1">
-              <FaEye className="text-blue-600 cursor-pointer" />
+              <Eye className="text-blue-600 cursor-pointer" />
               <p>{question.views} Views</p>
             </div>
           </div>
@@ -96,9 +96,9 @@ const page = async ({ params, searchParams }: PageProps) => {
       </div>
 
       {/* Answers */}
-      <AllAnswer questionId={question._id} filter={filter} />
+      {/* <AllAnswer questionId={question._id} filter={filter} />
 
-      <Answer questionId={question._id} />
+      <Answer questionId={question._id} /> */}
     </section>
   );
 };
